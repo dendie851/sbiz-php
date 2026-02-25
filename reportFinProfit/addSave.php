@@ -14,11 +14,11 @@
 		  year = '$year',
 		  month = '$month'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select max(id) as id from fin_profit_loss";
-	$tmp = mysql_query($query) or die (mysql_error());
-	$data = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$data = mysqli_fetch_array($tmp);
 	$id  = $data['id'];
 	
 	if(date("$year-$month") == date("Y-$m")){
@@ -41,8 +41,8 @@
 	  and (date_order >= '$dateFrom' and date_order <= '$dateTo')
 	  and status_payment = '1'";
 
-	$tmp = mysql_query($query) or die (mysql_error());
-	$rslt = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$rslt = mysqli_fetch_array($tmp);
 	$hargaDasar = $rslt['harga_dasar'];
 	$hargaJual =  $rslt['harga_jual'];
 	$totalBiayaKirim = $rslt['total_biaya_kirim'];
@@ -54,9 +54,9 @@
 		 and id in (13,10,28)
 		order by type desc, name";
 
-	$tmp = mysql_query($query) or die (mysql_error());
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
 	
-	while($row = mysql_fetch_array($tmp)) {	
+	while($row = mysqli_fetch_array($tmp)) {	
 		//id  -> Pendapatan Penjualan Barang = 13
 		//id  -> Biaya Harga Dasar Barang = 10;
 		
@@ -87,7 +87,7 @@
 			  fin_profit_loss_id = '$id',
 			  description = '$description'";
 
-		mysql_query($query) or die (mysql_error());
+		mysqli_query($con, $query) or die (mysqli_error($con));
 	}
 
 	$query = "select id, fin_expenses_revenue_id, name, sum(nominal) as total_nominal, 
@@ -98,9 +98,9 @@
 		group by fin_expenses_revenue_id
 		order by name";
 
-	$tmp = mysql_query($query) or die (mysql_error());
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
 	
-	while($row = mysql_fetch_array($tmp)) {	
+	while($row = mysqli_fetch_array($tmp)) {	
 		 $query = "insert fin_profit_loss_detail
 			set name = '{$row['name']}',
 			  type = '0',
@@ -110,7 +110,7 @@
 			  fin_profit_loss_id = '$id',
 			  description = '{$row['description']}'";
 
-		mysql_query($query) or die (mysql_error());			  
+		mysqli_query($con, $query) or die (mysqli_error($con));			  
 	}	
 
 	$query = "select sum(nominal) as total_revenue 
@@ -118,8 +118,8 @@
 		where fin_profit_loss_id = '$id'
 		and type = '1'";
 
-	$tmp = mysql_query($query) or die (mysql_error());
-	$rest = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$rest = mysqli_fetch_array($tmp);
 	$totalRevenue = $rest['total_revenue'];
 	
 	$query = "select sum(nominal) as total_expenses 
@@ -127,8 +127,8 @@
 		where fin_profit_loss_id = '$id'
 		and type = '0'";
 
-	$tmp = mysql_query($query) or die (mysql_error());
-	$rest = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$rest = mysqli_fetch_array($tmp);
 	$totalExpenses = $rest['total_expenses'];	
 	
 	$profit = ($totalRevenue - $totalExpenses); 
@@ -138,7 +138,7 @@
 		  total_revenue = '$totalRevenue',
 		  profit = '$profit'
 		 where id = '$id'";	
-	mysql_query($query) or die (mysql_error());	 
+	mysqli_query($con, $query) or die (mysqli_error($con));	 
 
 	include '../lib/connection-close.php';
 

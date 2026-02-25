@@ -12,8 +12,8 @@
 		$query = "select id, stuff_id, is_bundling, name
 			from sales_order_detail
 			where id = '$salesOrderDetilId'";
-		$tmp = mysql_query($query) or die (mysql_error());			
-		$dataStuff = mysql_fetch_array($tmp);
+		$tmp = mysqli_query($con, $query) or die (mysqli_error($con));			
+		$dataStuff = mysqli_fetch_array($tmp);
 		$stuffId = $dataStuff['stuff_id'];
 		$isBundling = $dataStuff['is_bundling'];
 		$nameProduk = $dataStuff['name'];
@@ -23,15 +23,15 @@
 				set amount = '$qty'
 				where id = '$salesOrderDetilId'";
 
-			mysql_query($query) or die (mysql_error());
+			mysqli_query($con, $query) or die (mysqli_error($con));
 
 			$query = "select sum(amount * price) as total,
 			  sum(amount * price_basic) as total_basic 
 			from  sales_order_detail
 			where sales_order_id = '$id'";
 				  
-			$qry = mysql_query($query) or die (mysql_error());
-			$tmp = mysql_fetch_array($qry);
+			$qry = mysqli_query($con, $query) or die (mysqli_error($con));
+			$tmp = mysqli_fetch_array($qry);
 
 			$total = $tmp['total'];	
 			$totalBasic = $tmp['total_basic'];	
@@ -40,22 +40,22 @@
 				set amount_sale = '$total',
 				  amount_basic_sale = '$totalBasic'
 				where id = '$id'";
-			mysql_query($query) or die (mysql_error());	
+			mysqli_query($con, $query) or die (mysqli_error($con));	
 
 			$query = "select stuff_id, qty
 					  from sales_order_detail_bundling
 					  where sales_order_detail_id = '$salesOrderDetilId'";
-			$rstSalesOrderDetailBundling = mysql_query($query) or die (mysql_error());
+			$rstSalesOrderDetailBundling = mysqli_query($con, $query) or die (mysqli_error($con));
 
-			while($dataSalesOrderDetailBundling = mysql_fetch_array($rstSalesOrderDetailBundling)) {
+			while($dataSalesOrderDetailBundling = mysqli_fetch_array($rstSalesOrderDetailBundling)) {
 				$salesOrderDetailBundlingStuffId = $dataSalesOrderDetailBundling['stuff_id'];
 				$salesOrderDetailBundlingQty = $dataSalesOrderDetailBundling['qty'];
 
 				$query = "select no_order,client_id 
 					from sales_order
 					where id = '$id'";
-				$tmp = mysql_query($query) or die (mysql_error());			
-				$dataNoOrder = mysql_fetch_array($tmp);
+				$tmp = mysqli_query($con, $query) or die (mysqli_error($con));			
+				$dataNoOrder = mysqli_fetch_array($tmp);
 				$noOrder = $dataNoOrder['no_order'];	
 				$clientId = $dataNoOrder['client_id'];
 				$descriptionHistory = "Update Jml Penjualan Barang dgn No Sales Order : $noOrder, Produk Bundling $nameProduk";
@@ -66,7 +66,7 @@
 					$query = "update stuff
 						set stock = stock - $selisiTotal
 						where id = '$salesOrderDetailBundlingStuffId'";
-					mysql_query($query) or die (mysql_error());	
+					mysqli_query($con, $query) or die (mysqli_error($con));	
 
 					$query = "insert stuff_history
 						set stuff_id = '$salesOrderDetailBundlingStuffId',
@@ -77,13 +77,13 @@
 						  price = '$price',	
 						  client_id = '$clientId',
 						  sales_order_id = '$id'";		
-					mysql_query($query) or die (mysql_error());				
+					mysqli_query($con, $query) or die (mysqli_error($con));				
 				} else {
 					$selisiTotal = abs($selisiTotal); 
 					$query = "update stuff
 						set stock = stock + '$selisiTotal'
 						where id = '$salesOrderDetailBundlingStuffId'";
-					mysql_query($query) or die (mysql_error());	
+					mysqli_query($con, $query) or die (mysqli_error($con));	
 
 					$query = "insert stuff_history
 						set stuff_id = '$salesOrderDetailBundlingStuffId',
@@ -94,7 +94,7 @@
 						  price = '$price',	
 						  client_id = '$clientId',
 						  sales_order_id = '$id'";		
-					mysql_query($query) or die (mysql_error());				
+					mysqli_query($con, $query) or die (mysqli_error($con));				
 				}				
 			}	
 		} else {
@@ -102,15 +102,15 @@
 				set amount = '$qty'
 				where id = '$salesOrderDetilId'";
 
-			mysql_query($query) or die (mysql_error());
+			mysqli_query($con, $query) or die (mysqli_error($con));
 
 			$query = "select sum(amount * price) as total,
 			  sum(amount * price_basic) as total_basic 
 			from  sales_order_detail
 			where sales_order_id = '$id'";
 				  
-			$qry = mysql_query($query) or die (mysql_error());
-			$tmp = mysql_fetch_array($qry);
+			$qry = mysqli_query($con, $query) or die (mysqli_error($con));
+			$tmp = mysqli_fetch_array($qry);
 
 			$total = $tmp['total'];	
 			$totalBasic = $tmp['total_basic'];	
@@ -119,13 +119,13 @@
 				set amount_sale = '$total',
 				  amount_basic_sale = '$totalBasic'
 				where id = '$id'";
-			mysql_query($query) or die (mysql_error());	
+			mysqli_query($con, $query) or die (mysqli_error($con));	
 			
 			$query = "select no_order,client_id 
 				from sales_order
 				where id = '$id'";
-			$tmp = mysql_query($query) or die (mysql_error());			
-			$dataNoOrder = mysql_fetch_array($tmp);
+			$tmp = mysqli_query($con, $query) or die (mysqli_error($con));			
+			$dataNoOrder = mysqli_fetch_array($tmp);
 			$noOrder = $dataNoOrder['no_order'];	
 			$clientId = $dataNoOrder['client_id'];
 			$descriptionHistory = "Update Jml Penjualan Barang dgn No Sales Order : $noOrder";
@@ -136,7 +136,7 @@
 				$query = "update stuff
 					set stock = stock - $selisiTotal
 					where id = '$stuffId'";
-				mysql_query($query) or die (mysql_error());	
+				mysqli_query($con, $query) or die (mysqli_error($con));	
 
 				$query = "insert stuff_history
 					set stuff_id = '$stuffId',
@@ -147,13 +147,13 @@
 					  price = '$price',	
 					  client_id = '$clientId',
 					  sales_order_id = '$id'";		
-				mysql_query($query) or die (mysql_error());				
+				mysqli_query($con, $query) or die (mysqli_error($con));				
 			} else {
 				$selisiTotal = abs($selisiTotal); 
 				$query = "update stuff
 					set stock = stock + '$selisiTotal'
 					where id = '$stuffId'";
-				mysql_query($query) or die (mysql_error());	
+				mysqli_query($con, $query) or die (mysqli_error($con));	
 
 				$query = "insert stuff_history
 					set stuff_id = '$stuffId',
@@ -164,7 +164,7 @@
 					  price = '$price',	
 					  client_id = '$clientId',
 					  sales_order_id = '$id'";		
-				mysql_query($query) or die (mysql_error());				
+				mysqli_query($con, $query) or die (mysqli_error($con));				
 			}				
 		} 	
 	}

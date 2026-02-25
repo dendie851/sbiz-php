@@ -44,7 +44,7 @@
 		$strSalesId = $_REQUEST['strSalesId'];
 		$query = "select id,name from member 
 		 		  where id in ($strSalesId)";
-		$salesName = mysql_query($query) or die(mysql_error());	
+		$salesName = mysqli_query($con, $query) or die(mysqli_error($con));	
 	} else {
 		$salesId = isset($_REQUEST['salesId']) ? $_REQUEST['salesId'] : array(); 
 		$strSalesId = implode(',',$salesId); 		
@@ -60,7 +60,7 @@
 		from stuff_category
 		where is_delete = '0'
 		order by name";
-	$dataCategory = mysql_query($query) or die (mysql_error());
+	$dataCategory = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	if($orderBy == '0') { $orderByName = ' price_total desc '; }
 	if($orderBy == '1') { $orderByName = ' amount_total desc '; }
@@ -84,7 +84,7 @@
 		group by $group
 		order by $orderByName";
 
-	$data = mysql_query($query) or die(mysql_error());	
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));	
 
 	$whereCategoryPrint .= strlen($categoryIdChoose) > 0 ? " and id in ($categoryIdChoose)" : " ";
 
@@ -93,11 +93,11 @@
 		where is_delete = '0'
 		  $whereCategoryPrint
 		order by name";
-	$dataCategoryPrint = mysql_query($query) or die (mysql_error());
+	$dataCategoryPrint = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select id,name from member 
 	 		  where position_id order by name";
-	$cmbSales = mysql_query($query) or die(mysql_error());	
+	$cmbSales = mysqli_query($con, $query) or die(mysqli_error($con));	
 		
 	include '../lib/connection-close.php';
 ?>

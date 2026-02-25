@@ -21,8 +21,8 @@
 	$query = "select max(no_order) + 1 as no_new
 			  from sales_order 
 			  where substr(no_order,1,2) = '$year'";
-	$tmp = mysql_query($query) or die (mysql_error());
-	$dataNoOrder =  mysql_fetch_array($tmp); 
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$dataNoOrder =  mysqli_fetch_array($tmp); 
 	$noOrder = $dataNoOrder['no_new']; 
 	
 	if(strlen($noOrder) < 1) {
@@ -40,11 +40,11 @@
 		  tipe_order = '$tipeOrder',
 		  date_order = '$dateOrder'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select max(id) as id from sales_order";
-	$tmp = mysql_query($query) or die (mysql_error());
-	$data = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$data = mysqli_fetch_array($tmp);
 	$salesOrderId  = $data['id'];
 
 	$countryCode = substr($phone,0,2); 
@@ -56,8 +56,8 @@
 		  	  and country_code = '$countryCode'
 		  	  and phone_number ='$phoneSplit'";		
 
-	$tmp = mysql_query($query) or die (mysql_error());
-	$dataPhoneCheck = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$dataPhoneCheck = mysqli_fetch_array($tmp);
 
 	if($dataPhoneCheck['total']  == 0) {
 		$query = "insert customer
@@ -69,20 +69,20 @@
 			  date_input = now(),
 			  is_delete = '0'";		
 
-		mysql_query($query) or die (mysql_error());		
+		mysqli_query($con, $query) or die (mysqli_error($con));		
 
 		$query = "select max(id) as id
 			from customer";		
 
-		$tmp = mysql_query($query) or die (mysql_error());
-		$data = mysql_fetch_array($tmp);
+		$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+		$data = mysqli_fetch_array($tmp);
 		$customerId = $data['id'];
 
 		$query = "insert customer_group
 				  set customer_id = '$customerId',
 				    client_id = '$clientId'";		
 
-		mysql_query($query) or die (mysql_error());
+		mysqli_query($con, $query) or die (mysqli_error($con));
 	}
 
 

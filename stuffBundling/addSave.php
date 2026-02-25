@@ -19,12 +19,12 @@
 		  is_hidden = '$isHidden',
 		  category_id = '$categoryId'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select max(id) as last_id
 			 from stuff_bundling";
-	$rst = mysql_query($query) or die (mysql_error());		 
-	$lastId = mysql_fetch_array($rst);
+	$rst = mysqli_query($con, $query) or die (mysqli_error($con));		 
+	$lastId = mysqli_fetch_array($rst);
 
 	include '../lib/connection-close.php';
 

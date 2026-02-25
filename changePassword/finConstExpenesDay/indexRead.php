@@ -10,7 +10,7 @@
 		and periode = '0'
 		order by name";
 
-	$data = mysql_query($query) or die (mysql_error());
+	$data = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	include '../lib/connection-close.php';
 ?>

@@ -17,18 +17,18 @@
 		  date_transaction = '$dateTransaction',
 		  date_system = now()
 		where id = '$id'";
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "delete from promotion_calendar_platform_market
 			   where promotion_calender_id = '$id'";
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	foreach($platformMarketId as $val) {
 		$marketId = general::secureInput($val);
 		$query = "insert ignore promotion_calendar_platform_market
 			set promotion_calender_id = '$id',
 			  platform_market_id = '$marketId'";
-		mysql_query($query) or die (mysql_error());
+		mysqli_query($con, $query) or die (mysqli_error($con));
 	}
 	
 	include '../lib/connection-close.php';

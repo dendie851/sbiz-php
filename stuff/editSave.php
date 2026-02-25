@@ -46,26 +46,26 @@
 		  cost_adv = '$costAdv'
 	    where id = '$id'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	if($typeSubCategory == '0') { 
 		$query = "update stuff_category_sub_row
 			set name = '$subRowCategory1'
 			  where id = '$idSubRowCategory1'";
 
-		mysql_query($query) or die (mysql_error());
+		mysqli_query($con, $query) or die (mysqli_error($con));
 
 		$query = "update stuff_category_sub_row
 			set name = '$subRowCategory2'
 			  where id = '$idSubRowCategory2'";
 
-		mysql_query($query) or die (mysql_error());
+		mysqli_query($con, $query) or die (mysqli_error($con));
 
 		$query = "update stuff_category_sub_row
 			set name = '$subRowCategory3'
 			  where id = '$idSubRowCategory3'";
 
-		mysql_query($query) or die (mysql_error());
+		mysqli_query($con, $query) or die (mysqli_error($con));
 	} 	
 
 	if($typeSubCategory == '1') { 
@@ -74,21 +74,21 @@
 			  stuff_category_sub_id = '$idSubRowCategory1',
 			  name = '$subRowCategory1'";
 
-		mysql_query($query) or die (mysql_error());
+		mysqli_query($con, $query) or die (mysqli_error($con));
 
 		$query = "insert stuff_category_sub_row
 			set stuff_id = '$id',
 			  stuff_category_sub_id = '$idSubRowCategory2',
 			  name = '$subRowCategory2'";
 
-		mysql_query($query) or die (mysql_error());
+		mysqli_query($con, $query) or die (mysqli_error($con));
 
 		$query = "insert stuff_category_sub_row
 			set stuff_id = '$id',
 			  stuff_category_sub_id = '$idSubRowCategory3',
 			  name = '$subRowCategory3'";
 
-		mysql_query($query) or die (mysql_error());
+		mysqli_query($con, $query) or die (mysqli_error($con));
 	}
 		
 	include '../lib/connection-close.php';

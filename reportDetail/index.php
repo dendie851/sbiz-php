@@ -57,7 +57,7 @@
 		<input type="button" value="EXPORT TO EXCEL" onclick="window.open('excel.php?stuffId=<?php echo urlencode($_REQUEST['stuffId'])?>&type=<?php echo $_REQUEST['type'] ?>&dateFrom=<?php echo urlencode($_REQUEST['dateFrom']) ?>&dateTo=<?php echo urlencode($_REQUEST['dateTo']) ?>')" />
 		<input type="button" value="<< KEMBALI" onclick="history.go(-1)" />
 	</p>
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 	 	<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 		</div>		
@@ -79,7 +79,7 @@
 					<?php $quantityTotal = 0; ?>
 					<?php $priceTotal = 0; ?>
 					<?php $i=1; ?>
-					<?php while($val = mysql_fetch_array($data)): ?>
+					<?php while($val = mysqli_fetch_array($data)): ?>
 						<tr>
 							<td align="center" valign="top"><?php echo $i ?></td>
 							<td valign="top" align="center">

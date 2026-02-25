@@ -9,8 +9,8 @@
 		from client
 		where id='$id'";
 
-	$tmp = mysql_query($query);
-	$data = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query);
+	$data = mysqli_fetch_array($tmp);
 
 	include '../lib/connection-close.php';
 ?>

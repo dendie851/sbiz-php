@@ -25,7 +25,7 @@
 											<td>
 												<small>
 													<strong>
-														<?php while($val = mysql_fetch_array($dataCategoryPrint)): ?>
+														<?php while($val = mysqli_fetch_array($dataCategoryPrint)): ?>
 															<small><?php echo $val['name'] ?></small>,		
 														<?php endwhile; ?>											
 													</strong>	
@@ -115,7 +115,7 @@
 			</thead>
 			<tbody>
 				<?php $i = isset($_REQUEST['SplitRecord']) ? $_REQUEST['SplitRecord'] + 1  : 1  ?>
-				<?php while($val = mysql_fetch_array($data)): ?>
+				<?php while($val = mysqli_fetch_array($data)): ?>
 					<tr>
 						<td align="center"><?php echo $i ?></td>
 						<td>

@@ -40,21 +40,21 @@
 		  $where
 		order by date_order asc, no_order asc, name";
 
-	$data = mysql_query($query) or die(mysql_error());	
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));	
 
 	$query = "select id,name from reseller
 	 		  where is_delete = '0'";
-	$cmbReseller = mysql_query($query) or die(mysql_error());	
+	$cmbReseller = mysqli_query($con, $query) or die(mysqli_error($con));	
 
 	$query = "select id,name from reseller
 	 		  where id = '$resellerId'";
-	$tmpReseller = mysql_query($query) or die(mysql_error());	
-	$dataReseller = mysql_fetch_array($tmpReseller);
+	$tmpReseller = mysqli_query($con, $query) or die(mysqli_error($con));	
+	$dataReseller = mysqli_fetch_array($tmpReseller);
 
 	$query = "select id,concat(bank_name,' - ',account_name,' - ',account_number) as bank_to from reseller_bank
 	 		  where reseller_id = '$resellerId'
 	 		    and is_delete = '0'";
-	$cmbResellerBank = mysql_query($query) or die(mysql_error());	
+	$cmbResellerBank = mysqli_query($con, $query) or die(mysqli_error($con));	
 
 	include '../lib/connection-close.php';
 ?>

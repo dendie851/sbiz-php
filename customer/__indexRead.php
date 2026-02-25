@@ -16,8 +16,8 @@
 	$query = "select date_format(min(date_input),'%d/%m/%Y') as min_date	
 	          from customer
 	          where is_delete = '0'";
-	$tmpStartDate = mysql_query($query) or die(mysql_error());
-	$dataStartDate = mysql_fetch_array($tmpStartDate);	
+	$tmpStartDate = mysqli_query($con, $query) or die(mysqli_error($con));
+	$dataStartDate = mysqli_fetch_array($tmpStartDate);	
 	$dataStartDate[0];
 
 	$_REQUEST['dateFrom'] = isset($_REQUEST['dateFrom']) ? $_REQUEST['dateFrom'] : $dataStartDate[0];	
@@ -32,10 +32,10 @@
 	$query = "select id, name, phone,address
 	          from client		
 	          where is_delete = '0'";
-	$tmpClient = mysql_query($query) or die(mysql_error());
+	$tmpClient = mysqli_query($con, $query) or die(mysqli_error($con));
 
 	$clientIdDefault = array();
-	while($valClient = mysql_fetch_array($tmpClient)) {
+	while($valClient = mysqli_fetch_array($tmpClient)) {
 	  $clientIdDefault[] = $valClient['id'];	  		
 	}		
 	
@@ -88,7 +88,7 @@
 		$limit
 		";
 	
-	$data = mysql_query($query) or die (mysql_error());
+	$data = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select count(c.id) as total
 		from customer as c
@@ -100,19 +100,19 @@
 		  or concat(c.country_code,c.phone_number) like '%$keyword%')		
 		  and (date_format(date_input,'%Y-%m-%d') >= '$dateFrom' and date_format(date_input,'%Y-%m-%d') <= '$dateTo')					";  
 
-	$dataTotal = mysql_query($query) or die(mysql_error());
-	$total = mysql_fetch_array($dataTotal);
+	$dataTotal = mysqli_query($con, $query) or die(mysqli_error($con));
+	$total = mysqli_fetch_array($dataTotal);
 
 	$query = "select id, name, phone,address
 	          from client		
 	          where is_delete = '0'";
-	$cmbClient = mysql_query($query) or die(mysql_error());
+	$cmbClient = mysqli_query($con, $query) or die(mysqli_error($con));
 
 	$query = "select id, name, phone,address
 	          from client		
 	          where is_delete = '0'
 	          and id in ($clientIdStr)";
-	$dataClient = mysql_query($query) or die(mysql_error());
+	$dataClient = mysqli_query($con, $query) or die(mysqli_error($con));
 
 	$split = new Split('index.php',$total['total'],50,30);
 ?>

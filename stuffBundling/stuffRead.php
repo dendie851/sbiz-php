@@ -13,8 +13,8 @@
 		  (select name from stuff_category as sc where sc.id = stuff_bundling.category_id) as category_name		  
 		from stuff_bundling
 		where id = '$id'";
-	$tmp = mysql_query($query);
-	$data = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query);
+	$data = mysqli_fetch_array($tmp);
 
 	$query = "select sb.id,sb.price, sb.fee_sales, sb.discount_percent, sb.discount_nominal, sb.discount_type, sb.qty, 
 			 s.name, s.price_basic as price_basic, s.nickname, s.price_basic, s.price as price_normal, s.fee_sales as fee_sales_basic,
@@ -25,7 +25,7 @@
 		  on sb.stuff_id = s.id
 		where sb.stuff_bundling_id = '$id'
 		order by s.category_id, s.name";
-	$dataStuff = mysql_query($query) or die (mysql_error());
+	$dataStuff = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	include '../lib/connection-close.php';
 ?>

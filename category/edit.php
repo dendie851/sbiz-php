@@ -13,7 +13,7 @@
 					</td>
 				</tr>
 				<?php $i = 1 ?>
-				<?php while($row = mysql_fetch_array($dataSubCategory)): ?>
+				<?php while($row = mysqli_fetch_array($dataSubCategory)): ?>
 					<tr>
 						<td valign="top">SUB KATEGORI <?php echo $i ?></td>
 						<td>

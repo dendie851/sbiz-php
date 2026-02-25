@@ -20,8 +20,8 @@
 		  $whereSalesId
 		  and date_order = date(now())";
 
-	$tmp = mysql_query($query) or die(mysql_error());
-	$dataJmlPenjualanLangsungHariIni = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die(mysqli_error($con));
+	$dataJmlPenjualanLangsungHariIni = mysqli_fetch_array($tmp);
 
 	$query = "select count(id) as total 
 		from sales_order
@@ -30,8 +30,8 @@
 		  and status_order = '4'
 		  $whereSalesId";
 
-	$tmp = mysql_query($query) or die(mysql_error());
-	$dataJmlPenjualanBelumBayar = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die(mysqli_error($con));
+	$dataJmlPenjualanBelumBayar = mysqli_fetch_array($tmp);
 
 	$query = "select count(id) as total 
 		from sales_order
@@ -39,8 +39,8 @@
 		  and is_reseller = '1'		
 		  and date_order = date(now())";
 
-	$tmp = mysql_query($query) or die(mysql_error());
-	$dataJmlPenjualanLangsungHariIniReseller = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die(mysqli_error($con));
+	$dataJmlPenjualanLangsungHariIniReseller = mysqli_fetch_array($tmp);
 
 	$query = "select count(id) as total 
 		from sales_order
@@ -48,8 +48,8 @@
 		  and is_cod = '0'
 		  and status_order = '0'
 		  and status_payment = '0'";
-	$tmp = mysql_query($query) or die(mysql_error());
-	$dataJmlPembayaranBelumValidasi = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die(mysqli_error($con));
+	$dataJmlPembayaranBelumValidasi = mysqli_fetch_array($tmp);
 
 	$query = "select count(id) as total 
 		from sales_order
@@ -58,16 +58,16 @@
 		  and is_cod = '1'
 		  and status_order = '0'
 		  and status_payment = '0'";
-	$tmp = mysql_query($query) or die(mysql_error());
-	$dataJmlPembayaranBelumValidasiResellerCod = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die(mysqli_error($con));
+	$dataJmlPembayaranBelumValidasiResellerCod = mysqli_fetch_array($tmp);
 
 	$query = "select count(id) as total 
 		from sales_order
 		where is_delete = '0'
 		  and status_order = '1'
 		  and status_payment = '1'";
-	$tmp = mysql_query($query) or die(mysql_error());
-	$dataJmlPembayaranBelumPacking = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die(mysqli_error($con));
+	$dataJmlPembayaranBelumPacking = mysqli_fetch_array($tmp);
 
 	
 	$query = "select count(id) as total 
@@ -76,8 +76,8 @@
 		  and status_order = '2'
 		  and status_payment = '1'
 		  and is_warehouse_external = '0'";
-	$tmp = mysql_query($query) or die(mysql_error());
-	$dataJmlPembayaranBelumShipping = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die(mysqli_error($con));
+	$dataJmlPembayaranBelumShipping = mysqli_fetch_array($tmp);
 
 
 	$query = "select count(id) as total 
@@ -86,14 +86,14 @@
 		  and status_order = '2'
 		  and status_payment = '1'
 		  and is_warehouse_external = '1'";
-	$tmp = mysql_query($query) or die(mysql_error());
-	$dataJmlPembayaranBelumShippingWarehouseExternal = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die(mysqli_error($con));
+	$dataJmlPembayaranBelumShippingWarehouseExternal = mysqli_fetch_array($tmp);
 
 	$query = "select count(id) as total
 		from stuff		
 		where is_delete = '0'"; 
-	$tmp = mysql_query($query) or die(mysql_error());
-	$dataJmlBrg = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die(mysqli_error($con));
+	$dataJmlBrg = mysqli_fetch_array($tmp);
 			  
 	$query = "select count(sh.id) as total
 		from stuff_history as sh		
@@ -105,8 +105,8 @@
 		  and s.category_id in ($loginAccessCategory) 
 		  and sh.is_delete = '0'";
 
-	$tmp = mysql_query($query) or die(mysql_error());
-	$dataStuffIn = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die(mysqli_error($con));
+	$dataStuffIn = mysqli_fetch_array($tmp);
 
 	$query = "select count(sh.id) as total
 		from stuff_history as sh		
@@ -118,8 +118,8 @@
 		  and sh.is_delete = '0'
 		  and s.category_id in ($loginAccessCategory)"; 
 
-	$tmp = mysql_query($query) or die(mysql_error());
-	$dataStuffOut = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die(mysqli_error($con));
+	$dataStuffOut = mysqli_fetch_array($tmp);
 
 	$query = "select count(sh.id) as total
 		from stuff_history as sh		
@@ -131,8 +131,8 @@
 		  and sh.is_delete = '0'
 		  and s.category_id in ($loginAccessCategory)"; 
 
-	$tmp = mysql_query($query) or die(mysql_error());
-	$dataStuffCorrection = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die(mysqli_error($con));
+	$dataStuffCorrection = mysqli_fetch_array($tmp);
 
 
 	$loginAccessCategory =  substr(str_replace('~',',',$_SESSION['loginAccessCategory']),-1 * (strlen(str_replace('~',',',$_SESSION['loginAccessCategory']))) ).'0';
@@ -150,14 +150,14 @@
 		  and stock_min_alert <> 0 
 		order by category_id, name";
 
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 
 	$query = "select id,name 
 		from stuff_category
 		where is_delete = '0'
 		  and id in ($loginAccessCategory)
 		order by name";
-	$dataCategory = mysql_query($query) or die (mysql_error());
+	$dataCategory = mysqli_query($con, $query) or die (mysqli_error($con));
 
 
 	$query = "select date_order, date_format(date_order,'%b %d') as date_order_frm, count(id) as total 
@@ -169,12 +169,12 @@
 	    group by date_order	    
 		order by date_order desc  
 	    limit 0,15";
-	$tmp = mysql_query($query) or die(mysql_error());
+	$tmp = mysqli_query($con, $query) or die(mysqli_error($con));
 
 	$grafikLabelTemp = array();
 	$grafikValTemp = array();
 
-	while($val = mysql_fetch_array($tmp)) {
+	while($val = mysqli_fetch_array($tmp)) {
 	   $grafikLabelTemp[] = "'".$val['date_order_frm']."'";
 	   $grafikValTemp[] = "'".$val['total']."'";
 	}
@@ -196,12 +196,12 @@
 	    group by date_order	    
 		order by date_order desc  
 	    limit 0,15";
-	$tmp = mysql_query($query) or die(mysql_error());
+	$tmp = mysqli_query($con, $query) or die(mysqli_error($con));
 
 	$grafikLabelTemp = array();
 	$grafikValTemp = array();
 
-	while($val = mysql_fetch_array($tmp)) {
+	while($val = mysqli_fetch_array($tmp)) {
 	   $grafikLabelTemp[] = "'".$val['date_order_frm']."'";
 	   $grafikValTemp[] = "'".$val['total']."'";
 	}
@@ -228,7 +228,7 @@
 		  		  and date_order = date(now())
 				order by date_order, no_order";
 
-	$tmp = mysql_query($query) or die (mysql_error());
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$dataRevenue['total_price_basic'] = 0;
 	$dataRevenue['total_price'] = 0;
@@ -238,7 +238,7 @@
 	$dataRevenue['total_discount_nominal'] = 0;
 	$dataRevenue['total_shipping'] = 0;
 
-	while($val = mysql_fetch_array($tmp)) {
+	while($val = mysqli_fetch_array($tmp)) {
 	
 		$dataRevenue['total_price_basic'] += $val['amount_basic_sale'];
 		$dataRevenue['total_price'] += $val['amount_sale'];

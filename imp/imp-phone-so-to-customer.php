@@ -10,11 +10,11 @@
 			    and is_delete = '0'
 			    and trim(phone) not in (select trim(concat(country_code,phone_number)) as phone from customer where is_delete ='0')
 			  ";
-	$data = mysql_query($query) or die (mysql_error());
+	$data = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$totalImport = array();
 	$i = 1;
-	while($val = mysql_fetch_array($data)) {
+	while($val = mysqli_fetch_array($data)) {
 		$salesId = general::secureInput($val['sales_id']);
 		$name = general::secureInput($val['name']);		
 		$clientId = general::secureInput($val['client_id']);
@@ -27,8 +27,8 @@
 			  	  and country_code = '$countryCode'
 			  	  and phone_number ='$phoneSplit'";		
 
-		$tmp = mysql_query($query) or die (mysql_error());
-		$dataPhoneCheck = mysql_fetch_array($tmp);
+		$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+		$dataPhoneCheck = mysqli_fetch_array($tmp);
 
 		if($dataPhoneCheck['total']  == 0) {
 			$query = "insert customer
@@ -40,20 +40,20 @@
 				  date_input = now(),
 				  is_delete = '0'";		
 
-			mysql_query($query) or die (mysql_error());		
+			mysqli_query($con, $query) or die (mysqli_error($con));		
 
 			$query = "select max(id) as id
 				from customer";		
 
-			$tmp = mysql_query($query) or die (mysql_error());
-			$dataCustomer = mysql_fetch_array($tmp);
+			$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+			$dataCustomer = mysqli_fetch_array($tmp);
 			$customerId = $dataCustomer['id'];
 
 			$query = "insert customer_group
 					  set customer_id = '$customerId',
 					    client_id = '$clientId'";		
 			
-			mysql_query($query) or die (mysql_error());
+			mysqli_query($con, $query) or die (mysqli_error($con));
 
 			$totalImport[] = array('index'=>$i,'sales_id'=>$salesId,'name'=>$name,'client_id'=>$clientId,'country_code'=>$countryCode,'phone'=>$phoneSplit);
 			$i++;

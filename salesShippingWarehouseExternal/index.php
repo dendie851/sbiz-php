@@ -31,7 +31,7 @@
 		Data dibawah ini adalah <big style="font-size:14px">PENJUALAN</big> yang telah dilakukan <big style="font-size:14px">VALIDASI PEMBAYARAN</big>, <big style="font-size:14px">PENGEMASAN</big> tetapi belum dilakukan <big style="font-size:14px">PENGIRIMAN</big></b>
 	</div>	
 
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 		<form action="addSave.php" method="post" id="frm" onsubmit="return printLabel()" />	
 			<table width="100%">
 				<tr>
@@ -42,7 +42,7 @@
 						<b>Filter Berdasarkan Gudang</b> &nbsp; 
 						<select name="warehouseExternalId" style="width:150px;" onchange="filterBy(this.value)">
 							<option value="x">Semua Gudang</option>  	
-							<?php while($valExpedition = mysql_fetch_array($cmbWarehouseExternal)): ?>
+							<?php while($valExpedition = mysqli_fetch_array($cmbWarehouseExternal)): ?>
 								<option value="<?php echo $valExpedition[0] ?>" <?php echo $valExpedition[0] == (isset($_REQUEST['warehouseExternalId']) ? $_REQUEST['warehouseExternalId'] : $dataHeader['warehouse_external_id']) ? 'selected' : '' ?>><?php echo $valExpedition[1] ?></option>								
 							<?php endwhile; ?>
 						</select>												
@@ -76,7 +76,7 @@
 						<b>Filter Berdasarkan Gudang</b> &nbsp; 
 						<select name="warehouseExternalId" style="width:150px;" onchange="filterBy(this.value)">
 							<option value="x">Semua Gudang</option>  	
-							<?php while($valExpedition = mysql_fetch_array($cmbWarehouseExternal)): ?>
+							<?php while($valExpedition = mysqli_fetch_array($cmbWarehouseExternal)): ?>
 								<option value="<?php echo $valExpedition[0] ?>" <?php echo $valExpedition[0] == (isset($_REQUEST['warehouseExternalId']) ? $_REQUEST['warehouseExternalId'] : $dataHeader['warehouse_external_id']) ? 'selected' : '' ?>><?php echo $valExpedition[1] ?></option>								
 							<?php endwhile; ?>
 						</select>												
@@ -100,7 +100,7 @@
 					</thead>
 					<tbody>
 						<?php $i=1; ?>
-						<?php while($val = mysql_fetch_array($data)): ?>
+						<?php while($val = mysqli_fetch_array($data)): ?>
 							<tr style="cursor:pointer">
 								<td align="center">
 									<input class="bigCheckBox" style="cursor:pointer" name="salesOrderId[]" type="checkbox" value="<?php echo $val['id'] ?>" />
@@ -128,9 +128,9 @@
 												    where sod.sales_order_id = '$salesOrderId'
 												    order by sod.name asc
 												    ";
-											$tmpProduk = mysql_query($query) or die(mysql_error());
+											$tmpProduk = mysqli_query($con, $query) or die(mysqli_error($con));
 										?>
-										<?php while($rowDetail = mysql_fetch_array($tmpProduk)): ?>
+										<?php while($rowDetail = mysqli_fetch_array($tmpProduk)): ?>
 											<div style="margin-top:8px;">
 											  (<?php echo $rowDetail['amount'] ?> <?php echo ucfirst(strtolower($rowDetail['satuan'])) ?>) 	
 											  <?php echo $rowDetail['name'] ?><br />	

@@ -10,8 +10,8 @@
 	$query = "select id, month, year, name, profit
 	from fin_profit_loss
 	where id = '$id'";
-	$tmp = mysql_query($query) or die (mysql_error());
-	$rslt = mysql_fetch_array($tmp);	
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$rslt = mysqli_fetch_array($tmp);	
 	$name = 'Laba Bersih Periode '.$monthName[$rslt['month']-1].' '.$rslt['year'];
 	$nominal = $rslt['profit'];
 		
@@ -22,7 +22,7 @@
 		  fin_profit_loss_id = '$id',
 		  date_transaction = date(now())";
 	
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	include '../lib/connection-close.php';
 

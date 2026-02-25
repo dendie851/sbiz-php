@@ -26,7 +26,7 @@
 		from stuff_category
 		where is_delete = '0'
 		order by name";
-	$dataCategory = mysql_query($query) or die (mysql_error());
+	$dataCategory = mysqli_query($con, $query) or die (mysqli_error($con));
 	$yearMonth = $year.'-'.str_pad($month,2,"0",STR_PAD_LEFT);	
 	$query = "select s.id as stuff_id, s.name as stuff_name, s.nickname, sum(sod.amount) as amount_total, sod.stuff_id,
 			(select c.name from const as c where c.id = s.const_id) as satuan,
@@ -45,7 +45,7 @@
 		group by s.id
 		order by amount_total desc, s.category_id, s.name";
 
-	$data = mysql_query($query) or die(mysql_error());	
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));	
 
 	$whereCategoryPrint .= strlen($categoryIdChoose) > 0 ? " and id in ($categoryIdChoose)" : " ";
 
@@ -54,8 +54,8 @@
 		where is_delete = '0'
 		  $whereCategoryPrint
 		order by name";
-	$tmp = mysql_query($query) or die (mysql_error());
-	$dataCategoryPrint = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$dataCategoryPrint = mysqli_fetch_array($tmp);
 
 
 	include '../lib/connection-close.php';

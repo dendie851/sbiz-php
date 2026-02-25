@@ -20,7 +20,7 @@
 		</div>		
 	<?php endif ?>
 
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 	 	<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 		</div>		
@@ -41,7 +41,7 @@
 				<tbody>
 					<?php $i = 1 ?>
 					<?php $totalBiayaKurangStok = 0 ?>
-					<?php while($val = mysql_fetch_array($data)): ?>
+					<?php while($val = mysqli_fetch_array($data)): ?>
 						<tr style="background-color:#6661">
 							<td align="center" style="padding:5px; font-size:12pt; border: 1px solid black"><?php echo $i ?></td>
 							<td width="280" style="padding:5px; font-size:12pt; border: 1px solid black">
@@ -84,7 +84,7 @@
 										  where sod.stuff_id = '$stuffId'
 										  order by sod.amount desc";
 
-								$dataSub = mysql_query($query) or die(mysql_error().'asd');
+								$dataSub = mysqli_query($con, $query) or die(mysqli_error($con).'asd');
 
 							?>				
 								<table width="100%" style="padding:10px; border: 1px solid black" cellspacing="0" cellpadding="0">
@@ -98,7 +98,7 @@
 									<?php $j=1 ?>
 									<tbody>
 									
-									<?php while($rowdataSub = mysql_fetch_array($dataSub)): ?>
+									<?php while($rowdataSub = mysqli_fetch_array($dataSub)): ?>
 										<tr>
 											<td style="padding:2px; font-size:12pt; border: 1px solid black"   align="center"><?php echo $i.'.'.$j ?></td>
 											<td style="padding:2px; font-size:12pt; border: 1px solid black"   align="center"><?php echo $rowdataSub['no_order'] ?></td>

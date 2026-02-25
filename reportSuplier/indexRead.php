@@ -32,22 +32,22 @@
 		$where		
 		order by sh.date, sh.id ";
 
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 
 	$query = "select id,name 
 		from suplier
 		where is_delete = '0'
 		order by name";
 
-	$dataSuplier = mysql_query($query) or die (mysql_error());
+	$dataSuplier = mysqli_query($con, $query) or die (mysqli_error($con));
 
 
 	$query = "select name 
 		from suplier
 		where id = '$suplierId'";
 
-	$tmp = mysql_query($query) or die (mysql_error());
-	$dataSuplierName = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$dataSuplierName = mysqli_fetch_array($tmp);
 
 	include '../lib/connection-close.php';
 ?>

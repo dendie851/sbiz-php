@@ -24,13 +24,13 @@ x`<?php
 		  is_delete = '0'
 		where id = '$id'";		
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "delete from customer_group
 			  where customer_id = '$id'";		
 
-	$tmp = mysql_query($query) or die (mysql_error());
-	$data = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$data = mysqli_fetch_array($tmp);
 	$customerId = $data['id'];
 
 
@@ -40,7 +40,7 @@ x`<?php
 				  set customer_id = '$id',
 				    client_id = '$valTmp'";		
 
-		mysql_query($query) or die (mysql_error());
+		mysqli_query($con, $query) or die (mysqli_error($con));
 	}	
 
 	include '../lib/connection-close.php';

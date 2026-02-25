@@ -21,7 +21,7 @@
 			where fpl.id = '$id'
 		)			
 		order by name";
-	$dataCategory = mysql_query($query) or die (mysql_error());
+	$dataCategory = mysqli_query($con, $query) or die (mysqli_error($con));
 	
 	include '../lib/connection-close.php';
 ?>

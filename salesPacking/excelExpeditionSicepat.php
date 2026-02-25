@@ -10,8 +10,8 @@
 		from company
 		where id='1'";
 
-	$tmp = mysql_query($query);
-	$data_company = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query);
+	$data_company = mysqli_fetch_array($tmp);
 
 	$query = "select id, no_order, client_id, period_order_id, name, address_shipping, tipe_order,
 			description_payment, description_shipping, discount_amount, amount_sale, shipping_cost, 
@@ -30,7 +30,7 @@
 		where is_delete = '0'
 		  and id in ($salesOrderIdStr)		
 		order by date_order, no_order, name";
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 
 
 	$objPHPExcel = new PHPExcel();
@@ -118,7 +118,7 @@
 	//->setCellValue('F'.$row, preg_replace("#[^A-Za-z0-9\:,. ]+#", "", preg_replace('/\s+/',' ',$val['address_shipping'])))
 	//ucfirst($val['name'])		
 	$row = 2;
-	while($val = mysql_fetch_array($data)) {
+	while($val = mysqli_fetch_array($data)) {
 		$objPHPExcel->getSheet(0)
 	        ->setCellValue('A'.$row, ($row - 1))
 	        ->setCellValue('B'.$row, 'Avandr')

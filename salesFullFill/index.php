@@ -14,7 +14,7 @@
 								PERIODE PEMESANAN <br />
 								<select name="periodeOrderId" style="width:200px; height:30px">
 										<option value="x" <?php echo 'x' == (isset($_REQUEST['periodeOrderId']) ? $_REQUEST['periodeOrderId'] : '') ? 'selected' : '' ?>>Semua</option>
-									<?php while($val = mysql_fetch_array($dataPeriodeOrder)): ?>
+									<?php while($val = mysqli_fetch_array($dataPeriodeOrder)): ?>
 										<option value="<?php echo $val['id'] ?>" <?php echo $val['id'] == (isset($_REQUEST['periodeOrderId']) ? $_REQUEST['periodeOrderId'] : '') ? 'selected' : '' ?>><?php echo $val['name'] ?></option>
 									<?php endwhile; ?>
 								</select>
@@ -40,7 +40,7 @@
 		Data dibawah ini adalah <big style="font-size:14px" >PEMESANAN / PRE ORDER </big> yang telah melakukan <b>PEMBAYARAN</b> tetapi <big style="font-size:14px">PESANAN BARANG BELUM DI PENUHI</big>
 	</div>	
 
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 	 	<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 		</div>		
@@ -73,7 +73,7 @@
 					</thead>
 					<tbody>
 						<?php $i=1; ?>
-						<?php while($val = mysql_fetch_array($data)): ?>
+						<?php while($val = mysqli_fetch_array($data)): ?>
 							<tr style="cursor:pointer">
 								<td align="center">
 									<input class="bigCheckBox" style="cursor:pointer" name="salesOrderId[]" type="checkbox" value="<?php echo $val['id'] ?>" />

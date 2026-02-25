@@ -14,16 +14,16 @@
 		$query = "select id, name, nickname stock, stock_min_alert, price, price_basic, nickname, fee_sales					
 			from stuff		
 			where id = '$stuffId'";
-		$tmp = mysql_query($query) or die(mysql_error());
-		$dataStuff = mysql_fetch_array($tmp);
+		$tmp = mysqli_query($con, $query) or die(mysqli_error($con));
+		$dataStuff = mysqli_fetch_array($tmp);
 	}
 
 	if($isBundling == '1') {	
 		$query = "select id, name, nickname, price, price_min price_basic, fee_sales					
 			from stuff_bundling		
 			where id = '$stuffId'";
-		$tmp = mysql_query($query) or die(mysql_error());
-		$dataStuff = mysql_fetch_array($tmp);
+		$tmp = mysqli_query($con, $query) or die(mysqli_error($con));
+		$dataStuff = mysqli_fetch_array($tmp);
 	}
 		
 	$stuffName = $dataStuff['name'];
@@ -40,15 +40,15 @@
 		  nickname = '$stuffNickname',
 		  fee_sales = '$stuffFeeSales',
 		  is_bundling = '$isBundling' "; 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select sum(amount * price) as total,
 		  sum(amount * price_basic) as total_basic 
 		from  sales_order_detail
 		where sales_order_id = '$id'";
 		  
-	$qry = mysql_query($query) or die (mysql_error());
-	$tmp = mysql_fetch_array($qry);
+	$qry = mysqli_query($con, $query) or die (mysqli_error($con));
+	$tmp = mysqli_fetch_array($qry);
 
 	$total = $tmp['total'];	
 	$totalBasic = $tmp['total_basic'];	
@@ -57,19 +57,19 @@
 		set amount_sale = '$total',
 		  amount_basic_sale = '$totalBasic'
 		where id = '$id'";
-	mysql_query($query) or die (mysql_error());	
+	mysqli_query($con, $query) or die (mysqli_error($con));	
 
 	if($isBundling == '0') {	
 		$query = "update stuff
 			set stock = stock - '$amount'
 			where id = '$stuffId'";
-		mysql_query($query) or die (mysql_error());	
+		mysqli_query($con, $query) or die (mysqli_error($con));	
 
 		$query = "select no_order,client_id 
 			from sales_order
 			where id = '$id'";
-		$tmp = mysql_query($query) or die (mysql_error());			
-		$dataNoOrder = mysql_fetch_array($tmp);
+		$tmp = mysqli_query($con, $query) or die (mysqli_error($con));			
+		$dataNoOrder = mysqli_fetch_array($tmp);
 		$noOrder = $dataNoOrder['no_order'];	
 		$clientId = $dataNoOrder['client_id'];
 		
@@ -84,15 +84,15 @@
 			  price = '$price',	
 			  client_id = '$clientId',
 			  sales_order_id = '$id'";		
-		mysql_query($query) or die (mysql_error());		  
+		mysqli_query($con, $query) or die (mysqli_error($con));		  
 	} 
 
 	if($isBundling == '1') { 	
 		$query = "select max(id) as last_id
 			from sales_order_detail
 			where sales_order_id = '$id'";
-		$rstSalesOrderDetail = mysql_query($query) or die (mysql_error());			
-		$dataSalesOrderDetail = mysql_fetch_array($rstSalesOrderDetail);
+		$rstSalesOrderDetail = mysqli_query($con, $query) or die (mysqli_error($con));			
+		$dataSalesOrderDetail = mysqli_fetch_array($rstSalesOrderDetail);
 		$salesOrderDetailId = $dataSalesOrderDetail['last_id'];
 
 		$bundlingStuffIdArr = $_REQUEST['bundling_stuff_id'];
@@ -105,8 +105,8 @@
 				$query = "select *
 					from stuff 
 					where id = '$bundlingStuffId'";
-				$tmp = mysql_query($query) or die (mysql_error());			
-				$rstStuffBuldingDetail =  mysql_fetch_array($tmp);
+				$tmp = mysqli_query($con, $query) or die (mysqli_error($con));			
+				$rstStuffBuldingDetail =  mysqli_fetch_array($tmp);
 
 				$qty = $bundlingStuffAmount;
 
@@ -120,25 +120,25 @@
 					  discount_nominal = '0',
 					  discount_percent = '0',
 					  qty = '$qty'";		
-				mysql_query($query) or die (mysql_error());		  
+				mysqli_query($con, $query) or die (mysqli_error($con));		  
 
 				$query = "update stuff
 					set stock = stock - '$qty'
 					where id = '$bundlingStuffId'";
-				mysql_query($query) or die (mysql_error());	
+				mysqli_query($con, $query) or die (mysqli_error($con));	
 
 				$query = "select name
 					from stuff_bundling
 					where id = '$stuffId'";
-				$tmp = mysql_query($query) or die (mysql_error());			
-				$dataBundling = mysql_fetch_array($tmp);
+				$tmp = mysqli_query($con, $query) or die (mysqli_error($con));			
+				$dataBundling = mysqli_fetch_array($tmp);
 				$nameProdukBundling = $dataBundling['name'];
 
 				$query = "select no_order,client_id 
 					from sales_order
 					where id = '$id'";
-				$tmp = mysql_query($query) or die (mysql_error());			
-				$dataNoOrder = mysql_fetch_array($tmp);
+				$tmp = mysqli_query($con, $query) or die (mysqli_error($con));			
+				$dataNoOrder = mysqli_fetch_array($tmp);
 				$noOrder = $dataNoOrder['no_order'];	
 				$clientId = $dataNoOrder['client_id'];
 				
@@ -153,7 +153,7 @@
 					  price = '$price',	
 					  client_id = '$clientId',
 					  sales_order_id = '$id'";		
-				mysql_query($query) or die (mysql_error());		  
+				mysqli_query($con, $query) or die (mysqli_error($con));		  
 			}	
 		}	
 	}	

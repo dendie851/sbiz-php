@@ -15,7 +15,7 @@
 							<td width="" valign="top">
 								<select name="clientId" style="width:180px">
 									<option value="x" >Semua</option>
-									<?php while($valClient = mysql_fetch_array($cmbClient)): ?>
+									<?php while($valClient = mysqli_fetch_array($cmbClient)): ?>
 										<option value="<?php echo $valClient[0] ?>" <?php echo $valClient[0] == (isset($_REQUEST['clientId']) ? $_REQUEST['clientId'] : $dataHeader['client_id']) ? 'selected' : '' ?>><?php echo $valClient[1] ?></option>								
 									<?php endwhile; ?>
 								</select>				
@@ -76,7 +76,7 @@
 		<?php endif; ?>
 	<?php endif ?>
 
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 	 	<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 		</div>		
@@ -96,7 +96,7 @@
 				</thead>
 				<tbody>
 					<?php $i= ((1 * $record) + 1); ?>
-					<?php while($val = mysql_fetch_array($data)): ?>
+					<?php while($val = mysqli_fetch_array($data)): ?>
 						<tr>
 							<td align="center"><?php echo $i ?></td>
 							<td align="center"><?php echo $val['date_order_frm'] ?></td>

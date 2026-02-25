@@ -17,7 +17,7 @@
 						<td>
 							<input type="hidden" name="hiddenClientId" value="<?php echo $_REQUEST['clientId'] ?>" 	/>
 							<select name="clientId" style="width:280px" onchange='this.form.submit()'>
-								<?php while($valClient = mysql_fetch_array($cmbClient)): ?>
+								<?php while($valClient = mysqli_fetch_array($cmbClient)): ?>
 										<option value="<?php echo $valClient[0] ?>" <?php echo $valClient[0] == (isset($_REQUEST['clientId']) ? $_REQUEST['clientId'] : $dataHeader['client_id']) ? 'selected' : '' ?>><?php echo $valClient[1] ?> - <?php echo $valClient[2] ?></option>								
 								<?php endwhile; ?>
 							</select>				
@@ -227,7 +227,7 @@
 						   }
 						?>
 						<select name="marketplaceId" id="marketplace" style="width:250px;" onchange="set_market_place_percent()">
-							<?php while($valPlaformMarket = mysql_fetch_array($cmbPlatformMarket)): ?>
+							<?php while($valPlaformMarket = mysqli_fetch_array($cmbPlatformMarket)): ?>
 								<option value="<?php echo $valPlaformMarket['id'] ?>~<?php echo $valPlaformMarket['name'] ?>~<?php echo $valPlaformMarket['fee_admin_percent'] ?>" <?php echo $valPlaformMarket[0] == (isset($_REQUEST['marketplaceId']) ? $marketplaceId : $dataHeader['platform_market_id']) ? 'selected' : '' ?>><?php echo $valPlaformMarket['name'] ?></option>
 							<?php endwhile; ?>
 						</select>				
@@ -298,7 +298,7 @@
 					<td>						
 						<select name="finSourceFundId" style="width:180px">
 							<option value="0">&nbsp;</option>
-							<?php while($valFoundSource = mysql_fetch_array($dataFoundSource)): ?> 
+							<?php while($valFoundSource = mysqli_fetch_array($dataFoundSource)): ?> 
 								<?php $finSourceFundCompare = isset($_REQUEST['finSourceFundId']) ? ($valFoundSource[0].'~'.$valFoundSource[1]) : $valFoundSource[0] ?>
 								<option value="<?php echo $valFoundSource[0] ?>~<?php echo $valFoundSource[1] ?>" <?php echo  $finSourceFundCompare == (isset($_REQUEST['finSourceFundId']) ? $_REQUEST['finSourceFundId'] : $dataHeader['fin_source_fund_id']) ? 'selected' : '' ?>><?php echo $valFoundSource[1] ?></option>								
 							<?php endwhile; ?>
@@ -351,7 +351,7 @@
 					<tbody>
 						<?php $i=1; ?>
 						<?php $total = 0 ?>
-						<?php while($val = mysql_fetch_array($dataDetail)): ?>
+						<?php while($val = mysqli_fetch_array($dataDetail)): ?>
 							<tr>
 								<td align="center"><?php echo $i ?></td>
 								<td>
@@ -365,10 +365,10 @@
 												   on s.id = b.stuff_id
 												 where sales_order_detail_id = '{$val['id']}'
 												 order by id asc";
-											$rstDetailBundling = mysql_query($query) or die (mysql_error());
+											$rstDetailBundling = mysqli_query($con, $query) or die (mysqli_error($con));
 											include '../lib/connection-close.php';
 										?>
-										<?php while($dataDetailBundling = mysql_fetch_array($rstDetailBundling)): ?>
+										<?php while($dataDetailBundling = mysqli_fetch_array($rstDetailBundling)): ?>
 											<small style="font-size: 10px"><?php echo $dataDetailBundling['name'] ?> (<?php echo $dataDetailBundling['qty'] ?>),</small>	
 										<?php endwhile; ?>											
 									<?php else: ?>	
@@ -465,13 +465,13 @@
 							<td align="center"><input onkeyup="updateTotal(<?php echo $total ?>)" name="costShipping" id="costShipping" style="text-align:center; font-size:15px;  font-height:30px; width:100px; background-color: #F4F4F6" type="text" value="<?php echo isset($_POST['costShipping']) ? $_POST['costShipping'] : $dataHeader['shipping_cost'] ?>" size="5" readonly  /></td>
 							<td align="center">
 								<select id="expeditionId" name="expeditionId" style="width:150px">
-									<?php while($valExpedition = mysql_fetch_array($cmbExpedition)): ?>
+									<?php while($valExpedition = mysqli_fetch_array($cmbExpedition)): ?>
 										<option value="<?php echo $valExpedition[0] ?>" <?php echo $valExpedition[0] == (isset($_REQUEST['expeditionId']) ? $_REQUEST['expeditionId'] : $dataHeader['expedition_id']) ? 'selected' : '' ?>><?php echo $valExpedition[1] ?></option>								
 									<?php endwhile; ?>
 								</select>				
 
 								<select id="warehouseExternalId" name="warehouseExternalId" style="width:150px; display: none;">
-									<?php while($valExpedition = mysql_fetch_array($cmbWarehouseExternal)): ?>
+									<?php while($valExpedition = mysqli_fetch_array($cmbWarehouseExternal)): ?>
 										<option value="<?php echo $valExpedition[0] ?>" <?php echo $valExpedition[0] == (isset($_REQUEST['warehouseExternalId']) ? $_REQUEST['warehouseExternalId'] : $dataHeader['warehouse_external_id']) ? 'selected' : '' ?>><?php echo $valExpedition[1] ?></option>								
 									<?php endwhile; ?>
 								</select>				

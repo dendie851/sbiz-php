@@ -47,7 +47,7 @@
 						   <td colspan="4">
 						   	    <div style="padding-bottom: 5px; padding-top: 15px">KATEGORI PELANGGAN</div>
 								<select name="clientId[]" style="width:100%; height: 120px" multiple>
-									<?php while($valClient = mysql_fetch_array($cmbClient)): ?>
+									<?php while($valClient = mysqli_fetch_array($cmbClient)): ?>
 										<option value="<?php echo $valClient['id'] ?>" <?php echo in_array($valClient['id'],$clientId) == true ? 'selected' : '' ?>><?php echo $valClient['name'] ?></option>	
 									<?php endwhile; ?>
 								</select>				
@@ -72,7 +72,7 @@
 	<?php endif; ?>
 		
 	
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 	 	<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 		</div>		
@@ -123,7 +123,7 @@
 					</thead>
 					<tbody>
 						<?php $i=(1 + $record ); ?>
-						<?php while($val = mysql_fetch_array($data)): ?>
+						<?php while($val = mysqli_fetch_array($data)): ?>
 							<tr style="cursor:pointer">
 								<!--
 								<td align="center">
@@ -150,9 +150,9 @@
 												    where sod.sales_order_id = '$salesOrderId'
 												    order by sod.name asc
 												    ";
-											$tmpProduk = mysql_query($query) or die(mysql_error());
+											$tmpProduk = mysqli_query($con, $query) or die(mysqli_error($con));
 										?>
-										<?php while($rowDetail = mysql_fetch_array($tmpProduk)): ?>
+										<?php while($rowDetail = mysqli_fetch_array($tmpProduk)): ?>
 											<div style="margin-top:8px;">
 											  (<?php echo $rowDetail['amount'] ?> <?php echo ucfirst(strtolower($rowDetail['satuan'])) ?>) 	
 											  <?php echo $rowDetail['name'] ?>

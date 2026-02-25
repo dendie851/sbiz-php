@@ -47,11 +47,11 @@
 		  cost_riset = '$costRiset',
 		  cost_adv = '$costAdv'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select max(id) as stuff_id from stuff";
-	$tmp = mysql_query($query) or die (mysql_error());
-	$data = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$data = mysqli_fetch_array($tmp);
 	$stuffId  = $data['stuff_id'];
 
 	$query = "insert stuff_category_sub_row
@@ -59,21 +59,21 @@
 		  stuff_category_sub_id = '$idSubCategory1',
 		  name = '$subCategory1'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "insert stuff_category_sub_row
 		set stuff_id = '$stuffId',
 		  stuff_category_sub_id = '$idSubCategory2',
 		  name = '$subCategory2'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "insert stuff_category_sub_row
 		set stuff_id = '$stuffId',
 		  stuff_category_sub_id = '$idSubCategory3',
 		  name = '$subCategory3'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "insert stuff_history
 		set stuff_id = '$stuffId',
@@ -82,13 +82,13 @@
 		  date = now(),
 		  description = '::STOK AWAL::'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 
 	if(isset($_POST['submitCopy'])) {
 	    $query = "select max(id) as last_id from stuff";
-		$tmp = mysql_query($query) or die (mysql_error());	    
-		$data = mysql_fetch_array($tmp);
+		$tmp = mysqli_query($con, $query) or die (mysqli_error($con));	    
+		$data = mysqli_fetch_array($tmp);
 		$lastId  = $data['last_id'];
 
 		include '../lib/connection-close.php';

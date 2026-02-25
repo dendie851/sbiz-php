@@ -31,8 +31,8 @@
 							  from reseller as r
 						  	  where is_delete = '0' 	 
 						  	   and (phone_number = '$phone' or email = '$email' or username = '$username' )";
-					$tmp = mysql_query($query) or die (mysql_error());
-					$check = mysql_fetch_array($tmp);
+					$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+					$check = mysqli_fetch_array($tmp);
 					if($check['total'] > 0) {
 					   $_SESSION['import_reseller_err_msg'][] = [$name,$countryCode,$phone,$city,$email,$username,$val['G'],$val['H']];
 					} else {
@@ -48,7 +48,7 @@
 							  is_dropshipper = '$isDropshipper',
 							  is_active = '$isActive',		  
 							  is_delete = '0'";		
-						mysql_query($query) or die (mysql_error());		
+						mysqli_query($con, $query) or die (mysqli_error($con));		
 
 					   $_SESSION['import_reseller_err_succes'][] = [$name,$countryCode,$phone,$city,$email,$username,$password,$_POST['isDropshipper']];						
 					}		

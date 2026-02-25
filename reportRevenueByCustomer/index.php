@@ -38,7 +38,7 @@
 			<h3><?php echo message::getMsg('filterData') ?></h3>
 		</div>		
 	<?php else: ?>	
-		<?php if(mysql_num_rows($data) < 1) : ?>
+		<?php if(mysqli_num_rows($data) < 1) : ?>
 			<div class="warning">
 				<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 			</div>		
@@ -62,7 +62,7 @@
 					<tbody>
 						<?php $i=1; ?>
 						<?php $totalNilaiJual = 0; ?>
-						<?php while($val = mysql_fetch_array($data)): ?>
+						<?php while($val = mysqli_fetch_array($data)): ?>
 							<tr>
 								<td align="center"><?php echo $i ?></td>
 								<td align="left">

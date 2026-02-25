@@ -51,8 +51,8 @@
 				from stuff_category
 				where is_delete = '0'
 				order by name";
-			$tmpCategory = mysql_query($query) or die (mysql_error());
-			while($rowCategory = mysql_fetch_array($tmpCategory)) {
+			$tmpCategory = mysqli_query($con, $query) or die (mysqli_error($con));
+			while($rowCategory = mysqli_fetch_array($tmpCategory)) {
 				$categoryIdChoose = $categoryIdChoose.$rowCategory['id'].',';		
 			}
 			$categoryIdChoose = substr($categoryIdChoose,0,strlen($categoryIdChoose)-1);
@@ -63,8 +63,8 @@
 		from stuff_category
 		where is_delete = '0'
 		order by name";
-	$dataCategory = mysql_query($query) or die (mysql_error());
-	$jmlDataCategory = mysql_num_rows($dataCategory);
+	$dataCategory = mysqli_query($con, $query) or die (mysqli_error($con));
+	$jmlDataCategory = mysqli_num_rows($dataCategory);
 
 
 	$where .= in_array(count($categoryId), array(0,$jmlDataCategory)) ? " " : " and s.category_id in ($categoryIdChoose)  ";
@@ -200,7 +200,7 @@
 		}	
 	}
 			
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 
 	$whereCategoryPrint .= strlen($categoryIdChoose) > 0 ? " and id in ($categoryIdChoose)" : " ";
 
@@ -209,7 +209,7 @@
 		where is_delete = '0'
 		  $whereCategoryPrint
 		order by name";
-	$dataCategoryPrint = mysql_query($query) or die (mysql_error());
+	$dataCategoryPrint = mysqli_query($con, $query) or die (mysqli_error($con));
 		
 	include '../lib/connection-close.php';
 ?>

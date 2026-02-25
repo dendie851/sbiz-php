@@ -8,30 +8,30 @@
 	$query = "select id, sales_order_id
 			  from reseller_withdraw_fee_detail
 			  where reseller_withdraw_fee_id = '$id'";
-	$tmp = mysql_query($query) or die (mysql_error());
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
 
-	while($val = mysql_fetch_array($tmp )) {
+	while($val = mysqli_fetch_array($tmp )) {
 		$noSalesOrderId = $val['sales_order_id'];
 
 	    $query = "update sales_order 
 			set status_payment_commision_reseller = '0'
 			where id = '$noSalesOrderId'";
 
-		mysql_query($query) or die (mysql_error());
+		mysqli_query($con, $query) or die (mysqli_error($con));
 	}
 
     $query = "update reseller_withdraw_fee
 		set is_delete = '1'
 		where id = '$id'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 
 	$query = "select id, no_payment
 			  from reseller_withdraw_fee
 			  where id = '$id'";
-	$rst = mysql_query($query) or die (mysql_error());
-	$tmp = mysql_fetch_array($rst);
+	$rst = mysqli_query($con, $query) or die (mysqli_error($con));
+	$tmp = mysqli_fetch_array($rst);
 	$noPayment = $tmp['no_payment'];
 
 	include '../lib/connection-close.php';

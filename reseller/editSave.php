@@ -26,7 +26,7 @@
 		  is_dropshipper = '$isDropshipper'		  
 	    where id = '$id'";		
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	if(strlen($password) > 0) {
 		$password = md5($password); 
@@ -34,7 +34,7 @@
 			set password = '$password'
 		    where id = '$id'";		
 
-		mysql_query($query) or die (mysql_error());
+		mysqli_query($con, $query) or die (mysqli_error($con));
 	}
 
 	include '../lib/connection-close.php';

@@ -9,7 +9,7 @@
 		and type = '1'
 		order by name";
 
-	$data = mysql_query($query);
+	$data = mysqli_query($con, $query);
 
 	include '../lib/connection-close.php';
 ?>

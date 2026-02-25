@@ -66,7 +66,7 @@
 				<tbody>
 					<?php $i=1; ?>
 					<?php $total = 0 ?>
-					<?php while($val = mysql_fetch_array($dataDetail)): ?>
+					<?php while($val = mysqli_fetch_array($dataDetail)): ?>
 						<tr>
 							<td style="padding:5px; font-size:12pt;  border:1px solid black;" align="center" ><?php echo $i ?></td>
 							<td style="padding:5px; font-size:12pt;  border:1px solid black;">
@@ -80,11 +80,11 @@
 											   on s.id = b.stuff_id
 											 where sales_order_detail_id = '{$val['id']}'
 											 order by id asc";
-										$rstDetailBundling = mysql_query($query) or die (mysql_error());
+										$rstDetailBundling = mysqli_query($con, $query) or die (mysqli_error($con));
 										include '../lib/connection-close.php';
 									?>
 									<div style="margin-top: 10px"><b style="font-size: 10px;">Bundling Detail :</b></div>
-									<?php while($dataDetailBundling = mysql_fetch_array($rstDetailBundling)): ?>
+									<?php while($dataDetailBundling = mysqli_fetch_array($rstDetailBundling)): ?>
 										<small style="font-size: 10px"><?php echo $dataDetailBundling['name'] ?> (<?php echo $dataDetailBundling['qty'] ?>),</small>	
 									<?php endwhile; ?>											
 								<?php else: ?>	

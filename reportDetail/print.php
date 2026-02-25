@@ -68,7 +68,7 @@
 					<?php $quantityTotal = 0; ?>
 					<?php $priceTotal = 0; ?>
 					<?php $i=1; ?>
-					<?php while($val = mysql_fetch_array($data)): ?>
+					<?php while($val = mysqli_fetch_array($data)): ?>
 						<tr>
 							<td style="font-size:12pt; padding:5px; border:1px solid black" align="center" valign="top"><?php echo $i ?></td>
 							<td style="font-size:12pt; padding:5px; border:1px solid black" valign="top" align="center">

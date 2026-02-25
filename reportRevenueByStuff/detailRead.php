@@ -49,7 +49,7 @@
 				and (so.date_order >= '$dateFrom' and so.date_order <= '$dateTo')
 			  order by sod.amount desc";	
 
-	$data = mysql_query($query) or die (mysql_error());
+	$data = mysqli_query($con, $query) or die (mysqli_error($con));
 	
 	include '../lib/connection-close.php';
 ?>

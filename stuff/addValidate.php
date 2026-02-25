@@ -11,8 +11,8 @@
 			where sku ='$sku'
 			  and is_delete = '0'";
 
-		$tmp = mysql_query($query) or die (mysql_error());
-		$data = mysql_fetch_array($tmp);
+		$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+		$data = mysqli_fetch_array($tmp);
 
 		if($data['jml'] == 1) {
 			$status = false;

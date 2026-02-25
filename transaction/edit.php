@@ -42,7 +42,7 @@
 				<td>PEMASOK</td>
 				<td>
 					<select name="suplierId" style="width:155px">
-						<?php while($val = mysql_fetch_array($dataSuplier)): ?>
+						<?php while($val = mysqli_fetch_array($dataSuplier)): ?>
 							<option value="<?php echo $val['id'] ?>" <?php echo $val['id'] == (isset($_POST['suplierId']) ? $_POST['suplierId'] : $data['suplier_id']) ? 'selected' : '' ?>><?php echo $val['name'] ?></option>
 						<?php endwhile; ?>
 					</select>
@@ -52,7 +52,7 @@
 				<td>KATEGORI PELANGGAN</td>
 				<td>
 					<select name="clientId" style="width:155px">
-						<?php while($val = mysql_fetch_array($dataClient)): ?>
+						<?php while($val = mysqli_fetch_array($dataClient)): ?>
 							<option value="<?php echo $val['id'] ?>" <?php echo $val['id'] == (isset($_POST['clientId']) ? $_POST['clientId'] : $data['client_id']) ? 'selected' : '' ?>><?php echo $val['name'] ?></option>
 						<?php endwhile; ?>
 					</select>

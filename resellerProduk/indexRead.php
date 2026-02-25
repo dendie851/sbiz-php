@@ -14,8 +14,8 @@
 		  	  where is_delete = '0'
 		  	   and id = '$resellerId' 	 
 			 ";
-	$tmp = mysql_query($query) or die (mysql_error());
-	$dataReseller = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$dataReseller = mysqli_fetch_array($tmp);
 
 	$query = "select rs.id as reseller_stuff_id, s.name, s.price_basic as price_basic_store, s.nickname, s.is_hidden,
 			(select name from const as c where c.id = const_id) as const_name, point, s.price as price_publish,
@@ -29,5 +29,5 @@
 		  and rs.reseller_id = '$resellerId'
 		  and rs.is_delete = '0'
 		order by s.category_id, s.name";
-	$data = mysql_query($query) or die (mysql_error());
+	$data = mysqli_query($con, $query) or die (mysqli_error($con));
 ?>

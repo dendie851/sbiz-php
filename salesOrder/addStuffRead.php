@@ -28,7 +28,7 @@
 			order by name
 			limit $record,25";
 
-		$data = mysql_query($query) or die(mysql_error());
+		$data = mysqli_query($con, $query) or die(mysqli_error($con));
 			
 		$query = "select count(id) as total
 			from stuff		
@@ -38,8 +38,8 @@
 			  $where
 			order by name";
 
-		$dataTotal = mysql_query($query) or die(mysql_error());
-		$total = mysql_fetch_array($dataTotal);
+		$dataTotal = mysqli_query($con, $query) or die(mysqli_error($con));
+		$total = mysqli_fetch_array($dataTotal);
 	} else {
 		$query = "select id, category_id, name, nickname, price, price_basic, 
 			  (select name from stuff_category as sc where sc.id = category_id) as category_name					
@@ -50,7 +50,7 @@
 			 $where
 			limit $record,25";
 
-		$data = mysql_query($query) or die(mysql_error());			
+		$data = mysqli_query($con, $query) or die(mysqli_error($con));			
 
 		$query = "select count(id) as total
 			from stuff_bundling
@@ -60,8 +60,8 @@
 			 $where
 			order by name";
 
-		$dataTotal = mysql_query($query) or die(mysql_error());
-		$total = mysql_fetch_array($dataTotal);
+		$dataTotal = mysqli_query($con, $query) or die(mysqli_error($con));
+		$total = mysqli_fetch_array($dataTotal);
 
 	}	
 
@@ -72,7 +72,7 @@
 		where is_delete = '0'
 		  and id in ($loginAccessCategory)
 		order by name";
-	$dataCategory = mysql_query($query) or die (mysql_error());
+	$dataCategory = mysqli_query($con, $query) or die (mysqli_error($con));
 	
 	include '../lib/connection-close.php';
 ?>

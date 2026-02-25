@@ -72,8 +72,8 @@
 	$query = "select max(no_order) + 1 as no_new
 			  from sales_order 
 			  where substr(no_order,1,2) = '$year'";
-	$tmp = mysql_query($query) or die (mysql_error());
-	$dataNoOrder =  mysql_fetch_array($tmp); 
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$dataNoOrder =  mysqli_fetch_array($tmp); 
 	$noOrder = $dataNoOrder['no_new']; 
 
 	$status_payment_update = '';
@@ -121,7 +121,7 @@
 		  platform_market_fee_percent = '$marketplaceAdminFeePercent'
 		where id = '$id'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	if($isWarehouseExternal == 1) {
 		$query = "update sales_order
@@ -133,7 +133,7 @@
 			  service_option = '$serviceOption',
 			  packing_option = '$packingOption'
 			  where id = '$id'";
-		mysql_query($query) or die (mysql_error());		
+		mysqli_query($con, $query) or die (mysqli_error($con));		
 	} else {
 		$query = "update sales_order
 			  set warehouse_external_id = null,
@@ -141,7 +141,7 @@
 			  service_option = '',			  
 			  packing_option = ''
 			  where id = '$id'";
-		mysql_query($query) or die (mysql_error());				
+		mysqli_query($con, $query) or die (mysqli_error($con));				
 	}	 
 
 	$query = "select sum(amount * price) as total,
@@ -149,8 +149,8 @@
 		from  sales_order_detail
 		where sales_order_id = '$id'";
 		  
-	$qry = mysql_query($query) or die (mysql_error());
-	$tmp = mysql_fetch_array($qry);
+	$qry = mysqli_query($con, $query) or die (mysqli_error($con));
+	$tmp = mysqli_fetch_array($qry);
 
 	$total = $tmp['total'];	
 	$totalBasic = $tmp['total_basic'];	
@@ -160,15 +160,15 @@
 		set amount_sale = '$total',
 		  amount_basic_sale = '$totalBasic'
 		where id = '$id'";
-	mysql_query($query) or die (mysql_error());		
+	mysqli_query($con, $query) or die (mysqli_error($con));		
 
 
 
 	$query = "select id, no_order 
 	          from sales_order 
 			  where id = '$id' ";
-	$tmpSale = mysql_query($query) or die (mysql_error());	
-	$dataSale = mysql_fetch_array($tmpSale);
+	$tmpSale = mysqli_query($con, $query) or die (mysqli_error($con));	
+	$dataSale = mysqli_fetch_array($tmpSale);
 	$historySalesOrderId = $dataSale['id'];
 	$historySalesOrderNoOrder = $dataSale['no_order'];
 
@@ -177,15 +177,15 @@
 		$query = "select id, username
 		          from user
 				  where username = '$userLogin' ";
-		$tmpSale = mysql_query($query) or die (mysql_error());	
-		$dataUser = mysql_fetch_array($tmpSale);
+		$tmpSale = mysqli_query($con, $query) or die (mysqli_error($con));	
+		$dataUser = mysqli_fetch_array($tmpSale);
 		$historyUserId = $dataUser['id'];
 
 		$query = "select id, username
 		          from user
 				  where username = '$userLogin' ";
-		$tmpSale = mysql_query($query) or die (mysql_error());	
-		$dataUser = mysql_fetch_array($tmpSale);
+		$tmpSale = mysqli_query($con, $query) or die (mysqli_error($con));	
+		$dataUser = mysqli_fetch_array($tmpSale);
 		$historyUserId = $dataUser['id'];
 
 		$query = "insert ignore sales_order_history
@@ -196,7 +196,7 @@
 			  user_id  = '$historyUserId'
 			";
 
-		mysql_query($query) or die (mysql_error());				
+		mysqli_query($con, $query) or die (mysqli_error($con));				
 
 
 		$query = "insert ignore sales_order_history
@@ -207,18 +207,18 @@
 			  user_id  = '$historyUserId'
 			";
 
-		mysql_query($query) or die (mysql_error());				
+		mysqli_query($con, $query) or die (mysqli_error($con));				
 	} else {
 		$query = "delete from sales_order_history
 				  where sales_order_id = '$historySalesOrderId'
 			      and activity = '1' ";
-		mysql_query($query) or die (mysql_error());					
+		mysqli_query($con, $query) or die (mysqli_error($con));					
 
 
 		$query = "delete from sales_order_history
 				  where sales_order_id = '$historySalesOrderId'
 			      and activity = '2' ";
-		mysql_query($query) or die (mysql_error());							
+		mysqli_query($con, $query) or die (mysqli_error($con));							
 	}
 
 	include '../lib/connection-close.php';

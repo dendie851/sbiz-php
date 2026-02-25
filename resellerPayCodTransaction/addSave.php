@@ -16,8 +16,8 @@
 	$query = "select concat('CO',max(substr(no_payment,3,8)) + 1) as no_new
 			  from reseller_withdraw_cod 
 			  where substr(no_payment,3,2) = '$year'";
-	$tmp = mysql_query($query) or die (mysql_error());
-	$dataNoOrder =  mysql_fetch_array($tmp); 
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$dataNoOrder =  mysqli_fetch_array($tmp); 
 	$noOrder = $dataNoOrder['no_new']; 
 	
 	if(strlen($noOrder) < 1) {
@@ -34,11 +34,11 @@
 		  date_input = now(),
 		  is_delete = '0'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select max(id) as id from reseller_withdraw_cod ";
-	$tmp = mysql_query($query) or die (mysql_error());
-	$data = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$data = mysqli_fetch_array($tmp);
 	$resellerWithdrawCodId  = $data['id'];
 
 	foreach($salesOrderId as $val) {
@@ -53,13 +53,13 @@
 			  sales_order_number = '$noSalesOrderNumber',
 			  amount_cod_reseller = '$lebiBayarCod'";			  
 
-		mysql_query($query) or die (mysql_error());
+		mysqli_query($con, $query) or die (mysqli_error($con));
 
 	    $query = "update sales_order 
 			set status_payback_cod_reseller = '1'
 			where id = '$noSalesOrderId'";
 
-		mysql_query($query) or die (mysql_error());
+		mysqli_query($con, $query) or die (mysqli_error($con));
 
 	}
 

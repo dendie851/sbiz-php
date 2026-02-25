@@ -8,7 +8,7 @@
 		where is_delete = '0'
 		order by name";
 
-	$data = mysql_query($query);
+	$data = mysqli_query($con, $query);
 
 	include '../lib/connection-close.php';
 ?>

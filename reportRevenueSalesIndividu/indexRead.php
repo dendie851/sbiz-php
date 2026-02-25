@@ -33,7 +33,7 @@
 		  $where
 		group by date_order  
 		order by date_order, total_transaction desc, total_nilai desc";
-	$data = mysql_query($query) or die(mysql_error());	
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));	
 
 	include '../lib/connection-close.php';
 ?>

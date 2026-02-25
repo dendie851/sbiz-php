@@ -9,9 +9,9 @@ div {
 
 <?php $i=1 ?>
 <?php $index=1 ?>
-<?php $jumlahData = mysql_num_rows($data) ?>
+<?php $jumlahData = mysqli_num_rows($data) ?>
 
-<?php while($row = mysql_fetch_array($data)): ?>
+<?php while($row = mysqli_fetch_array($data)): ?>
 	<?php if(($i%2) == 1): ?>
 		<table width="100%" cellpadding="10" cellspacing="10"><tr>
 	<?php endif; ?>					
@@ -30,9 +30,9 @@ div {
 								    where sod.sales_order_id = '$salesOrderId'
 								    order by sod.name asc
 								    ";
-							$tmpProduk = mysql_query($query) or die(mysql_error());
+							$tmpProduk = mysqli_query($con, $query) or die(mysqli_error($con));
 						?>
-						<?php while($rowDetail = mysql_fetch_array($tmpProduk)): ?>
+						<?php while($rowDetail = mysqli_fetch_array($tmpProduk)): ?>
 							<?php if($rowDetail['is_bundling'] == '1'): ?>
 								<div>
 								  (<?php echo $rowDetail['amount'] ?> <?php echo ucfirst(strtolower($rowDetail['satuan'])) ?>) 	
@@ -45,11 +45,11 @@ div {
 										   on s.id = b.stuff_id
 										 where sales_order_detail_id = '{$rowDetail['id']}'
 										 order by id asc";
-									$rstDetailBundling = mysql_query($query) or die (mysql_error());
+									$rstDetailBundling = mysqli_query($con, $query) or die (mysqli_error($con));
 								?>
 								<div style="padding-left: 35px; font-style: italic; font-size: 8px">
 								Bundling Detail :
-								<?php while($dataDetailBundling = mysql_fetch_array($rstDetailBundling)): ?>
+								<?php while($dataDetailBundling = mysqli_fetch_array($rstDetailBundling)): ?>
 									<small style="font-size: 8px"><?php echo $dataDetailBundling['name'] ?> (<?php echo $dataDetailBundling['qty'] ?>),</small>	
 								<?php endwhile; ?>											
 								</div>
@@ -112,9 +112,9 @@ div {
 								    where sod.sales_order_id = '$salesOrderId'
 								    order by sod.name asc
 								    ";
-							$tmpProduk = mysql_query($query) or die(mysql_error());
+							$tmpProduk = mysqli_query($con, $query) or die(mysqli_error($con));
 						?>
-						<?php while($rowDetail = mysql_fetch_array($tmpProduk)): ?>
+						<?php while($rowDetail = mysqli_fetch_array($tmpProduk)): ?>
 							<?php if($rowDetail['is_bundling'] == '1'): ?>
 								<div>
 								  (<?php echo $rowDetail['amount'] ?> <?php echo ucfirst(strtolower($rowDetail['satuan'])) ?>) 	
@@ -127,11 +127,11 @@ div {
 										   on s.id = b.stuff_id
 										 where sales_order_detail_id = '{$rowDetail['id']}'
 										 order by id asc";
-									$rstDetailBundling = mysql_query($query) or die (mysql_error());
+									$rstDetailBundling = mysqli_query($con, $query) or die (mysqli_error($con));
 								?>
 								<div style="padding-left: 35px; font-style: italic; font-size: 8px">
 								Bundling Detail :
-								<?php while($dataDetailBundling = mysql_fetch_array($rstDetailBundling)): ?>
+								<?php while($dataDetailBundling = mysqli_fetch_array($rstDetailBundling)): ?>
 									<small style="font-size: 8px"><?php echo $dataDetailBundling['name'] ?> (<?php echo $dataDetailBundling['qty'] ?>),</small>	
 								<?php endwhile; ?>											
 								</div>

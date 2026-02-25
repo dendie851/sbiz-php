@@ -15,8 +15,8 @@
 	$query = "select name from fin_expenses_revenue
 		  where id = '$componentId'";
 
-	$tmp = mysql_query($query) or die (mysql_error());
-	$rst = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$rst = mysqli_fetch_array($tmp);
 	$componentName = $rst['name'];
 
 	$query = "insert fin_pay_expenses
@@ -30,7 +30,7 @@
 		  description = '$description',
 		  is_delete = '0'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	include '../lib/connection-close.php';
 

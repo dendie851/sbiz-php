@@ -12,8 +12,8 @@
 		from fin_pay_expenses		
 		where is_delete = '0'
 		 and id = '$id'";
-	$tmp = mysql_query($query) or die(mysql_error());
-	$data = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die(mysqli_error($con));
+	$data = mysqli_fetch_array($tmp);
 
 	$query = "select id,name,nominal,type, is_fix 
 		from fin_expenses_revenue
@@ -22,13 +22,13 @@
 		and periode = '1'
 		and id not in ('10','27','28')
 		order by name";
-	$cmbComponent = mysql_query($query) or die (mysql_error());
+	$cmbComponent = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select id,name
 		from fin_source_fund
 		where is_delete = '0'
 		order by name";
-	$cmbSourceFund = mysql_query($query) or die (mysql_error());
+	$cmbSourceFund = mysqli_query($con, $query) or die (mysqli_error($con));
 
 
 	include '../lib/connection-close.php';

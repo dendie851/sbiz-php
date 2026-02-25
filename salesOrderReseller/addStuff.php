@@ -19,7 +19,7 @@
 					<td>
 						<select name="categoryId" style="width:180px">
 							<option value="x">-- Semua --</option>
-							<?php while($val = mysql_fetch_array($dataCategory)): ?>
+							<?php while($val = mysqli_fetch_array($dataCategory)): ?>
 								<option value="<?php echo $val['id'] ?>" <?php echo $val['id'] == (isset($_REQUEST['categoryId']) ? $_REQUEST['categoryId'] : '') ? 'selected' : '' ?>><?php echo $val['name'] ?></option>
 							<?php endwhile; ?>
 						</select>				
@@ -42,7 +42,7 @@
 		</form>
 	</fieldset>
 	<p></p>
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 	 	<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 		</div>		
@@ -60,7 +60,7 @@
 				</thead>
 				<tbody>
 					<?php $i = isset($_REQUEST['SplitRecord']) ? $_REQUEST['SplitRecord'] + 1  : 1  ?>
-					<?php while($val = mysql_fetch_array($data)): ?>
+					<?php while($val = mysqli_fetch_array($data)): ?>
 						<tr>
 							<td align="center"><?php echo $i ?></td>
 							<td align="left">

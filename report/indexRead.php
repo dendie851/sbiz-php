@@ -34,20 +34,20 @@
 		$where		
 		order by sh.date, sh.id ";
 
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 
 	$query = "select id,name 
 		from stuff_category
 		where is_delete = '0'
 		  and id in ($loginAccessCategory)
 		order by name";
-	$dataCategory = mysql_query($query) or die (mysql_error());
+	$dataCategory = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select id,name 
 		from stuff_category
 		where id = '$categoryId'";
-	$tmp = mysql_query($query) or die (mysql_error());
-	$printDataCategory = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$printDataCategory = mysqli_fetch_array($tmp);
 
 	include '../lib/connection-close.php';
 ?>

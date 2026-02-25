@@ -21,8 +21,8 @@
 	$query = "select max(no_order) + 1 as no_new
 			  from sales_order 
 			  where substr(no_order,1,2) = '$year'";
-	$tmp = mysql_query($query) or die (mysql_error());
-	$dataNoOrder =  mysql_fetch_array($tmp); 
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$dataNoOrder =  mysqli_fetch_array($tmp); 
 	$noOrder = $dataNoOrder['no_new']; 
 	
 	if(strlen($noOrder) < 1) {
@@ -40,11 +40,11 @@
 		  tipe_order = '$tipeOrder',
 		  date_order = '$dateOrder'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select max(id) as id from sales_order";
-	$tmp = mysql_query($query) or die (mysql_error());
-	$data = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$data = mysqli_fetch_array($tmp);
 	$salesOrderId  = $data['id'];
 
 	include '../lib/connection-close.php';

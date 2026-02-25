@@ -10,8 +10,8 @@
 		  price_basic, nickname, fee_sales, is_hidden, cost_cs, cost_ops, cost_riset, cost_adv
 		from stuff
 		where id = '$id'";
-	$tmp = mysql_query($query);
-	$dataCopy = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query);
+	$dataCopy = mysqli_fetch_array($tmp);
 
 	$query = "select id,name 
 		from const
@@ -19,13 +19,13 @@
 		and type ='1'
 		order by name";
 
-	$data = mysql_query($query) or die (mysql_error());
+	$data = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select id,name 
 		from location
 		where is_delete = '0'
 		order by name";
-	$dataLocation = mysql_query($query) or die (mysql_error());
+	$dataLocation = mysqli_query($con, $query) or die (mysqli_error($con));
 
 
 	$loginAccessCategory =  substr(str_replace('~',',',$_SESSION['loginAccessCategory']),-1 * (strlen(str_replace('~',',',$_SESSION['loginAccessCategory']))) ).'0';
@@ -35,7 +35,7 @@
 		where is_delete = '0'
 		  and id in ($loginAccessCategory)
 		order by name";
-	$dataCategory = mysql_query($query) or die (mysql_error());
+	$dataCategory = mysqli_query($con, $query) or die (mysqli_error($con));
 
 
 	$categoryIdDefault = '';
@@ -45,7 +45,7 @@
 		$query = "select id, name, concat('') as row_name
 			from stuff_category_sub
 			where stuff_category_id ='$categoryIdDefault'";
-		$dataSubCategory = mysql_query($query) or die (mysql_error());
+		$dataSubCategory = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	} else {
 		if(strlen($_GET['id']) > 0) {
@@ -58,21 +58,21 @@
 				  on sub.id = row.stuff_category_sub_id 		
 				where row.stuff_id = '$stuffIdDefault'
 				  and sub.stuff_category_id = '$categoryIdDefault'";
-			$dataSubCategory = mysql_query($query) or die (mysql_error());
+			$dataSubCategory = mysqli_query($con, $query) or die (mysqli_error($con));
 		} else {
 			$query = "select id,name 
 				from stuff_category
 				where is_delete = '0'
 				  and id in ($loginAccessCategory)
 				order by name";
-			$dataCategoryDefault = mysql_query($query) or die (mysql_error());
-			$rstDataCategoryDefault = mysql_fetch_array($dataCategoryDefault);
+			$dataCategoryDefault = mysqli_query($con, $query) or die (mysqli_error($con));
+			$rstDataCategoryDefault = mysqli_fetch_array($dataCategoryDefault);
 			$categoryIdDefault = $rstDataCategoryDefault['id'];
 
 			$query = "select id, name, concat('') as row_name
 				from stuff_category_sub
 				where stuff_category_id ='$categoryIdDefault'";
-			$dataSubCategory = mysql_query($query) or die (mysql_error());
+			$dataSubCategory = mysqli_query($con, $query) or die (mysqli_error($con));
 		}	
 	}
 

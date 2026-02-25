@@ -10,7 +10,7 @@
 				<td style="font-size:12pt" valign="top"  width="25%"> : <?php echo $keyword ?></td>
 				<td style="font-size:12pt" valign="top"  width="20%">KATEGORI PELANGGAN</td>
 				<td style="font-size:10pt" valign="top">: 
-				   <?php while($val = mysql_fetch_array($dataClient)): ?>
+				   <?php while($val = mysqli_fetch_array($dataClient)): ?>
 				   		<?php echo $val['name'] ?> <br />&nbsp;
 				   <?php endwhile; ?>	
 				</td>
@@ -30,7 +30,7 @@
 			<h3><?php echo message::getMsg('filterData') ?></h3>
 		</div>		
 	<?php else: ?>	
-		<?php if(mysql_num_rows($data) < 1) : ?>
+		<?php if(mysqli_num_rows($data) < 1) : ?>
 			<div class="warning">
 				<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 			</div>		
@@ -50,7 +50,7 @@
 					<tbody>
 						<?php $i=1; ?>
 						<?php $totalBiayaKirim = 0; ?>
-						<?php while($val = mysql_fetch_array($data)): ?>
+						<?php while($val = mysqli_fetch_array($data)): ?>
 							<tr style="height: 0px">
 								<td align="center" style="border:1px solid black"><?php echo $i ?></td>
 								<td align="left"   style="padding:8px; border:1px solid black"><?php echo $val['name'] ?></td>
@@ -67,9 +67,9 @@
 											where cg.customer_id = '$customerId'
 											order by c.name";
 										
-										$tmp = mysql_query($query) or die (mysql_error());
+										$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
 									?>		
-									<?php while($valCategory = mysql_fetch_array($tmp)): ?>
+									<?php while($valCategory = mysqli_fetch_array($tmp)): ?>
 										<?php echo $valCategory['name'] ?>,
 									<?php endwhile; ?>											
 								</td>	
@@ -80,8 +80,8 @@
 									     where replace(replace(so.phone,'-',''),'+','') = '$fullPhoneNumber'
 									     and is_delete = '0'
 									     and status_payment = '1'";
-									$tmpPhoneNumber = mysql_query($query) or die (mysql_error());
-									$rstPhoneNumber = mysql_fetch_array($tmpPhoneNumber);
+									$tmpPhoneNumber = mysqli_query($con, $query) or die (mysqli_error($con));
+									$rstPhoneNumber = mysqli_fetch_array($tmpPhoneNumber);
 			 					?>								
 
 								<?php echo $rstPhoneNumber['total_pembelian'] ?> Transaksi <br />

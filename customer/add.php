@@ -9,7 +9,7 @@
 				<td valign="top">KATEGORI PELANGGAN</td>
 				<td>
 					<select name="categoriId[]" style="width:250px; height:80px" multiple >
-						<?php while($val = mysql_fetch_array($dataCategory)): ?>
+						<?php while($val = mysqli_fetch_array($dataCategory)): ?>
 							<option value="<?php echo $val['id'] ?>" <?php echo isset($_REQUEST['categoriId']) ? in_array($val['id'],$_REQUEST['categoriId'])  ? 'selected' : '' : '' ?> ><?php echo $val['name'] ?></option>
 						<?php endwhile; ?>
 					</select>
@@ -24,7 +24,7 @@
 						<?php echo $dataSalesDefault['name'] ?>
 					<?php else: ?>	
 						<select name="salesId" style="width:200px;">
-							<?php while($val = mysql_fetch_array($dataSales)): ?>
+							<?php while($val = mysqli_fetch_array($dataSales)): ?>
 								<option value="<?php echo $val['id'] ?>" <?php echo isset($_REQUEST['salesId']) ? $val['id'] == $_REQUEST['salesId'] ? 'selected' : '' : '' ?> ><?php echo $val['name'] ?></option>
 							<?php endwhile; ?>
 						</select>

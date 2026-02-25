@@ -9,7 +9,7 @@
 			<td width="30%">KATEGORI</td>
 			<td>
 				<select name="categoryId" >
-					<?php while($val = mysql_fetch_array($dataCategory)): ?>
+					<?php while($val = mysqli_fetch_array($dataCategory)): ?>
 						<option value="<?php echo $val['id'] ?>" <?php echo $val['id'] == (isset($_REQUEST['categoryId']) ? $_REQUEST['categoryId'] : $data['category_id']) ? 'selected' : '' ?>><?php echo $val['name'] ?></option>
 					<?php endwhile; ?>
 				</select>			

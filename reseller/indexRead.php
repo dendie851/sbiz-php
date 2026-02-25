@@ -21,7 +21,7 @@
 			  	   )	
 		  	  $limit
 			 ";
-	$data = mysql_query($query) or die (mysql_error());
+	$data = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select count(r.id) as total
 			  from reseller as r
@@ -31,8 +31,8 @@
 			  	  or (replace(email, ' ', '' ) like '%$keyword%')
 			  	  or (concat(r.	country_code,r.	phone_number) like '%$keyword%'))	
 			 ";
-	$dataTotal = mysql_query($query) or die(mysql_error());
-	$total = mysql_fetch_array($dataTotal);
+	$dataTotal = mysqli_query($con, $query) or die(mysqli_error($con));
+	$total = mysqli_fetch_array($dataTotal);
 
 	$split = new Split('index.php',$total['total'],50,50);
 ?>

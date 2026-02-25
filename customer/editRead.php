@@ -9,16 +9,16 @@
 		date_format(date_input,'%d/%m/%Y') as date_input_frm
 		from customer as c
 		where id = '$id'";
-	$tmp = mysql_query($query) or die (mysql_error());
-	$data = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$data = mysqli_fetch_array($tmp);
 
 	$query = "select cg.id, cg.client_id
 		from customer_group as cg
 		where customer_id = '$id'";
-	$tmp = mysql_query($query) or die (mysql_error());
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$dataCategoryChoose = array();
-	while($row = mysql_fetch_array($tmp)) {
+	while($row = mysqli_fetch_array($tmp)) {
 		$dataCategoryChoose[] = $row['client_id'];
 	}
 
@@ -27,14 +27,14 @@
 		where position_id = '3'
 		order by name";
 
-	$dataSales = mysql_query($query) or die (mysql_error());
+	$dataSales = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select id,name
 		from client
 		where is_delete = '0'
 		order by name";
 
-	$dataCategory = mysql_query($query) or die (mysql_error());
+	$dataCategory = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$loginMemberId = $_SESSION['loginMemberId'];
 	$query = "select id,name 
@@ -42,8 +42,8 @@
 		where id = '$loginMemberId'
 		order by name";
 
-	$tmpSalesDefault = mysql_query($query) or die (mysql_error());
-	$dataSalesDefault = mysql_fetch_array($tmpSalesDefault);
+	$tmpSalesDefault = mysqli_query($con, $query) or die (mysqli_error($con));
+	$dataSalesDefault = mysqli_fetch_array($tmpSalesDefault);
 	
 	include '../lib/connection-close.php';
 ?>

@@ -31,7 +31,7 @@
 	$query = "select id, name
 	          from reseller		
 	          where is_delete = '0'";
-	$cmbClient = mysql_query($query) or die(mysql_error());
+	$cmbClient = mysqli_query($con, $query) or die(mysqli_error($con));
 
 	
 	$query = "select id, no_order, client_id, period_order_id, name, address_shipping, tipe_order, expedition_id,
@@ -54,7 +54,7 @@
 		order by date_order asc, no_order asc, name
 		limit $record,50";
 
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 		
 	$query = "select count(id) as total
 		from sales_order		
@@ -65,8 +65,8 @@
 		  and is_reseller = '1'		   		  
 		  $where";
 
-	$dataTotal = mysql_query($query) or die(mysql_error());
-	$total = mysql_fetch_array($dataTotal);
+	$dataTotal = mysqli_query($con, $query) or die(mysqli_error($con));
+	$total = mysqli_fetch_array($dataTotal);
 
 	$split = new Split('index.php',$total['total'],50,25);
 

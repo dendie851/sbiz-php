@@ -19,7 +19,7 @@
 		$strSalesId = $_REQUEST['strResellerId'];
 		$query = "select id,name from reseller 
 		 		  where id in ($strSalesId)";
-		$resellerName = mysql_query($query) or die(mysql_error());	
+		$resellerName = mysqli_query($con, $query) or die(mysqli_error($con));	
 	} else {
 		$resellerId = isset($_REQUEST['resellerId']) ? $_REQUEST['resellerId'] : array(); 
 		$strResellerId = implode(',',$resellerId); 		
@@ -46,7 +46,7 @@
 		  $where
 		group by reseller_id   
 		order by reseller_name asc, total_transaction desc, total_nilai desc ,total_fee_reseller desc";
-	$data = mysql_query($query) or die(mysql_error());	
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));	
 	*/
 
 	$query = "select sales_order.id, count(sales_order.id) as total_transaction, reseller_id,status_payment_commision_reseller,
@@ -65,11 +65,11 @@
 		  $where
 		group by reseller_id   
 		order by reseller_name asc, total_transaction desc, total_nilai desc ,total_fee_reseller desc";
-	$data = mysql_query($query) or die(mysql_error());	
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));	
 		
 	$query = "select id,name from reseller
 	 		  where is_delete = '0'";
-	$cmbReseller = mysql_query($query) or die(mysql_error());	
+	$cmbReseller = mysqli_query($con, $query) or die(mysqli_error($con));	
 
 	include '../lib/connection-close.php';
 ?>

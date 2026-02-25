@@ -23,7 +23,7 @@
 							<input type="hidden" name="hiddenClientId" value="<?php echo $_REQUEST['clientId'] ?>" 	/>
 							<select name="clientId" style="width:280px" onchange='this.form.submit()'>
 								<option value="0" <?php echo 0 == (isset($_REQUEST['clientId']) ? $_REQUEST['clientId'] : '') ? 'selected' : '' ?>>Bukan Pedagang</option>
-								<?php while($valClient = mysql_fetch_array($cmbClient)): ?>
+								<?php while($valClient = mysqli_fetch_array($cmbClient)): ?>
 										<option value="<?php echo $valClient[0] ?>" <?php echo $valClient[0] == (isset($_REQUEST['clientId']) ? $_REQUEST['clientId'] : '') ? 'selected' : '' ?>><?php echo $valClient[1] ?> - <?php echo $valClient[2] ?></option>								
 								<?php endwhile; ?>
 							</select>				
@@ -34,7 +34,7 @@
 						<td  width="20%" id="periodePemesananLabel" style="">PERIODE PEMESANAN</b>
 						<td style="" id="periodePemesananCmb">
 							<select name="periodeOrderId" style="width:180px">
-								<?php while($val = mysql_fetch_array($dataPeriodeOrder)): ?>
+								<?php while($val = mysqli_fetch_array($dataPeriodeOrder)): ?>
 									<option value="<?php echo $val['id'] ?>" <?php echo $val['id'] == (isset($_REQUEST['periodeOrderId']) ? $_REQUEST['periodeOrderId'] : '') ? 'selected' : '' ?>><?php echo $val['name'] ?></option>
 								<?php endwhile; ?>
 							</select>				

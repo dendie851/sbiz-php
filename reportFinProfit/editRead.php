@@ -10,8 +10,8 @@
 	from fin_profit_loss
 	where id = '$id'";
 
-	$tmp = mysql_query($query) or die (mysql_error());
-	$dataHeader = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$dataHeader = mysqli_fetch_array($tmp);
 
 	$query = "select id, name, nominal,description,fin_expenses_revenue_id
 	from fin_profit_loss_detail		
@@ -20,7 +20,7 @@
 	  and periode = '0'
 	order by name";
 
-	$expensesPerhari = mysql_query($query) or die (mysql_error());
+	$expensesPerhari = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select id, name, nominal,description,fin_expenses_revenue_id
 	from fin_profit_loss_detail		
@@ -29,7 +29,7 @@
 	  and periode = '1'
 	order by name";
 
-	$expensesPerbulan = mysql_query($query) or die (mysql_error());
+	$expensesPerbulan = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select id, name, nominal, description,fin_expenses_revenue_id
 	from fin_profit_loss_detail		
@@ -37,7 +37,7 @@
 	and fin_profit_loss_id = '$id'
 	order by name";
 
-	$revenue = mysql_query($query) or die (mysql_error());
+	$revenue = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	include '../lib/connection-close.php';
 ?>

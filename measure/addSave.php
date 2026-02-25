@@ -9,7 +9,7 @@
 		set name = '$name',
 		  type ='1'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	include '../lib/connection-close.php';
 

@@ -7,12 +7,12 @@
 	$query = "delete from member
 		where id='$id'";
 
-	mysql_query($query);
+	mysqli_query($con, $query);
 
 	$query = "delete from user
 		where member_id='$id'";
 
-	mysql_query($query);
+	mysqli_query($con, $query);
 
 	include '../lib/connection-close.php';
 

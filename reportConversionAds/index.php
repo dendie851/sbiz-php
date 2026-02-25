@@ -58,7 +58,7 @@
 				  <td colspan="2">
 				  	KATEGORI BARANG<br style="margin-bottom: 10px" />
 					<select name="categoryId[]" style="width:100%; height:100px"  multiple>
-						<?php while($val = mysql_fetch_array($dataCategory)): ?>
+						<?php while($val = mysqli_fetch_array($dataCategory)): ?>
 							<option <?php echo in_array($val['id'],$categoryId) ? ' selected ' : '' ?> value="<?php echo $val['id'] ?>" <?php echo $val['id'] == (isset($_REQUEST['categoryId']) ? $_REQUEST['categoryId'] : '') ? 'selected' : '' ?>><?php echo $val['name'] ?></option>
 						<?php endwhile; ?>
 					</select>				

@@ -27,7 +27,7 @@
 					<td valign="top" colspan="2">
 						<div style="margin-bottom: 10px;">RESELLER</div>
 						<select name="resellerId" style="width:100%;"  >
-							<?php while($val = mysql_fetch_array($cmbReseller)): ?>
+							<?php while($val = mysqli_fetch_array($cmbReseller)): ?>
 								<option value="<?php echo $val['id'] ?>" <?php echo $resellerId == $val['id'] ? 'selected' : '' ?>><?php echo strtoupper($val['name']) ?></option>	
 							<?php endwhile; ?>	
 						</select>				
@@ -53,7 +53,7 @@
 			<h3><?php echo message::getMsg('filterData') ?></h3>
 		</div>		
 	<?php else: ?>	
-		<?php if(mysql_num_rows($data) < 1) : ?>
+		<?php if(mysqli_num_rows($data) < 1) : ?>
 			<div class="warning">
 				<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 			</div>		
@@ -86,7 +86,7 @@
 						<?php $totalTransaksi = 0; ?>
 						<?php $totalNilaiJual = 0; ?>
 						<?php $totalKomisi = 0; ?>
-						<?php while($val = mysql_fetch_array($data)): ?>
+						<?php while($val = mysqli_fetch_array($data)): ?>
 							<tr style="cursor:pointer">
 								<td align="center">
 									<input style="cursor:pointer" name="salesOrderId[]" class="chkSalesOrderId" type="checkbox" value="<?php echo $val['id']  ?>-<?php echo $val['no_order']  ?>-<?php echo ($val['amount_reseller_to_customer'] - $val['total_nilai']) ?>" />																			
@@ -142,7 +142,7 @@
 						<td>TUJUAN TRANSFER</td>
 						<td>
 							<select name="resellerBankTo" style="width:100%;"  >
-								<?php while($val = mysql_fetch_array($cmbResellerBank)): ?>
+								<?php while($val = mysqli_fetch_array($cmbResellerBank)): ?>
 									<option value="<?php echo $val['id'] ?>" ><?php echo strtoupper($val['bank_to']) ?></option>	
 								<?php endwhile; ?>	
 							</select>										

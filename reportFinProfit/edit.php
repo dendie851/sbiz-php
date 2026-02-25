@@ -33,7 +33,7 @@
 				</span>			
 			</td>
 		</tr>
-		<?php while($dataRevenue = mysql_fetch_array($revenue)): ?>	
+		<?php while($dataRevenue = mysqli_fetch_array($revenue)): ?>	
 		<tr>
 			<td width="5%">
 				<input type="button" value="HAPUS" onclick="confirm('Anda yakin akan menghapus ?') ? window.location='deleteStuff.php?id=<?php echo $id ?>&finProfitLossDetailId=<?php echo $dataRevenue['id'] ?>&year=<?php echo $_REQUEST['year'] ?>&jumpTo=listRevenue' : false" />
@@ -67,7 +67,7 @@
 				</span>			
 			</td>
 		</tr>
-		<?php while($dataExpenses = mysql_fetch_array($expensesPerhari)): ?>	
+		<?php while($dataExpenses = mysqli_fetch_array($expensesPerhari)): ?>	
 		<tr>
 			<td>
 				<input type="button" value="HAPUS" onclick="confirm('Anda yakin akan menghapus ?') ? window.location='deleteStuff.php?id=<?php echo $id ?>&finProfitLossDetailId=<?php echo $dataExpenses['id'] ?>&year=<?php echo $_REQUEST['year'] ?>&jumpTo=listExpenses' : false" />
@@ -103,7 +103,7 @@
 			</td>
 		</tr>
 
-		<?php while($dataExpenses = mysql_fetch_array($expensesPerbulan)): ?>	
+		<?php while($dataExpenses = mysqli_fetch_array($expensesPerbulan)): ?>	
 			<tr>
 				<td>
 					<input type="button" value="HAPUS" onclick="confirm('Anda yakin akan menghapus ?') ? window.location='deleteStuff.php?id=<?php echo $id ?>&finProfitLossDetailId=<?php echo $dataExpenses['id'] ?>&year=<?php echo $_REQUEST['year'] ?>&jumpTo=listExpenses' : false" />

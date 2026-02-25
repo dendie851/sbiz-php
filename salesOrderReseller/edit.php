@@ -188,7 +188,7 @@
 					<td  rowspan="2" valign="top">
 						<select name="finSourceFundId" style="width:180px">
 							<option value="0">&nbsp;</option>
-							<?php while($valFoundSource = mysql_fetch_array($dataFoundSource)): ?> 
+							<?php while($valFoundSource = mysqli_fetch_array($dataFoundSource)): ?> 
 								<?php $finSourceFundCompare = isset($_REQUEST['finSourceFundId']) ? ($valFoundSource[0].'~'.$valFoundSource[1]) : $valFoundSource[0] ?>
 								<option value="<?php echo $valFoundSource[0] ?>~<?php echo $valFoundSource[1] ?>" <?php echo  $finSourceFundCompare == (isset($_REQUEST['finSourceFundId']) ? $_REQUEST['finSourceFundId'] : $dataHeader['fin_source_fund_id']) ? 'selected' : '' ?>><?php echo $valFoundSource[1] ?></option>								
 							<?php endwhile; ?>
@@ -252,7 +252,7 @@
 					<tbody>
 						<?php $i=1; ?>
 						<?php $total = 0 ?>
-						<?php while($val = mysql_fetch_array($dataDetail)): ?>
+						<?php while($val = mysqli_fetch_array($dataDetail)): ?>
 							<tr>
 								<td align="center"><?php echo $i ?></td>
 								<td>
@@ -318,7 +318,7 @@
 							<td align="center"><input onkeyup="updateTotal(<?php echo $total ?>)" name="costShipping" id="costShipping" style="text-align:center; font-size:15px;  fontheight:30px; width:100px" type="text" value="<?php echo isset($_POST['costShipping']) ? $_POST['costShipping'] : $dataHeader['shipping_cost'] ?>" size="5" /></td>
 							<td align="center">
 								<select name="expeditionId" style="width:150px">
-									<?php while($valExpedition = mysql_fetch_array($cmbExpedition)): ?>
+									<?php while($valExpedition = mysqli_fetch_array($cmbExpedition)): ?>
 										<?php //if($valExpedition[0] == '3'): ?>
 											<option value="<?php echo $valExpedition[0] ?>" <?php echo $valExpedition[0] == (isset($_REQUEST['expeditionId']) ? $_REQUEST['expeditionId'] : $dataHeader['expedition_id']) ? 'selected' : '' ?>><?php echo $valExpedition[1] ?></option>								
 										<?php //endif; ?>															

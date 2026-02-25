@@ -35,7 +35,7 @@
 		order by date_retur desc , no_retur desc
 		limit $record,200";
 
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 
 	$query = "select count(ps.id) as total				
 		from sales_retur as ps
@@ -45,8 +45,8 @@
 		  and (replace(no_retur, ' ', '' ) like '%$keyword%' or replace(no_so , ' ', '' ) like '%$keyword%')
 		  and (date_retur >= '$dateFrom' and date_retur <= '$dateTo')		  
 		  $where";		
-	$dataTotal = mysql_query($query) or die(mysql_error());
-	$total = mysql_fetch_array($dataTotal);
+	$dataTotal = mysqli_query($con, $query) or die(mysqli_error($con));
+	$total = mysqli_fetch_array($dataTotal);
 
 	$split = new Split('index.php',$total['total'],25,25);
 

@@ -28,7 +28,7 @@
 					<td>
 						<select name="componentId"style="width:200px">
 							<option value="x">-- Semua --</option>
-							<?php while($val = mysql_fetch_array($dataComponent)): ?>
+							<?php while($val = mysqli_fetch_array($dataComponent)): ?>
 								<option value="<?php echo $val['id'] ?>" <?php echo $val['id'] == (isset($_REQUEST['componentId']) ? $_REQUEST['componentId'] : '') ? 'selected' : '' ?>><?php echo $val['name'] ?></option>
 							<?php endwhile; ?>
 						</select>				
@@ -44,7 +44,7 @@
 
 	<p><input type="button" value="TAMBAH" onclick="window.location='add.php'" /></p>
 
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 	 	<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 		</div>		
@@ -64,7 +64,7 @@
 				<tbody>
 					<?php $i = isset($_REQUEST['SplitRecord']) ? $_REQUEST['SplitRecord'] + 1  : 1  ?>
 					<?php $total = 0 ?>
-					<?php while($val = mysql_fetch_array($data)): ?>
+					<?php while($val = mysqli_fetch_array($data)): ?>
 						<tr>
 							<td align="center"><?php echo $i ?></td>
 							<td align="center" ><?php echo $val['date_transaction_frm'] ?></td>

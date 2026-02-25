@@ -60,8 +60,8 @@
 				from stuff_category
 				where is_delete = '0'
 				order by name";
-			$tmpCategory = mysql_query($query) or die (mysql_error());
-			while($rowCategory = mysql_fetch_array($tmpCategory)) {
+			$tmpCategory = mysqli_query($con, $query) or die (mysqli_error($con));
+			while($rowCategory = mysqli_fetch_array($tmpCategory)) {
 				$categoryIdChoose = $categoryIdChoose.$rowCategory['id'].',';		
 			}
 			$categoryIdChoose = substr($categoryIdChoose,0,strlen($categoryIdChoose)-1);
@@ -71,8 +71,8 @@
 		from stuff_category
 		where is_delete = '0'
 		order by name";
-	$dataCategory = mysql_query($query) or die (mysql_error());
-	$jmlDataCategory = mysql_num_rows($dataCategory);
+	$dataCategory = mysqli_query($con, $query) or die (mysqli_error($con));
+	$jmlDataCategory = mysqli_num_rows($dataCategory);
 	$where .= in_array(count($categoryId), array(0,$jmlDataCategory)) ? " " : " and s.category_id in ($categoryIdChoose)  ";
 
 	if(count($finSourceFundId) > 0) {
@@ -89,8 +89,8 @@
 				from fin_source_fund
 				where is_delete = '0'
 				order by name";
-			$tmpFinSourceFund = mysql_query($query) or die (mysql_error());
-			while($rowFinSourceFund = mysql_fetch_array($tmpFinSourceFund)) {
+			$tmpFinSourceFund = mysqli_query($con, $query) or die (mysqli_error($con));
+			while($rowFinSourceFund = mysqli_fetch_array($tmpFinSourceFund)) {
 				$rowFinSourceFund['id']; 
 				$finSourceFundIdChoose = $finSourceFundIdChoose.$rowFinSourceFund['id'].',';		
 			}
@@ -102,8 +102,8 @@
 	from fin_source_fund		
 	where is_delete = '0'
 	order by name";
-	$dataFoundSource = mysql_query($query) or die (mysql_error());
-	$jmlDataSourceFund = mysql_num_rows($dataFoundSource); 
+	$dataFoundSource = mysqli_query($con, $query) or die (mysqli_error($con));
+	$jmlDataSourceFund = mysqli_num_rows($dataFoundSource); 
 	$where .= in_array(count($finSourceFundId), array(0,$jmlDataSourceFund)) ? " " : " and fin_source_fund_id in ($finSourceFundIdChoose)  ";
 
 
@@ -305,7 +305,7 @@
 		}	
 	}
 			
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 
 	$whereCategoryPrint .= strlen($categoryIdChoose) > 0 ? " and id in ($categoryIdChoose)" : " ";
 	$query = "select id,name 
@@ -313,7 +313,7 @@
 		where is_delete = '0'
 		  $whereCategoryPrint
 		order by name";
-	$dataCategoryPrint = mysql_query($query) or die (mysql_error());
+	$dataCategoryPrint = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$whereFinSourceFundPrint .= strlen($categoryIdChoose) > 0 ? " and id in ($finSourceFundIdChoose)" : " ";
 	$query = "select id,name 
@@ -321,7 +321,7 @@
 		where is_delete = '0'
 		  $whereFinSourceFundPrint
 		order by name";
-	$dataFinSourceFundPrint = mysql_query($query) or die (mysql_error());
+	$dataFinSourceFundPrint = mysqli_query($con, $query) or die (mysqli_error($con));
 		
 	include '../lib/connection-close.php';
 ?>

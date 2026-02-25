@@ -18,7 +18,7 @@
 						KATEGORI<br />
 						<select name="categoryId" style="width:100%" onchange="window.location='index.php?categoryId='+this.value">
 							<option value="x">-- Semua --</option>
-							<?php while($val = mysql_fetch_array($dataCategory)): ?>
+							<?php while($val = mysqli_fetch_array($dataCategory)): ?>
 								<option value="<?php echo $val['id'] ?>" <?php echo $val['id'] == (isset($_REQUEST['categoryId']) ? $_REQUEST['categoryId'] : '') ? 'selected' : '' ?>><?php echo $val['name'] ?></option>
 							<?php endwhile; ?>
 						</select>				
@@ -28,11 +28,11 @@
 						<input name="keyword" type="text" value="<?php echo $_REQUEST['keyword'] ?>" style="width:100%" /><br />
 					</td>
 				</tr>
-				<?php if(mysql_num_rows($dataSubCategory) > 0): ?>
+				<?php if(mysqli_num_rows($dataSubCategory) > 0): ?>
 				<!--	
 				<tr style="height: 60px">
 				  <?php $irow=1 ?>	
-				  <?php while($row = mysql_fetch_array($dataSubCategory)): ?>
+				  <?php while($row = mysqli_fetch_array($dataSubCategory)): ?>
 					<td <?php echo $irow == 4 ? 'colspan="2"' : '' ?>><?php echo strtoupper($row['name']) ?>&nbsp;
 					  <?php 
 							$query = "select id,name
@@ -40,11 +40,11 @@
 								where stuff_category_sub_id ='{$row['id']}'
 								order by name
 								";
-							$dataSubCategoryRow = mysql_query($query) or die (mysql_error());		
+							$dataSubCategoryRow = mysqli_query($con, $query) or die (mysqli_error($con));		
 					  ?>			
 					  <select name="categorySubRow<?php echo $irow ?>" style="width: 100%">		
 					     <option value="x">Semua</option>
-	 				  <?php while($rowSubCategoryRow = mysql_fetch_array($dataSubCategoryRow)): ?>
+	 				  <?php while($rowSubCategoryRow = mysqli_fetch_array($dataSubCategoryRow)): ?>
 	 				  	 <option value="<?php echo $rowSubCategoryRow['id'] ?>" <?php echo $rowSubCategoryRow['id'] == (isset($_REQUEST['categorySubRow'.$irow]) ? $_REQUEST['categorySubRow'.$irow] : '') ? 'selected' : '' ?>><?php echo $rowSubCategoryRow['name'] ?></option>
 	 				  <?php endwhile; ?>		
 	 				  </select>
@@ -71,7 +71,7 @@
 		<p><input type="button" value="TAMBAH" onclick="window.location='add.php'" /></p>
 	<?php endif; ?>
 
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 	 	<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 		</div>		
@@ -93,7 +93,7 @@
 				</thead>
 				<tbody>
 					<?php $i = isset($_REQUEST['SplitRecord']) ? $_REQUEST['SplitRecord'] + 1  : 1  ?>
-					<?php while($val = mysql_fetch_array($data)): ?>
+					<?php while($val = mysqli_fetch_array($data)): ?>
 						<tr>
 							<td align="center"><?php echo $i ?></td>
 							<td align="left">

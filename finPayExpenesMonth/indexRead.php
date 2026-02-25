@@ -29,7 +29,7 @@
 		 $where
 		order by date_transaction 
 		limit $record,50";
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 	
 	$query = "select count(id) as total
 		from fin_pay_expenses		
@@ -37,8 +37,8 @@
 		 and (date_transaction >= '$dateFrom' and date_transaction <= '$dateTo')		   		  
 		 and periode = '1'
 		 $where";
-	$dataTotal = mysql_query($query) or die(mysql_error());
-	$total = mysql_fetch_array($dataTotal);
+	$dataTotal = mysqli_query($con, $query) or die(mysqli_error($con));
+	$total = mysqli_fetch_array($dataTotal);
 
 	$split = new Split('index.php',$total['total'],25,25);
 
@@ -48,7 +48,7 @@
 		and type = '0'
 		and periode = '1'
 		order by name";
-	$dataComponent = mysql_query($query) or die (mysql_error());
+	$dataComponent = mysqli_query($con, $query) or die (mysqli_error($con));
 	
 	include '../lib/connection-close.php';
 ?>

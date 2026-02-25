@@ -33,14 +33,14 @@
         	<input type="button" value="IMPORT RESELLER" onclick="window.location='../resellerImport/add.php'" />
         </div>
 
-		<?php if(mysql_num_rows($data) > 0) : ?>
+		<?php if(mysqli_num_rows($data) > 0) : ?>
 			<div style="text-align:right">
 				<input type="button" value="PRINT" onclick="window.open('print.php?print=1&keyword=<?php echo $keyword ?>')" />
 				<input type="button" value="EXPORT KE EXCEL" onclick="window.open('excel.php?print=1&keyword=<?php echo $keyword ?>')" />
 			</div>					   
 		<?php endif; ?>
 	</div>   
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 	 	<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 		</div>		
@@ -59,7 +59,7 @@
 				</thead>
 				<tbody>
 					<?php $i = (1 + $record); ?>
-					<?php while($val = mysql_fetch_array($data)): ?>
+					<?php while($val = mysqli_fetch_array($data)): ?>
 						<tr>
 							<td align="center"><?php echo $i ?></td>
 							<td>

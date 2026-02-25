@@ -32,7 +32,7 @@
 		  set status_respon_customer = '$statusAfterSale',
 		  	 status_respon_customer_breakdown = '$statusAfterSaleBreakDown'
 			where id = '$id'";
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 		
 
 	$i = 0;
@@ -45,7 +45,7 @@
 			set customer_respon = '$tmpCustomerRespon',
 			  customer_rate = '$tmpCustomerRatting'
 			where id = '$detailId'";
-		mysql_query($query) or die (mysql_error());		
+		mysqli_query($con, $query) or die (mysqli_error($con));		
 
 
 	    if(isset($_POST['customerResponUploadDelete_'.$detailId])) {
@@ -58,7 +58,7 @@
 			$query = "update sales_order_detail
 				set customer_respon_screenshoot_upload = null
 				where id = '$detailId'";
-			mysql_query($query) or die (mysql_error());		
+			mysqli_query($con, $query) or die (mysqli_error($con));		
 	    }	
 
 	    if($_FILES["customerResponUpload"]["name"][$i]) {
@@ -70,7 +70,7 @@
 				$query = "update sales_order_detail
 					set customer_respon_screenshoot_upload = '$screenshootName'
 					where id = '$detailId'";
-				mysql_query($query) or die (mysql_error());		
+				mysqli_query($con, $query) or die (mysqli_error($con));		
 		   }   
 	    }		
 

@@ -19,7 +19,7 @@
 		$strSalesId = $_REQUEST['strSalesId'];
 		$query = "select id,name from member 
 		 		  where id in ($strSalesId)";
-		$salesName = mysql_query($query) or die(mysql_error());	
+		$salesName = mysqli_query($con, $query) or die(mysqli_error($con));	
 	} else {
 		$salesId = isset($_REQUEST['salesId']) ? $_REQUEST['salesId'] : array(); 
 		$strSalesId = implode(',',$salesId); 		
@@ -41,12 +41,12 @@
 		  $where
 		group by sales_id   
 		order by sales_name, total_transaction desc, total_nilai desc";
-	$data = mysql_query($query) or die(mysql_error());	
-	$cmbSales = mysql_query($query) or die(mysql_error());	
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));	
+	$cmbSales = mysqli_query($con, $query) or die(mysqli_error($con));	
 
 	$query = "select id,name from member 
 	 		  where position_id in (1,3,4,5) order by name";
-	$cmbSales = mysql_query($query) or die(mysql_error());	
+	$cmbSales = mysqli_query($con, $query) or die(mysqli_error($con));	
 
 	include '../lib/connection-close.php';
 ?>

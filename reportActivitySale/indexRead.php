@@ -23,40 +23,40 @@
 				from sales_order
 				where is_delete = '0'
 				  and date_order = '$dateGeneral'";
-			$tmp = mysql_query($query) or die(mysql_error());	
-			$dataOrder = mysql_fetch_array($tmp);
+			$tmp = mysqli_query($con, $query) or die(mysqli_error($con));	
+			$dataOrder = mysqli_fetch_array($tmp);
 
 			$query = "select count(id) as total
 				from sales_order_history
 				where date_format(datetime_track,'%Y-%m-%d') = '$dateGeneral'
 				  and activity = '1'
 				  and is_delete = '0'";
-			$tmp = mysql_query($query) or die(mysql_error());	
-			$dataValidationPayment = mysql_fetch_array($tmp);
+			$tmp = mysqli_query($con, $query) or die(mysqli_error($con));	
+			$dataValidationPayment = mysqli_fetch_array($tmp);
 
 			$query = "select count(id) as total
 				from sales_order_history
 				where date_format(datetime_track,'%Y-%m-%d') = '$dateGeneral'
 				  and activity = '2'
 				  and is_delete = '0'";
-			$tmp = mysql_query($query) or die(mysql_error());	
-			$dataPacking = mysql_fetch_array($tmp);
+			$tmp = mysqli_query($con, $query) or die(mysqli_error($con));	
+			$dataPacking = mysqli_fetch_array($tmp);
 
 			$query = "select count(id) as total
 				from sales_order_history
 				where date_format(datetime_track,'%Y-%m-%d') = '$dateGeneral'
 				  and activity = '3'
 				  and is_delete = '0'";
-			$tmp = mysql_query($query) or die(mysql_error());	
-			$dataShipping = mysql_fetch_array($tmp);
+			$tmp = mysqli_query($con, $query) or die(mysqli_error($con));	
+			$dataShipping = mysqli_fetch_array($tmp);
 
 			$query = "select count(id) as total
 				from sales_order_history
 				where date_format(datetime_track,'%Y-%m-%d') = '$dateGeneral'
 				  and activity = '5'
 				  and is_delete = '0'";
-			$tmp = mysql_query($query) or die(mysql_error());	
-			$dataDeleteOrder = mysql_fetch_array($tmp);
+			$tmp = mysqli_query($con, $query) or die(mysqli_error($con));	
+			$dataDeleteOrder = mysqli_fetch_array($tmp);
 
 			$dataSum[$dateGeneral]['order'] = $dataOrder['total'];
 			$dataSum[$dateGeneral]['validationPayment'] = $dataValidationPayment['total'];

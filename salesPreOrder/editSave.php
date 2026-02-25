@@ -37,8 +37,8 @@
 	$query = "select max(no_order) + 1 as no_new
 			  from sales_order 
 			  where substr(no_order,1,2) = '$year'";
-	$tmp = mysql_query($query) or die (mysql_error());
-	$dataNoOrder =  mysql_fetch_array($tmp); 
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$dataNoOrder =  mysqli_fetch_array($tmp); 
 	$noOrder = $dataNoOrder['no_new']; 
 	
 	$query = "update sales_order
@@ -63,15 +63,15 @@
 		  no_resi = '$noResi'
 			where id = '$id'";
 	
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select sum(amount * price) as total,
 		  sum(amount * price_basic) as total_basic 
 		from  sales_order_detail
 		where sales_order_id = '$id'";
 		  
-	$qry = mysql_query($query) or die (mysql_error());
-	$tmp = mysql_fetch_array($qry);
+	$qry = mysqli_query($con, $query) or die (mysqli_error($con));
+	$tmp = mysqli_fetch_array($qry);
 
 	$total = $tmp['total'];	
 	$totalBasic = $tmp['total_basic'];	
@@ -80,7 +80,7 @@
 		set amount_sale = '$total',
 		  amount_basic_sale = '$totalBasic'
 		where id = '$id'";
-	mysql_query($query) or die (mysql_error());		
+	mysqli_query($con, $query) or die (mysqli_error($con));		
 
 	include '../lib/connection-close.php';
 

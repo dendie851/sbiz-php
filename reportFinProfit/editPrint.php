@@ -16,7 +16,7 @@
 			<td width="30%" style="font-size:18px; padding:5px" colspan="4"><b>PENDAPATAN</b></td>
 			<td	>&nbsp;</td>
 		</tr>
-		<?php while($dataRevenue = mysql_fetch_array($revenue)): ?>	
+		<?php while($dataRevenue = mysqli_fetch_array($revenue)): ?>	
 		<tr>
 			<td width="53%" style="font-size:16px; padding:5px 5px 5px 25px " align="left">
 				<?php echo $dataRevenue['name'] ?>
@@ -41,7 +41,7 @@
 			<td width="30%" style="font-size:18px; padding:5px" colspan="4"><b>BIAYA KELOMPOK PERHARI</b></td>
 			<td	>&nbsp;</td>
 		</tr>
-		<?php while($dataExpenses = mysql_fetch_array($expensesPerhari)): ?>	
+		<?php while($dataExpenses = mysqli_fetch_array($expensesPerhari)): ?>	
 		<tr>
 			<td colspan="2" style="font-size:16px; padding:5px 5px 5px 25px ">
 				<?php echo $dataExpenses['name'] ?>
@@ -69,7 +69,7 @@
 			<td	>&nbsp;</td>
 		</tr>
 
-		<?php while($dataExpenses = mysql_fetch_array($expensesPerbulan)): ?>	
+		<?php while($dataExpenses = mysqli_fetch_array($expensesPerbulan)): ?>	
 			<tr>
 				<td colspan="2" style="font-size:16px; padding:5px 5px 5px 25px "><?php echo $dataExpenses['name'] ?>
 				</td>

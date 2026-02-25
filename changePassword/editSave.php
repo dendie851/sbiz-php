@@ -13,7 +13,7 @@
 		set password = '$passwordNew'
 		where username='$username'";
 
-	mysql_query($query);
+	mysqli_query($con, $query);
 
 	include '../lib/connection-close.php';
 

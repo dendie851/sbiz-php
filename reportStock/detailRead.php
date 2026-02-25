@@ -11,8 +11,8 @@
 		from stuff
 		where id = '$stuffId'";
 
-	$tmp = mysql_query($query);
-	$dataStuff = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query);
+	$dataStuff = mysqli_fetch_array($tmp);
 
 	$query = "select sh.id, sh.stuff_id, sh.tipe, sh.amount, sh.description, date_format(sh.date,'%d %M %Y') as date, s.name,
 		   (select c.name from const as c where c.id = s.const_id) as const_name,
@@ -26,7 +26,7 @@
 		order by sh.date desc, id desc
 		limit 0,50";
 
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 
 
 	include '../lib/connection-close.php';

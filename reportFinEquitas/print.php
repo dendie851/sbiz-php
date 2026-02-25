@@ -9,7 +9,7 @@
 			<h3><?php echo message::getMsg('filterData') ?></h3>
 		</div>		
 	<?php else: ?>	
-		<?php if(mysql_num_rows($data) < 1) : ?>
+		<?php if(mysqli_num_rows($data) < 1) : ?>
 			<div class="warning">
 				<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 			</div>		
@@ -29,7 +29,7 @@
 						<?php $i=1; ?>
 						<?php $totalDanaMasuk = 0; ?>
 						<?php $totalDanaKeluar = 0; ?>	
-						<?php while($val = mysql_fetch_array($data)): ?>
+						<?php while($val = mysqli_fetch_array($data)): ?>
 							<tr>
 								<td style="padding:5px; border:1px solid black; font-size:12pt" align="center"><?php echo $i ?></td>
 								<td style="padding:5px; border:1px solid black; font-size:12pt" align="center" style="text-align:left; padding-left:5px">

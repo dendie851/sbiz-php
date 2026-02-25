@@ -9,8 +9,8 @@
 	$query = "select * from district
 	  where id = '$districtsId'";
 
-	$tmp = mysql_query($query) or die (mysql_error());
-	$dataDistricts = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$dataDistricts = mysqli_fetch_array($tmp);
 	$city = $dataDistricts['city'];
 	$province = $dataDistricts['province'];
 	$districts = $dataDistricts['name'];
@@ -23,7 +23,7 @@
 		  city = '$city',
 		  districts = '$districts'
 		where id = '$id'";
-	mysql_query($query) or die (mysql_error());	
+	mysqli_query($con, $query) or die (mysqli_error($con));	
 
 	include '../lib/connection-close.php';
 	

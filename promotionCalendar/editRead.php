@@ -11,15 +11,15 @@
 		from promotion_calendar		
 		where is_delete = '0'
 		 and id = '$id'";
-	$tmp = mysql_query($query) or die(mysql_error());
-	$data = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die(mysqli_error($con));
+	$data = mysqli_fetch_array($tmp);
 
 	$query = "select id, platform_market_id	  
 		from  promotion_calendar_platform_market	
 		where promotion_calender_id = '$id'";
-	$tmp = mysql_query($query) or die(mysql_error());
+	$tmp = mysqli_query($con, $query) or die(mysqli_error($con));
 	$dataPlatformMarketId = array();
-	while($val = mysql_fetch_array($tmp)){
+	while($val = mysqli_fetch_array($tmp)){
 		$dataPlatformMarketId[] = $val['platform_market_id'];
 	}
 
@@ -27,7 +27,7 @@
 		from platform_market
 		where is_delete = '0'
 		order by name";
-	$cmbPlatformMarket = mysql_query($query) or die (mysql_error());
+	$cmbPlatformMarket = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	include '../lib/connection-close.php';
 ?>

@@ -13,8 +13,8 @@
 		from stuff_bundling
 		where id = '$id'";
 
-	$tmp = mysql_query($query);
-	$data = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query);
+	$data = mysqli_fetch_array($tmp);
 
 	$loginAccessCategory =  substr(str_replace('~',',',$_SESSION['loginAccessCategory']),-1 * (strlen(str_replace('~',',',$_SESSION['loginAccessCategory']))) ).'0';
 
@@ -24,7 +24,7 @@
 		  and id in ($loginAccessCategory)
 		order by name";
 
-	$dataCategory = mysql_query($query) or die (mysql_error());	
+	$dataCategory = mysqli_query($con, $query) or die (mysqli_error($con));	
 
 	include '../lib/connection-close.php';
 ?>

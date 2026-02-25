@@ -20,7 +20,7 @@
 		$salesId = explode(',',$_REQUEST['strSalesId']);
 		$strSalesId = $_REQUEST['strSalesId'];
 		$query = "select id,name from member";
-		$salesName = mysql_query($query) or die(mysql_error());	
+		$salesName = mysqli_query($con, $query) or die(mysqli_error($con));	
 	} else {
 		$salesId = isset($_REQUEST['salesId']) ? $_REQUEST['salesId'] : array(); 
 		$strSalesId = implode(',',$salesId); 		
@@ -42,12 +42,12 @@
 		  $where
 		group by substring(phone, 3, length(phone))  
 		order by total_transaction desc, total_nilai desc, name, phone" ;
-	$data = mysql_query($query) or die(mysql_error());	
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));	
 	
 	/*	
 	$query = "select id,name from member 
 	 		  where position_id in (1,3)";
-	$cmbSales = mysql_query($query) or die(mysql_error());	
+	$cmbSales = mysqli_query($con, $query) or die(mysqli_error($con));	
 	*/
 
 	include '../lib/connection-close.php';

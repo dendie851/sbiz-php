@@ -39,7 +39,7 @@
 			from stuff_category
 			where is_delete = '0'
 			order by name";
-		$dataCategory = mysql_query($query) or die (mysql_error());	
+		$dataCategory = mysqli_query($con, $query) or die (mysqli_error($con));	
 	*/
 
 	if( (strlen($dateFrom) > 8) && strlen($dateTo) > 8) { 	
@@ -77,10 +77,10 @@
 				where is_delete = '0'
 				and is_delete = '0'
 				order by date_transaction";
-			$dataPromo = mysql_query($query) or die (mysql_error());	
+			$dataPromo = mysqli_query($con, $query) or die (mysqli_error($con));	
 
 			$dataSetPromo = array();
-			while ($rowPromo = mysql_fetch_array($dataPromo)) {
+			while ($rowPromo = mysqli_fetch_array($dataPromo)) {
 				$dataSetPromoName = strtoupper(trim($rowPromo['name']));
 
 				if(empty($dataSetPromo[$rowPromo['date_transaction']])) {
@@ -97,10 +97,10 @@
 				where is_delete = '0'
 				  and is_marketplace = '1'
 				order by name";
-			$dataMarketPlace = mysql_query($query) or die (mysql_error());
+			$dataMarketPlace = mysqli_query($con, $query) or die (mysqli_error($con));
 
 			$dataSetMarketPlace = array();
-			while ($rowMarketPlace = mysql_fetch_array($dataMarketPlace)) {
+			while ($rowMarketPlace = mysqli_fetch_array($dataMarketPlace)) {
 				$dataSetMarketPlaceId = $rowMarketPlace['id'];
 				$dataSetMarketPlaceName = strtoupper(trim($rowMarketPlace['name']));
 
@@ -114,9 +114,9 @@
 					group by so.date_order
 					order by date_order asc";
 
-				$tmp = mysql_query($query) or die (mysql_error());
-				if(mysql_num_rows($tmp) > 0) {
-					while ($row = mysql_fetch_array($tmp)) {    
+				$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+				if(mysqli_num_rows($tmp) > 0) {
+					while ($row = mysqli_fetch_array($tmp)) {    
 					  $platform_market_id = !empty($row['platform_market_id']) ? $row['platform_market_id'] : 0;
 				   	  $dataSetMarketPlace[$dataSetMarketPlaceId.'~'.$dataSetMarketPlaceName][$row['date_order']] = ['total_revenue' => $row['total_revenue'], 'total_qyt' => $row['qty_total'], 'total_trx' => $row['total_trx']];
 				    }
@@ -136,8 +136,8 @@
 				group by so.date_order
 				order by date_order asc";
 
-			$tmp = mysql_query($query) or die (mysql_error());
-			while ($row = mysql_fetch_array($tmp)) {
+			$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+			while ($row = mysqli_fetch_array($tmp)) {
 			  $platform_market_id = !empty($row['platform_market_id']) ? $row['platform_market_id'] : 0;
 		   	  $dataSetMarketPlace['0~LAIN-LAIN'][$row['date_order']] = ['total_revenue' => $row['total_revenue'], 'total_qyt' => $row['qty_total'], 'total_trx' => $row['total_trx']];
 		    }
@@ -152,10 +152,10 @@
 				and periode = '0'
 				and is_show_report_convertion_adds  = '1'
 				order by name";
-			$dataAds = mysql_query($query) or die (mysql_error());	
+			$dataAds = mysqli_query($con, $query) or die (mysqli_error($con));	
 
 			$dataSetAds = array();
-			while ($rowAds = mysql_fetch_array($dataAds)) {
+			while ($rowAds = mysqli_fetch_array($dataAds)) {
 				$dataSetAdsId = $rowAds['id'];
 				$dataSetAdsName = strtoupper(trim($rowAds['name']));
 
@@ -168,9 +168,9 @@
 					group by date_transaction
 					order by date_transaction";
 
-				$tmp = mysql_query($query) or die (mysql_error());
-				if(mysql_num_rows($tmp) > 0) {
-					while ($row = mysql_fetch_array($tmp)) {    
+				$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+				if(mysqli_num_rows($tmp) > 0) {
+					while ($row = mysqli_fetch_array($tmp)) {    
 				   	  $dataSetAds[$dataSetAdsId.'~'.$dataSetAdsName][$row['date_transaction']] = ['total_ads' => $row['total_ads']];
 				    }
 				} else {

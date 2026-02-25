@@ -15,7 +15,7 @@
 				<td width="30%">KATEGORI</td>
 				<td>
 					<select name="categoryId" style="width:90%" onchange="window.location='add.php?id=<?php echo $id ?>&categoryId='+this.value">
-						<?php while($val = mysql_fetch_array($dataCategory)): ?>
+						<?php while($val = mysqli_fetch_array($dataCategory)): ?>
 							<option value="<?php echo $val['id'] ?>" <?php echo $val['id'] == (isset($_REQUEST['categoryId']) ? $_REQUEST['categoryId'] : $dataCopy['category_id']) ? 'selected' : '' ?>><?php echo $val['name'] ?></option>
 						<?php endwhile; ?>
 					</select>				
@@ -23,7 +23,7 @@
 				</td>
 			</tr>
 			<?php $i = 1 ?>
-			<?php while($row = mysql_fetch_array($dataSubCategory)): ?>
+			<?php while($row = mysqli_fetch_array($dataSubCategory)): ?>
 				<tr>
 					<td valign="top">SUB KATEGORI <?php echo strtoupper($row['name']) ?></td>
 					<td>
@@ -128,7 +128,7 @@
 				<td>SATUAN PERSEDIAAN</td>
 				<td>
 					<select name="constId">
-						<?php while($val = mysql_fetch_array($data)): ?>
+						<?php while($val = mysqli_fetch_array($data)): ?>
 							<option value="<?php echo $val['id'] ?>" <?php echo $val['id'] == (isset($_POST['constId']) ? $_POST['constId'] : $dataCopy['const_id']) ? 'selected' : '' ?>><?php echo $val['name'] ?></option>
 						<?php endwhile; ?>
 					</select>
@@ -138,7 +138,7 @@
 				<td>LOKASI PENYIMPANAN</td>
 				<td>
 					<select name="locationId">
-						<?php while($val = mysql_fetch_array($dataLocation)): ?>
+						<?php while($val = mysqli_fetch_array($dataLocation)): ?>
 							<option value="<?php echo $val['id'] ?>" <?php echo ($val['id'] == isset($_POST['locationId']) ? $_POST['locationId'] : $dataCopy['location_id']) ? 'selected' : '' ?> ><?php echo $val['name'] ?></option>
 						<?php endwhile; ?>
 					</select>

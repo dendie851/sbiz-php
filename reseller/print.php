@@ -13,7 +13,7 @@
 	</fieldset>
 	<p></p>
 	<br />
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 		<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 		</div>		
@@ -31,7 +31,7 @@
 				<tbody>
 					<?php $i=1; ?>
 					<?php $totalBiayaKirim = 0; ?>
-					<?php while($val = mysql_fetch_array($data)): ?>
+					<?php while($val = mysqli_fetch_array($data)): ?>
 						<tr style="height: 0px">
 							<td align="center" style="border:1px solid black"><?php echo $i ?></td>
 							<td align="left"   style="padding:8px; border:1px solid black"><?php echo $val['name'] ?></td>

@@ -9,8 +9,8 @@
 		from stuff_history
 		where id='$id'";
 
-	$tmp = mysql_query($query) or die (mysql_error());
-	$data = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$data = mysqli_fetch_array($tmp);
 
 	$stuffId = $data['stuff_id'];
 	$amount = $data['amount'];
@@ -20,7 +20,7 @@
 		set is_delete = '1'
 		where id='$id'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	if($tipe != 2) {
 		$query = "update stuff
@@ -28,7 +28,7 @@
 			where id='$stuffId'";
 	}
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	include '../lib/connection-close.php';
 

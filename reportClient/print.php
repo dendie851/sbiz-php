@@ -22,7 +22,7 @@
 			<h3><?php echo message::getMsg('filterData') ?></h3>
 		</div>		
 	<?php else: ?>	
-		<?php if(mysql_num_rows($data) < 1) : ?>
+		<?php if(mysqli_num_rows($data) < 1) : ?>
 			<div class="warning">
 				<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 			</div>		
@@ -45,7 +45,7 @@
 						<?php $totalDiskon = 0; ?>
 						<?php $totalLaba = 0; ?>
 						<?php $totalBiayaKirim = 0; ?>
-						<?php while($val = mysql_fetch_array($data)): ?>
+						<?php while($val = mysqli_fetch_array($data)): ?>
 							<tr>
 								<td align="center" style="padding:5px; font-size:12pt; border:1px solid black"><?php echo $i ?></td>
 								<td align="center" style="padding:5px; font-size:12pt; border:1px solid black"><?php echo $val['name'] ?></td>

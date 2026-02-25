@@ -25,7 +25,7 @@
 		group by s.id
 		order by amount_total desc, s.category_id, s.name";
 
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 
 	$query = "select id, name
 	from period_order		
@@ -33,14 +33,14 @@
 	 and is_status = '0'
 	order by name";
 
-	$dataPeriodeOrder = mysql_query($query) or die (mysql_error());	
+	$dataPeriodeOrder = mysqli_query($con, $query) or die (mysqli_error($con));	
 	
 	$query = "select id, name, date_format(date_start,'%d/%m/%Y') as date_start,date_format(date_end,'%d/%m/%Y') as date_end	
 	from period_order		
 	where id= '$periodeOrderId'";
 
-	$tmp = mysql_query($query) or die (mysql_error());	
-	$periodeName = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));	
+	$periodeName = mysqli_fetch_array($tmp);
 	
 	include '../lib/connection-close.php';
 ?>

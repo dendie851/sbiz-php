@@ -31,7 +31,7 @@
 		Data dibawah ini adalah <big style="font-size:14px">PENJUALAN</big> yang belum dilakukan <big style="font-size:14px">VALIDASI PEMBAYARAN COD</b>
 	</div>	
 
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 	 	<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 		</div>		
@@ -64,7 +64,7 @@
 					</thead>
 					<tbody>
 						<?php $i=1; ?>
-						<?php while($val = mysql_fetch_array($data)): ?>
+						<?php while($val = mysqli_fetch_array($data)): ?>
 							<tr style="cursor:pointer">
 								<td align="center">
 									<input class="bigCheckBox" style="cursor:pointer" name="salesOrderId[]" type="checkbox" value="<?php echo $val['id'] ?>" />

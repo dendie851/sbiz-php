@@ -11,7 +11,7 @@
 						<td valign="top">
 							TAHUN LAPORAN LABA - RUGI &nbsp;&nbsp;   
 							<select name="year" style="width:200px; height:30px">
-								<?php while($val = mysql_fetch_array($cmbYear)): ?>
+								<?php while($val = mysqli_fetch_array($cmbYear)): ?>
 									<option value="<?php echo $val['year'] ?>" <?php echo $val['year'] == (isset($_REQUEST['year']) ? $_REQUEST['year'] : $year) ? 'selected' : '' ?>><?php echo $val['year'] ?></option>
 								<?php endwhile; ?>
 							</select>&nbsp;&nbsp;
@@ -38,7 +38,7 @@
 			</td>
 		</tr>
 	</table>	
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 	 	<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 		</div>		
@@ -61,7 +61,7 @@
 					
 					<?php $i=1; ?>
 					<?php $month = array('Januari', 'Februari', 'Maret', 'April', 'Mei','Juni','Juli','Agustus','September','Oktober','November','Desember') ?>
-					<?php while($val = mysql_fetch_array($data)): ?>
+					<?php while($val = mysqli_fetch_array($data)): ?>
 						<tr>
 							<td align="center"><?php echo $month[($val['month']-1)] ?></td>
 							<td align="center"><?php echo number_format($val['total_expenses'],0,'','.') ?></td>
@@ -80,8 +80,8 @@
 											from fin_equitas
 											where  fin_profit_loss_id = '{$val['id']}'";
 									
-									$tmpCek = mysql_query($query) or die (mysql_error());
-									$aryCek = mysql_fetch_array($tmpCek);												
+									$tmpCek = mysqli_query($con, $query) or die (mysqli_error($con));
+									$aryCek = mysqli_fetch_array($tmpCek);												
 								?>
 								<input type="button" value="HAPUS" onclick="confirm('Anda yakin akan menghapus ?') ? window.location='delete.php?id=<?php echo $val['id'] ?>&year=<?php echo $year ?>' : false" />
 							</td>

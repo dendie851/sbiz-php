@@ -12,8 +12,8 @@
 				$query = "select id, no_order, warehouse_external_id, is_warehouse_external 
 				          from sales_order 
 						  where id = '$val' ";
-				$tmpSale = mysql_query($query) or die (mysql_error());	
-				$dataSale = mysql_fetch_array($tmpSale);
+				$tmpSale = mysqli_query($con, $query) or die (mysqli_error($con));	
+				$dataSale = mysqli_fetch_array($tmpSale);
 				$historySalesOrderId = $dataSale['id'];
 				$historySalesOrderNoOrder = $dataSale['no_order'];
 				$isWarehouseExternal = $dataSale['is_warehouse_external'];
@@ -23,20 +23,20 @@
 					set status_order = '$updateStatusOrder',
 					  status_payment = '1'
 					where id = '$val'";
-				mysql_query($query) or die (mysql_error());	
+				mysqli_query($con, $query) or die (mysqli_error($con));	
 
 				$query = "select id, username
 				          from user
 						  where username = '$userLogin' ";
-				$tmpSale = mysql_query($query) or die (mysql_error());	
-				$dataUser = mysql_fetch_array($tmpSale);
+				$tmpSale = mysqli_query($con, $query) or die (mysqli_error($con));	
+				$dataUser = mysqli_fetch_array($tmpSale);
 				$historyUserId = $dataUser['id'];
 
 				$query = "select id, username
 				          from user
 						  where username = '$userLogin' ";
-				$tmpSale = mysql_query($query) or die (mysql_error());	
-				$dataUser = mysql_fetch_array($tmpSale);
+				$tmpSale = mysqli_query($con, $query) or die (mysqli_error($con));	
+				$dataUser = mysqli_fetch_array($tmpSale);
 				$historyUserId = $dataUser['id'];
 
 				$query = "insert sales_order_history
@@ -50,13 +50,13 @@
 					  user_id  = '$historyUserId'
 					";
 					
-				mysql_query($query) or die (mysql_error());	
+				mysqli_query($con, $query) or die (mysqli_error($con));	
 			} else {
 				/*
 				$query = "update sales_order
 					set status_payment = '0'
 					where id = '$val'";
-				mysql_query($query) or die (mysql_error());				
+				mysqli_query($con, $query) or die (mysqli_error($con));				
 				*/
 			}
 		} 

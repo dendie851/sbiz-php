@@ -17,8 +17,8 @@
 		where username = '$username'
 		and username != '$usernameHidden'";
 
-	$tmp = mysql_query($query);
-	$data = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query);
+	$data = mysqli_fetch_array($tmp);
 
 	if($data['jml'] > 0) {
 		$status = false;

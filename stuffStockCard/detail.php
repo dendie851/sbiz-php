@@ -39,7 +39,7 @@
 	<p>
 		<b>Keterangan</b> : Data yang ditampilkan adalah <b>50</b> buah transaksi terakhir.
 	</p>
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 	 	<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 		</div>		
@@ -61,7 +61,7 @@
 					<?php $quantityTotal = 0; ?>
 					<?php $priceTotal = 0; ?>
 					<?php $i=1; ?>
-					<?php while($val = mysql_fetch_array($data)): ?>
+					<?php while($val = mysqli_fetch_array($data)): ?>
 						<tr>
 							<td align="center" valign="top"><?php echo $i ?></td>
 							<td valign="top" align="center">

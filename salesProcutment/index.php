@@ -11,13 +11,13 @@
 					PERIODE PEMESANAN 
 					<select name="periodeOrderId" style="width:200px; height:30px" onchange="this.form.submit()">
 							<option value="x" <?php echo 'x' == (isset($_REQUEST['periodeOrderId']) ? $_REQUEST['periodeOrderId'] : '') ? 'selected' : '' ?>>Semua</option>
-						<?php while($val = mysql_fetch_array($dataPeriodeOrder)): ?>
+						<?php while($val = mysqli_fetch_array($dataPeriodeOrder)): ?>
 							<option value="<?php echo $val['id'] ?>" <?php echo $val['id'] == (isset($_REQUEST['periodeOrderId']) ? $_REQUEST['periodeOrderId'] : '') ? 'selected' : '' ?>><?php echo $val['name'] ?></option>
 						<?php endwhile; ?>
 					</select>						
 				</td>
 				<td align="right">
-						<?php if(mysql_num_rows($data) > 0) : ?>
+						<?php if(mysqli_num_rows($data) > 0) : ?>
 							<input type="button" value="PRINT" onclick="window.open('print.php?periodeOrderId=<?php echo $periodeOrderId ?>')" />
 						<?php endif; ?>	
 				</td>
@@ -30,7 +30,7 @@
 		</div>		
 	<?php endif ?>
 
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 	 	<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 		</div>		
@@ -51,7 +51,7 @@
 				<tbody>
 					<?php $i = 1 ?>
 					<?php $totalBiayaKurangStok = 0 ?>
-					<?php while($val = mysql_fetch_array($data)): ?>
+					<?php while($val = mysqli_fetch_array($data)): ?>
 						<tr style="">
 							<td align="center" style="color:white; font-weight:bold; background-color:gray"><?php echo $i ?></td>
 							<td width="280" style="color:white; font-weight:bold; background-color:gray">
@@ -94,7 +94,7 @@
 										  where sod.stuff_id = '$stuffId'
 										  order by sod.amount desc";
 
-								$dataSub = mysql_query($query) or die(mysql_error().'asd');
+								$dataSub = mysqli_query($con, $query) or die(mysqli_error($con).'asd');
 
 							?>				
 								<table width="100%">
@@ -108,7 +108,7 @@
 									<?php $j=1 ?>
 									<tbody>
 									
-									<?php while($rowdataSub = mysql_fetch_array($dataSub)): ?>
+									<?php while($rowdataSub = mysqli_fetch_array($dataSub)): ?>
 										<tr>
 											<td style="font-size:12px"  align="center"><?php echo $i.'.'.$j ?></td>
 											<td style="font-size:12px"  align="center"><a target="_blank" href="../salesOrder/print.php?id=<?php echo $rowdataSub['id'] ?>"><?php echo $rowdataSub['no_order'] ?></a></td>

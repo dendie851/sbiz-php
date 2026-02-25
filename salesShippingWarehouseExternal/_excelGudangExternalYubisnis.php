@@ -28,7 +28,7 @@
 		where s.is_delete = '0'
 		  and s.id in ($salesOrderIdStr)		
 		order by s.date_order, s.no_order, s.name";
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 
 	$objPHPExcel = new PHPExcel();
 	$objPHPExcel->getSheet(0)->setTitle('Pengiriman');		
@@ -67,7 +67,7 @@
 	$objPHPExcel->getSheet(0)->getColumnDimension('N')->setWidth(23);
 	
 	$row = 2;
-	while($val = mysql_fetch_array($data)) {
+	while($val = mysqli_fetch_array($data)) {
 		if(substr($val['phone'],0,2) == '62') {
 		  $phoneNew = '0'.substr($val['phone'],2);
 		} else {
@@ -124,7 +124,7 @@
 	}
 
 	$query = "select * from warehouse_external where is_delete = '0' order by code";
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 	
 	//$objWorkSheet = $objPHPExcel->createSheet();
 	//$objPHPExcel->addSheet($objWorkSheet);	
@@ -134,7 +134,7 @@
 	$objPHPExcel->getSheet(1)->getStyle('A1')->getFont()->setBold(true);
 
 	$row = 2;
-	while($val = mysql_fetch_array($data)) {	
+	while($val = mysqli_fetch_array($data)) {	
 	  $objPHPExcel->getSheet(1)->setCellValue('A'.$row, strtoupper($val['code']));
 	  $row++;
 	}

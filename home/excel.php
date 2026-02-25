@@ -20,7 +20,7 @@
 					</thead>
 					<tbody>
 						<?php $i=1; ?>
-						<?php while($val = mysql_fetch_array($data)): ?>
+						<?php while($val = mysqli_fetch_array($data)): ?>
 							<tr>
 								<td align="center"><?php echo $i ?></td>
 								<td>

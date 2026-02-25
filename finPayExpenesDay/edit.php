@@ -9,7 +9,7 @@
 				<td width="25%" valign="top">KOMPONEN PENGELUARAN</td>
 				<td>
 					<select name="componentId" id="componentId" style="width:250px" onchange="setNominal(this.value)">
-						<?php while($val = mysql_fetch_array($cmbComponent)): ?>
+						<?php while($val = mysqli_fetch_array($cmbComponent)): ?>
 							<option value="<?php echo $val['id'] ?>~<?php echo $val['nominal'] ?>" <?php echo $val['id'] == (isset($_REQUEST['componentId']) ? $_REQUEST['componentId'] : $data['fin_expenses_revenue_id']) ? 'selected' : '' ?>><?php echo $val['name'] ?></option>
 						<?php endwhile; ?>
 					</select>				
@@ -19,7 +19,7 @@
 				<td width="25%" valign="top">SUMBER PENDANAAN</td>
 				<td>
 					<select name="sourceFoundId" id="sourceFoundId" style="width:250px">
-						<?php while($val = mysql_fetch_array($cmbSourceFund)): ?>
+						<?php while($val = mysqli_fetch_array($cmbSourceFund)): ?>
 							<option value="<?php echo $val['id'] ?>~<?php echo $val['nominal'] ?>" <?php echo $val['id'] == (isset($_REQUEST['sourceFoundId']) ? $_REQUEST['sourceFoundId'] : $data['fin_source_fund_id']) ? 'selected' : '' ?>><?php echo $val['name'] ?></option>
 						<?php endwhile; ?>
 					</select>				

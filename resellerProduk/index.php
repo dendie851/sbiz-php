@@ -34,14 +34,14 @@
 		</div>		
 	<?php endif ?>
 
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 	    <div style="margin: 10px 0px 5px 0px" class="button">
 	        <div style="float: left;"><input type="button" value="TAMBAH BARANG" data-title="TAMBAH BARANG" data-width="950" data-height="500"  link="add.php?resellerId=<?php echo $resellerId ?>"  /></div>
 		</div>   
 	<?php endif; ?>
 
 	<div style="clear: both"></div>
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 	 	<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 		</div>		
@@ -76,7 +76,7 @@
 				</thead>
 				<tbody>
 					<?php $i = isset($_REQUEST['SplitRecord']) ? $_REQUEST['SplitRecord'] + 1  : 1  ?>
-					<?php while($val = mysql_fetch_array($data)): ?>
+					<?php while($val = mysqli_fetch_array($data)): ?>
 						<tr>
 							<td align="center">
 								<input type="checkbox" name="resellerStuffIdChoose[] " value="<?php echo $val['reseller_stuff_id'] ?>">

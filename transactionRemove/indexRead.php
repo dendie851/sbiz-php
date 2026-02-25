@@ -28,7 +28,7 @@
 		and (replace(name, ' ', '' ) like '%$keyword%' or replace(nickname, ' ', '' ) like '%$keyword%') 	
 		order by sh.date, sh.id ";
 
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 
 	include '../lib/connection-close.php';
 ?>

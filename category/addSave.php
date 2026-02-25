@@ -15,37 +15,37 @@
 		  cost_ops = '$costOps',
 		  cost_riset = '$costRiset',
 		  cost_adv = '$costAdv'";		
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select max(id) as last_id
 		from stuff_category";
-	$tmp = mysql_query($query) or die (mysql_error());
-	$dataLastId = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$dataLastId = mysqli_fetch_array($tmp);
 	$lastId = $dataLastId['last_id'];
 
 	$query = "insert stuff_category_sub
 		set stuff_category_id = '$lastId',
 		  name = '$subCategory1'";		
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "insert stuff_category_sub
 		set stuff_category_id = '$lastId',
 		  name = '$subCategory2'";		
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "insert stuff_category_sub
 		set stuff_category_id = '$lastId',
 		  name = '$subCategory3'";		
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select id,name
 		from stuff_category
 		where is_delete = '0'
 		order by name";
 
-	$data = mysql_query($query) or die (mysql_error());
+	$data = mysqli_query($con, $query) or die (mysqli_error($con));
 
-	while($val = mysql_fetch_array($data)) {
+	while($val = mysqli_fetch_array($data)) {
 		$category .= $val['id'].'~';
 	}
 
@@ -53,7 +53,7 @@
 		set access_category_id = '$category'
 		where id='1'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$_SESSION['loginAccessCategory'] = $category;
 

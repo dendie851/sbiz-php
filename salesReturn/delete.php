@@ -8,8 +8,8 @@
 	$query = "select pr.id, pr.no_so, pr.no_retur
 		from sales_retur as pr
 		where id = '$id'";
-	$rst  = mysql_query($query) or die (mysql_error());	
-	$data = mysql_fetch_array($rst);
+	$rst  = mysqli_query($con, $query) or die (mysqli_error($con));	
+	$data = mysqli_fetch_array($rst);
 
 	$salesOrder = $data['no_so'];
 	$noOrder = $data['no_retur'];	
@@ -17,29 +17,29 @@
 	$query = "select *
 		from sales_order		
 		where no_order = '$salesOrder'";
-	$tmp = mysql_query($query) or die (mysql_error());
-	$datasalesOrder = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$datasalesOrder = mysqli_fetch_array($tmp);
 
 	$query = "update sales_order
 			set is_delete = '0',
 			 is_return = '0'
 		where id = '{$datasalesOrder['id']}'";	
-	mysql_query($query) or die (mysql_error());	
+	mysqli_query($con, $query) or die (mysqli_error($con));	
 	
 	$query = "update sales_retur
 			set is_delete = '1'
 		where id = '$id'";	
-	mysql_query($query) or die (mysql_error());	
+	mysqli_query($con, $query) or die (mysqli_error($con));	
 
 	$query = "select id, stuff_id, price_basic, price, amount, 
 		discount_persen, discount_money, name, nickname
 	from sales_order_detail
 	where sales_order_id = '{$datasalesOrder['id']}'
 	order by id asc";
-	$dataStuffRestult = mysql_query($query) or die (mysql_error());
+	$dataStuffRestult = mysqli_query($con, $query) or die (mysqli_error($con));
 
 
-	while($dataStuff= mysql_fetch_array($dataStuffRestult)) {
+	while($dataStuff= mysqli_fetch_array($dataStuffRestult)) {
 		$stuffId = $dataStuff['stuff_id'];	
 		$stuffAmount = $dataStuff['amount'];
 		$stuffPrice = $dataStuff['price'];
@@ -55,13 +55,13 @@
 			  price = '$stuffPrice',
 			  client_id = '$suplierId'";
 
-		mysql_query($query) or die (mysql_error());
+		mysqli_query($con, $query) or die (mysqli_error($con));
 
 		$query = "update stuff
 			set stock = stock - '$stuffAmount'
 			where id = '$stuffId'";
 
-		mysql_query($query) or die (mysql_error());
+		mysqli_query($con, $query) or die (mysqli_error($con));
 	}
 	
 	include '../lib/connection-close.php';

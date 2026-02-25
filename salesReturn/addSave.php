@@ -14,22 +14,22 @@
 		from sales_order		
 		where no_order = '$purchaseOrder'";
 
-	$tmp = mysql_query($query) or die (mysql_error());
-	$dataPurchaseOrder = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$dataPurchaseOrder = mysqli_fetch_array($tmp);
 
 	$query = "update sales_order
 		set is_delete = '1',
 		  is_return = '1'
 		where id = '{$dataPurchaseOrder['id']}'";
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 
 	$year = date('y'); 
 	$query = "select MAX(SUBSTRING(no_retur,4,8)) + 1 as no_return
 			  from sales_retur
 			  where SUBSTRING(no_retur, 2, 2) = '{$year}'";
-	$tmp = mysql_query($query) or die (mysql_error());			  
-	$rst =  mysql_fetch_array($tmp); 
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));			  
+	$rst =  mysqli_fetch_array($tmp); 
 	$noReturn = strlen($rst['no_return']) > 0 ? ('R'.$year.str_pad(($rst['no_return']),5,"0",STR_PAD_LEFT)) : ('R'.$year.'00001');
 	
 	$query = "insert sales_retur
@@ -38,16 +38,16 @@
 		  date_retur = '$dateReturn',
 		  amount_basic_sale = '{$dataPurchaseOrder['amount_basic_sale']}',
 		  amount_sale = '{$dataPurchaseOrder['amount_sale']}'";
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 	
 	$query = "select id, stuff_id, price_basic, price, amount, 
 		discount_persen, discount_money, name, nickname
 	from sales_order_detail
 	where sales_order_id = '{$dataPurchaseOrder['id']}'
 	order by id asc";
-	$dataStuffRestult = mysql_query($query) or die (mysql_error());
+	$dataStuffRestult = mysqli_query($con, $query) or die (mysqli_error($con));
 
-	while($dataStuff = mysql_fetch_array($dataStuffRestult)) {
+	while($dataStuff = mysqli_fetch_array($dataStuffRestult)) {
 		
 
 		if($dataStuff['stuff_id'] > 0) {
@@ -68,7 +68,7 @@
 				  name = '$stuffName',
 				  code = '$stuffKode',
 				  nickname = '$stuffNickname'"; 
-			mysql_query($query) or die (mysql_error());
+			mysqli_query($con, $query) or die (mysqli_error($con));
 			*/
 
 			$suplierId = $dataPurchaseOrder['suplier_id']; 
@@ -82,13 +82,13 @@
 				  price = '$stuffPrice',
 				  suplier_id = '$suplierId'";
 
-			mysql_query($query) or die (mysql_error());
+			mysqli_query($con, $query) or die (mysqli_error($con));
 
 			$query = "update stuff
 				set stock = stock + '$stuffAmount'
 				where id = '$stuffId'";
 
-			mysql_query($query) or die (mysql_error());
+			mysqli_query($con, $query) or die (mysqli_error($con));
 		}	
 	}
 	
@@ -98,8 +98,8 @@
 	from  sales_retur_detail
 	where sales_retur_id = '$purchaseReturId'";
 		  
-	$qry = mysql_query($query) or die (mysql_error());
-	$tmp = mysql_fetch_array($qry);
+	$qry = mysqli_query($con, $query) or die (mysqli_error($con));
+	$tmp = mysqli_fetch_array($qry);
 		
 	$total = $tmp['total'];	
 	$totalBasic = $tmp['total_basic'];	
@@ -107,7 +107,7 @@
 	$query = "update sales_retur
 		set amount_basic_sale = '$totalBasic'
 		where id = '$purchaseReturId'";
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 	*/
 
 

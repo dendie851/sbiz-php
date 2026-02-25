@@ -11,13 +11,13 @@
 				$query = "update sales_order
 					set status_complate_stuff = '1'		
 					where id = '$val'";
-				mysql_query($query) or die (mysql_error());	
+				mysqli_query($con, $query) or die (mysqli_error($con));	
 			} 
 			if($actionType == '0') {			
 				$query = "update sales_order
 					set sstatus_complate_stuff = '0'
 					where id = '$val'";
-				mysql_query($query) or die (mysql_error());				
+				mysqli_query($con, $query) or die (mysqli_error($con));				
 			}
 		} 
 		include '../lib/connection-close.php';

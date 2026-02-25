@@ -8,16 +8,16 @@
 		set is_delete = '1'
 		where id='$id'";
 
-	mysql_query($query);
+	mysqli_query($con, $query);
 
 	$query = "select id,name
 		from stuff_category
 		where is_delete = '0'
 		order by name";
 
-	$data = mysql_query($query) or die (mysql_error());
+	$data = mysqli_query($con, $query) or die (mysqli_error($con));
 
-	while($val = mysql_fetch_array($data)) {
+	while($val = mysqli_fetch_array($data)) {
 		$category .= $val['id'].'~';
 	}
 
@@ -25,7 +25,7 @@
 		set access_category_id = '$category'
 		where id='1'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	include '../lib/connection-close.php';
 

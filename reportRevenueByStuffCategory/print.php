@@ -24,7 +24,7 @@
 			<?php $totalNilaiJual = 0; ?>
 			<?php $totalNilaiBasic = 0; ?>
 			<?php $totalNilaiProfit = 0; ?>
-			<?php while($val = mysql_fetch_array($data)): ?>
+			<?php while($val = mysqli_fetch_array($data)): ?>
 				<tr style="height: 40px; font-size:14px">
 					<td align="center"><?php echo $i ?></td>
 					<td align="left">

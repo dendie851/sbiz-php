@@ -15,7 +15,7 @@
 		order by zip_code
 		limit $record,100";
 
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 		
 	$query = "select count(id) as total
 		from postcal_code		
@@ -23,8 +23,8 @@
 		and zip_code != 0		
 		order by zip_code";
 
-	$dataTotal = mysql_query($query) or die(mysql_error());
-	$total = mysql_fetch_array($dataTotal);
+	$dataTotal = mysqli_query($con, $query) or die(mysqli_error($con));
+	$total = mysqli_fetch_array($dataTotal);
 
 	$split = new Split('postalCode.php',$total['total'],100,25);
 	

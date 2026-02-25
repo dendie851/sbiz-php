@@ -12,14 +12,14 @@
 	    and is_delete = '0'
 	  order by month";	
 
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 
 	$query = "select id, year, name
 	  from fin_profit_loss
 	  where is_delete = '0'
 	  group by year
 	  order by year desc";	
-	$cmbYear = mysql_query($query) or die(mysql_error());
+	$cmbYear = mysqli_query($con, $query) or die(mysqli_error($con));
 	
 	include '../lib/connection-close.php';
 ?>

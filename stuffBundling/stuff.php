@@ -59,14 +59,14 @@
 	</div>		
 <?php endif ?>
 
-<?php if(mysql_num_rows($dataStuff) < 1) : ?>
+<?php if(mysqli_num_rows($dataStuff) < 1) : ?>
 	<div style="margin: 10px 0px 10px 0px; text-align: right;" class="button">
 	    <div style=""><input type="button" value="TAMBAH BARANG" data-title="TAMBAH BARANG" data-width="950" data-height="500"  link="addStuff.php?stuffBundlingId=<?php echo $data['id'] ?>"  /></div>
 	</div>   
 <?php endif; ?>	
 
 <div style="clear: both"></div>
-<?php if(mysql_num_rows($dataStuff) < 1) : ?>
+<?php if(mysqli_num_rows($dataStuff) < 1) : ?>
  	<div class="warning">
 		<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 	</div>		
@@ -100,7 +100,7 @@
 				<?php $totalPriceBasic = 0 ?>
 				<?php $totalFeeSales = 0 ?>
 				<?php $totalPrice = 0 ?>
-				<?php while($val = mysql_fetch_array($dataStuff)): ?>
+				<?php while($val = mysqli_fetch_array($dataStuff)): ?>
 					<script type="text/javascript">globallistStufId.push(<?php echo $val['id'] ?>) ;</script>
 					<?php $totalPriceBasic = ($totalPriceBasic + $val['price_basic'])?>
 					<?php $totalFeeSales = ($totalFeeSales + $val['fee_sales'])?>

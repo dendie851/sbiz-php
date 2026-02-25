@@ -8,7 +8,7 @@
 		where position_id = '3'
 		order by name";
 
-	$dataSales = mysql_query($query) or die (mysql_error());
+	$dataSales = mysqli_query($con, $query) or die (mysqli_error($con));
 
 
 	$loginMemberId = $_SESSION['loginMemberId'];
@@ -17,15 +17,15 @@
 		where id = '$loginMemberId'
 		order by name";
 
-	$tmpSalesDefault = mysql_query($query) or die (mysql_error());
-	$dataSalesDefault = mysql_fetch_array($tmpSalesDefault);
+	$tmpSalesDefault = mysqli_query($con, $query) or die (mysqli_error($con));
+	$dataSalesDefault = mysqli_fetch_array($tmpSalesDefault);
 
 	$query = "select id,name
 		from client
 		where is_delete = '0'
 		order by name";
 
-	$dataCategory = mysql_query($query) or die (mysql_error());
+	$dataCategory = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	include '../lib/connection-close.php';	
 ?>

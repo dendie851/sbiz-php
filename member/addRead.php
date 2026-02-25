@@ -7,14 +7,14 @@
 		where is_delete = '0'
 		order by name";
 
-	$dataPosition = mysql_query($query) or die (mysql_error());
+	$dataPosition = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select id,name
 		from stuff_category
 		where is_delete = '0'
 		order by name";
 
-	$dataCategory = mysql_query($query) or die (mysql_error());
+	$dataCategory = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	include '../lib/connection-close.php';	
 ?>

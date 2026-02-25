@@ -21,9 +21,9 @@
 	$query = "select id as id
 		from stuff_category";
 		
-	$data = mysql_query($query)	 or die (mysql_error());
+	$data = mysqli_query($con, $query)	 or die (mysqli_error($con));
 	$category = '';
-	while($row = mysql_fetch_array($data)) {
+	while($row = mysqli_fetch_array($data)) {
 		$category .= $row['id'].'~';
 	}
 		
@@ -35,7 +35,7 @@
 		  is_enabled = '$aktif'
 		where id='$id'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$usernameHidden = $_POST['usernameHidden'];
 	$username = $_POST['username'];
@@ -46,7 +46,7 @@
 			set username = '$username'
 			where member_id='$id'";
 
-		mysql_query($query) or die (mysql_error());
+		mysqli_query($con, $query) or die (mysqli_error($con));
 	}
 
 	if(strlen($pwd) > 0) {
@@ -54,7 +54,7 @@
 			set password = md5('$pwd')
 			where member_id='$id'";
 
-		mysql_query($query) or die (mysql_error());
+		mysqli_query($con, $query) or die (mysqli_error($con));
 	}
 
 	include '../lib/connection-close.php';

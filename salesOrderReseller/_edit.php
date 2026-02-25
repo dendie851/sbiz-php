@@ -189,7 +189,7 @@
 					<tbody>
 						<?php $i=1; ?>
 						<?php $total = 0 ?>
-						<?php while($val = mysql_fetch_array($dataDetail)): ?>
+						<?php while($val = mysqli_fetch_array($dataDetail)): ?>
 							<tr>
 								<td align="center"><?php echo $i ?></td>
 								<td>
@@ -255,7 +255,7 @@
 							<td align="center"><input onkeyup="updateTotal(<?php echo $total ?>)" name="costShipping" id="costShipping" style="text-align:center; font-size:15px;  fontheight:30px; width:100px" type="text" value="<?php echo isset($_POST['costShipping']) ? $_POST['costShipping'] : $dataHeader['shipping_cost'] ?>" size="5" /></td>
 							<td align="center">
 								<select name="expeditionId" style="width:150px">
-									<?php while($valExpedition = mysql_fetch_array($cmbExpedition)): ?>
+									<?php while($valExpedition = mysqli_fetch_array($cmbExpedition)): ?>
 										<?php if($valExpedition[0] == '3'): ?>
 											<option value="<?php echo $valExpedition[0] ?>" <?php echo $valExpedition[0] == (isset($_REQUEST['expeditionId']) ? $_REQUEST['expeditionId'] : $dataHeader['expedition_id']) ? 'selected' : '' ?>><?php echo $valExpedition[1] ?></option>								
 										<?php endif; ?>															

@@ -15,7 +15,7 @@
 					</thead>
 					<tbody>
 						<?php $i=1; ?>
-						<?php while($val = mysql_fetch_array($data)): ?>
+						<?php while($val = mysqli_fetch_array($data)): ?>
 							<tr>
 								<td style="padding:5px; font-size:12pt; border:1px solid black" align="center"><?php echo $i ?></td>
 								<td style="padding:5px; font-size:12pt; border:1px solid black" >

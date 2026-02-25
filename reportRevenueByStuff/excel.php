@@ -19,7 +19,7 @@
 			<tr>
 				<td style="font-size:12pt" width="15%">KATEGORI BARANG </td>
 				<td style="font-size:12pt" colspan="3"> : 
-					<?php while($val = mysql_fetch_array($dataCategoryPrint)): ?>
+					<?php while($val = mysqli_fetch_array($dataCategoryPrint)): ?>
 						<small><?php echo $val['name'] ?></small>,		
 					<?php endwhile; ?>							
 				</td>
@@ -33,7 +33,7 @@
 			<h3><?php echo message::getMsg('filterData') ?></h3>
 		</div>		
 	<?php else: ?>	
-		<?php if(mysql_num_rows($data) < 1) : ?>
+		<?php if(mysqli_num_rows($data) < 1) : ?>
 			<div class="warning">
 				<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 			</div>		
@@ -53,7 +53,7 @@
 						<?php $i=1; ?>
 						<?php $totalNilaiJual = 0; ?>
 						<?php $totalHargaDasarJual = 0 ?>												
-						<?php while($val = mysql_fetch_array($data)): ?>
+						<?php while($val = mysqli_fetch_array($data)): ?>
 							<tr>
 								<td style="padding:5px; font-size:12pt; border:1px solid black" align="center" sty><?php echo $i ?></td>
 								<td style="padding:5px; font-size:12pt; border:1px solid black" align="left">

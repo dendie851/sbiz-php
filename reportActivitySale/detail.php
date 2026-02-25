@@ -6,7 +6,7 @@
 			<h3><?php echo message::getMsg('filterData') ?></h3>
 		</div>		
 	<?php else: ?>	
-		<?php if(mysql_num_rows($data) < 1) : ?>
+		<?php if(mysqli_num_rows($data) < 1) : ?>
 			<div class="warning">
 				<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 			</div>		
@@ -23,7 +23,7 @@
 						<?php $j=1 ?>
 						<tbody>
 						<?php $jumlah = 0 ?>
-						<?php while($rowdataSub = mysql_fetch_array($data)): ?>
+						<?php while($rowdataSub = mysqli_fetch_array($data)): ?>
 							<tr>
 								<td style="font-size:12px"  align="center"><?php echo $j ?></td>
 								<td style="font-size:12px"  align="center"><a target="_blank" href="../salesOrder/print.php?id=<?php echo $rowdataSub['id'] ?>"><?php echo $rowdataSub['no_order'] ?></a></td>
@@ -46,7 +46,7 @@
 						<?php $j=1 ?>
 						<tbody>
 						<?php $jumlah = 0 ?>
-						<?php while($rowdataSub = mysql_fetch_array($data)): ?>
+						<?php while($rowdataSub = mysqli_fetch_array($data)): ?>
 							<tr>
 								<td style="font-size:12px"  align="center"><?php echo $j ?></td>
 								<td style="font-size:12px"  align="center"><?php echo $rowdataSub['date_track'] ?></td>

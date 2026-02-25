@@ -10,8 +10,8 @@
 		from stuff
 		where id = '$id'";
 
-	$tmp = mysql_query($query);
-	$data = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query);
+	$data = mysqli_fetch_array($tmp);
 
 
 	$query = "select id,name 
@@ -19,7 +19,7 @@
 		where is_delete = '0'
 		order by name";
 
-	$dataSuplier = mysql_query($query) or die (mysql_error());
+	$dataSuplier = mysqli_query($con, $query) or die (mysqli_error($con));
 
 
 	$query = "select id,name 
@@ -27,7 +27,7 @@
 		where is_delete = '0'
 		order by name";
 
-	$dataClient = mysql_query($query) or die (mysql_error());
+	$dataClient = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	include '../lib/connection-close.php';
 ?>

@@ -21,7 +21,7 @@
 		$strSalesId = $_REQUEST['strSalesId'];
 		$query = "select id,name from member 
 		 		  where id in ($strSalesId)";
-		$salesName = mysql_query($query) or die(mysql_error());	
+		$salesName = mysqli_query($con, $query) or die(mysqli_error($con));	
 	} else {
 		$salesId = isset($_REQUEST['salesId']) ? $_REQUEST['salesId'] : array(); 
 		$strSalesId = implode(',',$salesId); 		
@@ -50,7 +50,7 @@
 		order by date_order, no_order, name
 		limit $record,300";
 
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 		
 	$query = "select count(id) as total
 		from sales_order		
@@ -61,14 +61,14 @@
 		  $where
 		order by name";
 
-	$dataTotal = mysql_query($query) or die(mysql_error());
-	$total = mysql_fetch_array($dataTotal);
+	$dataTotal = mysqli_query($con, $query) or die(mysqli_error($con));
+	$total = mysqli_fetch_array($dataTotal);
 
 	$split = new Split('index.php',$total['total'],100,25);
 
 	$query = "select id,name from member 
 	 		  where position_id in (1,3) order by name";
-	$cmbSales = mysql_query($query) or die(mysql_error());	
+	$cmbSales = mysqli_query($con, $query) or die(mysqli_error($con));	
 
 	include '../lib/connection-close.php';
 ?>

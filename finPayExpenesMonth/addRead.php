@@ -12,13 +12,13 @@
 		and periode = '1'
 		and id not in ('10','27','28')
 		order by name";
-	$cmbComponent = mysql_query($query) or die (mysql_error());
+	$cmbComponent = mysqli_query($con, $query) or die (mysqli_error($con));
 	
 	$query = "select id,name
 		from fin_source_fund
 		where is_delete = '0'
 		order by name";
-	$cmbSourceFund = mysql_query($query) or die (mysql_error());
+	$cmbSourceFund = mysqli_query($con, $query) or die (mysqli_error($con));
 	
 	include '../lib/connection-close.php';
 ?>

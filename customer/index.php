@@ -15,7 +15,7 @@
 							<td width="" valign="top">KATEGORI PELANGGAN</td>
 							<td width="" valign="top">
 								<select name="clientId[]" style="width:250px; height: 80px" multiple>
-									<?php while($valClient = mysql_fetch_array($cmbClient)): ?>
+									<?php while($valClient = mysqli_fetch_array($cmbClient)): ?>
 										<option value="<?php echo $valClient['id'] ?>" <?php echo in_array($valClient['id'],$clientId) == true ? 'selected' : '' ?>><?php echo $valClient['name'] ?></option>	
 									<?php endwhile; ?>
 								</select>				
@@ -52,14 +52,14 @@
     <div style="margin: 10px 0px 15px 0px">
 	    <div><input type="button" value="TAMBAH" onclick="window.location='add.php'" /></div>
 
-		<?php if(mysql_num_rows($data) > 0) : ?>
+		<?php if(mysqli_num_rows($data) > 0) : ?>
 			<div style="text-align:right">
 				<input type="button" value="PRINT" onclick="window.open('print.php?print=1&keyword=<?php echo $keyword ?>&dateFrom=<?php echo urlencode($_REQUEST['dateFrom']) ?>&dateTo=<?php echo urlencode($_REQUEST['dateTo']) ?>')" />
 				<input type="button" value="EXPORT KE EXCEL" onclick="window.open('excel.php?print=1&keyword=<?php echo $keyword ?>&dateFrom=<?php echo urlencode($_REQUEST['dateFrom']) ?>&dateTo=<?php echo urlencode($_REQUEST['dateTo']) ?>')" />
 			</div>					   
 		<?php endif; ?>
 	</div>   
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 	 	<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 		</div>		
@@ -78,7 +78,7 @@
 				</thead>
 				<tbody>
 					<?php $i = (1 + $record); ?>
-					<?php while($val = mysql_fetch_array($data)): ?>
+					<?php while($val = mysqli_fetch_array($data)): ?>
 						<tr>
 							<td align="center"><?php echo $i ?></td>
 							<td>
@@ -100,9 +100,9 @@
 										where cg.customer_id = '$customerId'
 										order by c.name";
 									
-									$tmp = mysql_query($query) or die (mysql_error());
+									$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
 								?>		
-								<?php while($valCategory = mysql_fetch_array($tmp)): ?>
+								<?php while($valCategory = mysqli_fetch_array($tmp)): ?>
 									<small style="font-size: 10px"><?php echo $valCategory['name'] ?>,</small>					
 								<?php endwhile; ?>		
 							</td>
@@ -113,8 +113,8 @@
 									     where replace(replace(so.phone,'-',''),'+','') = '$fullPhoneNumber'
 									     and is_delete = '0'
 									     and status_payment = '1'";
-									$tmpPhoneNumber = mysql_query($query) or die (mysql_error());
-									$rstPhoneNumber = mysql_fetch_array($tmpPhoneNumber);
+									$tmpPhoneNumber = mysqli_query($con, $query) or die (mysqli_error($con));
+									$rstPhoneNumber = mysqli_fetch_array($tmpPhoneNumber);
 			 					?>								
 
 								<?php echo $rstPhoneNumber['total_pembelian'] ?> Transaksi <br />

@@ -30,7 +30,7 @@
 		order by name
 		limit $record,100";
 
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 		
 	$query = "select count(id) as total
 		from sales_order		
@@ -43,8 +43,8 @@
 		  $where
 		order by name";
 
-	$dataTotal = mysql_query($query) or die(mysql_error());
-	$total = mysql_fetch_array($dataTotal);
+	$dataTotal = mysqli_query($con, $query) or die(mysqli_error($con));
+	$total = mysqli_fetch_array($dataTotal);
 
 	$split = new Split('index.php',$total['total'],100,25);
 
@@ -54,6 +54,6 @@
 	 and is_status = '0'
 	order by name";
 
-	$dataPeriodeOrder = mysql_query($query) or die (mysql_error());	
+	$dataPeriodeOrder = mysqli_query($con, $query) or die (mysqli_error($con));	
 	include '../lib/connection-close.php';
 ?>

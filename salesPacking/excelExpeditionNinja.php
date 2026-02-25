@@ -21,7 +21,7 @@
 		where is_delete = '0'
 		  and id in ($salesOrderIdStr)		
 		order by date_order, no_order, name";
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 
 	$objPHPExcel = new PHPExcel();
 	$objPHPExcel->getSheet(0)->setTitle('Expedisi Ninja');		
@@ -44,7 +44,7 @@
 	$objPHPExcel->getSheet(0)->getColumnDimension('F')->setWidth(20);
 	
 	$row = 2;
-	while($val = mysql_fetch_array($data)) {
+	while($val = mysqli_fetch_array($data)) {
 		$objPHPExcel->getSheet(0)
 	        ->setCellValue('A'.$row, $val['no_order'])
 	        ->setCellValue('B'.$row, ucfirst($val['name']))

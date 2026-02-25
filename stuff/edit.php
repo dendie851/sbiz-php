@@ -13,7 +13,7 @@
 				<td width="30%">KATEGORI</td>
 				<td>
 					<select style="width: 90%" name="categoryId" style="width:140px" onchange="window.location='edit.php?id=<?php echo $id ?>&categoryId='+this.value">
-						<?php while($val = mysql_fetch_array($dataCategory)): ?>
+						<?php while($val = mysqli_fetch_array($dataCategory)): ?>
 							<option value="<?php echo $val['id'] ?>" <?php echo $val['id'] == (isset($_REQUEST['categoryId']) ? $_REQUEST['categoryId'] : $data['category_id']) ? 'selected' : '' ?>><?php echo $val['name'] ?></option>
 						<?php endwhile; ?>
 					</select>			
@@ -21,7 +21,7 @@
 				</td>
 			</tr>		
 			<?php $i = 1 ?>
-			<?php while($row = mysql_fetch_array($dataSubCategory)): ?>
+			<?php while($row = mysqli_fetch_array($dataSubCategory)): ?>
 				<tr>
 					<td valign="top">SUB KATEGORI <?php echo strtoupper($row['name']) ?></td>
 					<td>
@@ -121,7 +121,7 @@
 				<td>SATUAN PERSEDIAAN</td>
 				<td>
 					<select name="constId">
-						<?php while($val = mysql_fetch_array($dataConst)): ?>
+						<?php while($val = mysqli_fetch_array($dataConst)): ?>
 							<option value="<?php echo $val['id'] ?>" <?php echo $val['id'] == (isset($_POST['constId']) ? $_POST['constId'] : $data['const_id']) ? 'selected' : '' ?>><?php echo $val['name'] ?></option>
 						<?php endwhile; ?>
 					</select>
@@ -131,7 +131,7 @@
 				<td>LOKASI PENYIMPANAN</td>
 				<td>
 					<select name="locationId">
-						<?php while($val = mysql_fetch_array($dataLocation)): ?>
+						<?php while($val = mysqli_fetch_array($dataLocation)): ?>
 							<option value="<?php echo $val['id'] ?>" <?php echo $val['id'] == (isset($_POST['locationId']) ? $_POST['locationId'] : $data['location_id']) ? 'selected' : '' ?>><?php echo $val['name'] ?></option>
 						<?php endwhile; ?>
 					</select>

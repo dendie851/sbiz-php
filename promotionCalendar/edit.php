@@ -29,7 +29,7 @@
 				<td width="25%" valign="top">PLATFORM MARKET</td>
 				<td>
 					<select name="platformMarketId[]" id="platformMarketId" style="width:250px; height: 100px" multiple >
-						<?php while($val = mysql_fetch_array($cmbPlatformMarket)): ?>
+						<?php while($val = mysqli_fetch_array($cmbPlatformMarket)): ?>
 							<option value="<?php echo $val['id'] ?>" <?php echo  in_array($val['id'],isset($_REQUEST['platformMarketId']) ? $_REQUEST['platformMarketId'] : $dataPlatformMarketId) ? 'selected' : '' ?>><?php echo $val['name'] ?></option>
 						<?php endwhile; ?>
 					</select>				

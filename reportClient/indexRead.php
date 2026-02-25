@@ -34,7 +34,7 @@
 		group by s.client_id  
 		order by total_pembelian desc, c.name";
 
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 	
 	include '../lib/connection-close.php';
 ?>

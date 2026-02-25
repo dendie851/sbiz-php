@@ -34,7 +34,7 @@
 				  <td colspan="4">
 				  	KATEGORI BARANG<br style="margin-bottom: 20px; margin-top: 30px" />
 					<select name="categoryId[]" style="width:100%;">
-						<?php while($val = mysql_fetch_array($dataCategory)): ?>
+						<?php while($val = mysqli_fetch_array($dataCategory)): ?>
 							<option <?php echo in_array($val['id'],$categoryId) ? ' selected ' : '' ?> value="<?php echo $val['id'] ?>" <?php echo $val['id'] == (isset($_REQUEST['categoryId']) ? $_REQUEST['categoryId'] : '') ? 'selected' : '' ?>><?php echo $val['name'] ?></option>
 						<?php endwhile; ?>
 					</select>				
@@ -56,7 +56,7 @@
 			<h3><?php echo message::getMsg('filterData') ?></h3>
 		</div>		
 	<?php else: ?>	
-		<?php if(mysql_num_rows($data) < 1) : ?>
+		<?php if(mysqli_num_rows($data) < 1) : ?>
 			<div class="warning">
 				<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 			</div>		
@@ -92,7 +92,7 @@
 					<?php $totalNilaiJual = 0; ?>
 					<?php $totalNilaiBasic = 0; ?>
 					<?php $totalNilaiProfit = 0; ?>
-					<?php while($val = mysql_fetch_array($data)): ?>
+					<?php while($val = mysqli_fetch_array($data)): ?>
 						<tr style="height: 40px; font-size:14px">
 							<td align="center"><?php echo $i ?></td>
 							<td align="left">

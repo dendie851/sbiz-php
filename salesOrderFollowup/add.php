@@ -30,7 +30,7 @@
 						</td>
 						<td>
 							<select name="clientId" style="width:200px" >
-								<?php while($valClient = mysql_fetch_array($cmbClient)): ?>
+								<?php while($valClient = mysqli_fetch_array($cmbClient)): ?>
 										<option value="<?php echo $valClient[0] ?>" <?php echo $valClient[0] == (isset($_REQUEST['clientId']) ? $_REQUEST['clientId'] : '') ? 'selected' : '' ?>><?php echo $valClient[1] ?> - <?php echo $valClient[2] ?></option>								
 								<?php endwhile; ?>
 							</select>											

@@ -10,8 +10,8 @@
 		$query = "select id, username
 		          from user
 				  where username = '$userLogin' ";
-		$tmpSale = mysql_query($query) or die (mysql_error());	
-		$dataUser = mysql_fetch_array($tmpSale);
+		$tmpSale = mysqli_query($con, $query) or die (mysqli_error($con));	
+		$dataUser = mysqli_fetch_array($tmpSale);
 		$historyUserId = $dataUser['id'];
 
 		foreach($salesOrderId  as $val) {
@@ -20,21 +20,21 @@
 					set status_order = '2',
 					date_packing = now()					
 					where id = '$val'";
-				mysql_query($query) or die (mysql_error());	
+				mysqli_query($con, $query) or die (mysqli_error($con));	
 
 				$query = "select id, no_order 
 				          from sales_order 
 						  where id = '$val' ";
-				$tmpSale = mysql_query($query) or die (mysql_error());	
-				$dataSale = mysql_fetch_array($tmpSale);
+				$tmpSale = mysqli_query($con, $query) or die (mysqli_error($con));	
+				$dataSale = mysqli_fetch_array($tmpSale);
 				$historySalesOrderId = $dataSale['id'];
 				$historySalesOrderNoOrder = $dataSale['no_order'];
 
 				$query = "select id, username
 				          from user
 						  where username = '$userLogin' ";
-				$tmpSale = mysql_query($query) or die (mysql_error());	
-				$dataUser = mysql_fetch_array($tmpSale);
+				$tmpSale = mysqli_query($con, $query) or die (mysqli_error($con));	
+				$dataUser = mysqli_fetch_array($tmpSale);
 				$historyUserId = $dataUser['id'];
 
 				$query = "insert sales_order_history
@@ -47,7 +47,7 @@
 					  datetime_track = now(),
 					  user_id  = '$historyUserId'
 					";
-				mysql_query($query) or die (mysql_error());					
+				mysqli_query($con, $query) or die (mysqli_error($con));					
 			} 
 
 			if($actionType == '3') {			
@@ -55,12 +55,12 @@
 					set status_order = '0',
 					 status_payment = '0'					
 					where id = '$val'";
-				mysql_query($query) or die (mysql_error());				
+				mysqli_query($con, $query) or die (mysqli_error($con));				
 
 				$query = "delete from sales_order_history
 						  where sales_order_id = '$val'
 					      and activity = '1' ";
-				mysql_query($query) or die (mysql_error());					
+				mysqli_query($con, $query) or die (mysqli_error($con));					
 			}
 		} 
 

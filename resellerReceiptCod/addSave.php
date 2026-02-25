@@ -13,8 +13,8 @@
 		$query = "select id, username
 		          from user
 				  where username = '$userLogin' ";
-		$tmpSale = mysql_query($query) or die (mysql_error());	
-		$dataUser = mysql_fetch_array($tmpSale);
+		$tmpSale = mysqli_query($con, $query) or die (mysqli_error($con));	
+		$dataUser = mysqli_fetch_array($tmpSale);
 		$historyUserId = $dataUser['id'];
 
 		foreach($salesOrderId  as $val) {
@@ -23,7 +23,7 @@
 					set status_receipt_cod = '1',
 					date_receipt_cod = now()					
 					where id = '$val'";
-				mysql_query($query) or die (mysql_error());									
+				mysqli_query($con, $query) or die (mysqli_error($con));									
 			} 
 			$i++;	
 		} 

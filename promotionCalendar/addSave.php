@@ -16,11 +16,11 @@
 		  date_transaction = '$dateTransaction',
 		  date_system = now(),
 		  is_delete = '0'";
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select max(id) as last_id from promotion_calendar";
-	$rst = mysql_query($query) or die (mysql_error());
-	$data = mysql_fetch_array($rst);
+	$rst = mysqli_query($con, $query) or die (mysqli_error($con));
+	$data = mysqli_fetch_array($rst);
 	$lastId = $data['last_id'];	
 
 	foreach($platformMarketId as $val) {
@@ -28,7 +28,7 @@
 		$query = "insert promotion_calendar_platform_market
 			set promotion_calender_id = '$lastId',
 			  platform_market_id = '$marketId'";
-		mysql_query($query) or die (mysql_error());
+		mysqli_query($con, $query) or die (mysqli_error($con));
 
 	}
 

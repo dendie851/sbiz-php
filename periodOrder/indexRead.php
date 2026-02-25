@@ -20,7 +20,7 @@
 		order by is_status asc, date_start desc
 		limit $record,25";
 
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 		
 	$query = "select count(id) as total
 		from period_order		
@@ -29,8 +29,8 @@
 		  $where
 		order by name";
 
-	$dataTotal = mysql_query($query) or die(mysql_error());
-	$total = mysql_fetch_array($dataTotal);
+	$dataTotal = mysqli_query($con, $query) or die(mysqli_error($con));
+	$total = mysqli_fetch_array($dataTotal);
 
 	$split = new Split('index.php',$total['total'],25,25);	
 	include '../lib/connection-close.php';

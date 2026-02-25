@@ -41,7 +41,7 @@
 				<?php $quantityTotal = 0; ?>
 				<?php $priceTotal = 0; ?>
 				<?php $i=1; ?>
-				<?php while($val = mysql_fetch_array($data)): ?>
+				<?php while($val = mysqli_fetch_array($data)): ?>
 					<tr>
 						<td align="center" valign="top"><?php echo $i ?></td>
 						<td valign="top" align="center">

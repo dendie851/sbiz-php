@@ -22,31 +22,31 @@
 		  cost_adv = '$costAdv'		
 		where id='$id'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "update stuff_category_sub
 		set name = '$subCategory1'
 		where id='$idSubCategory1'";		
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "update stuff_category_sub
 		set name = '$subCategory2'
 		where id='$idSubCategory2'";		
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "update stuff_category_sub
 		set name = '$subCategory3'
 		where id='$idSubCategory3'";		
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select id,name
 		from stuff_category
 		where is_delete = '0'
 		order by name";
 
-	$data = mysql_query($query) or die (mysql_error());
+	$data = mysqli_query($con, $query) or die (mysqli_error($con));
 
-	while($val = mysql_fetch_array($data)) {
+	while($val = mysqli_fetch_array($data)) {
 		$category .= $val['id'].'~';
 	}
 
@@ -54,7 +54,7 @@
 		set access_category_id = '$category'
 		where id='1'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$_SESSION['loginAccessCategory'] = $category;
 

@@ -31,7 +31,7 @@
 				 where id = '$val' 
 				   and reseller_id = '$resellerId'";		
 
-			mysql_query($query) or die (mysql_error());
+			mysqli_query($con, $query) or die (mysqli_error($con));
 		}	
 	   $i++;
 	}	

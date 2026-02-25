@@ -9,7 +9,7 @@
 		</div>		
 	<?php endif ?>
 
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 	 	<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 		</div>		
@@ -31,7 +31,7 @@
 					
 					<?php $i=1; ?>
 					<?php $month = array('Januari', 'Februari', 'Maret', 'April', 'Mei','Juni','Juli','Agustus','September','Oktober','November','Desember') ?>
-					<?php while($val = mysql_fetch_array($data)): ?>
+					<?php while($val = mysqli_fetch_array($data)): ?>
 						<tr>
 							<td style="border:1px solid black; font-size:12pt" align="center"><?php echo $month[($val['month']-1)] ?></td>
 							<td style="border:1px solid black; font-size:12pt" align="center"><?php echo number_format($val['total_expenses'],0,'','.') ?></td>

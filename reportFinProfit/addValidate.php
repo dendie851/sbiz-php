@@ -16,8 +16,8 @@
 		where year ='$year' 
 		  and month = '$month'
 		  and is_delete = '0'";		  
-	$tmp = mysql_query($query) or die (mysql_error());
-	$rest = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$rest = mysqli_fetch_array($tmp);
 
 	if($rest['total'] > 0) {
 		$status = false;

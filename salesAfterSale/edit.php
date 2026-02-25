@@ -14,7 +14,7 @@
 						<td>
 							<input type="hidden" name="hiddenClientId" value="<?php echo $_REQUEST['clientId'] ?>" 	/>
 							<select name="clientId" style="width:280px" onchange='this.form.submit()' disabled>
-								<?php while($valClient = mysql_fetch_array($cmbClient)): ?>
+								<?php while($valClient = mysqli_fetch_array($cmbClient)): ?>
 										<option value="<?php echo $valClient[0] ?>" <?php echo $valClient[0] == (isset($_REQUEST['clientId']) ? $_REQUEST['clientId'] : $dataHeader['client_id']) ? 'selected' : '' ?>><?php echo $valClient[1] ?> - <?php echo $valClient[2] ?></option>								
 								<?php endwhile; ?>
 							</select>				
@@ -160,7 +160,7 @@
 					<tbody>
 						<?php $i=1; ?>
 						<?php $total = 0 ?>
-						<?php while($val = mysql_fetch_array($dataDetail)): ?>
+						<?php while($val = mysqli_fetch_array($dataDetail)): ?>
 							<tr>
 								<td align="center"><?php echo $i ?></td>
 								<td>
@@ -174,10 +174,10 @@
 												   on s.id = b.stuff_id
 												 where sales_order_detail_id = '{$val['id']}'
 												 order by id asc";
-											$rstDetailBundling = mysql_query($query) or die (mysql_error());
+											$rstDetailBundling = mysqli_query($con, $query) or die (mysqli_error($con));
 											include '../lib/connection-close.php';
 										?>
-										<?php while($dataDetailBundling = mysql_fetch_array($rstDetailBundling)): ?>
+										<?php while($dataDetailBundling = mysqli_fetch_array($rstDetailBundling)): ?>
 											<small style="font-size: 10px"><?php echo $dataDetailBundling['name'] ?> (<?php echo $dataDetailBundling['qty'] ?>),</small>	
 										<?php endwhile; ?>											
 									<?php else: ?>	
@@ -248,13 +248,13 @@
 							<td align="center"><input disabled onkeyup="updateTotal(<?php echo $total ?>)" name="costShipping" id="costShipping" style="text-align:center; font-size:15px;  fontheight:30px; width:100px" type="text" value="<?php echo isset($_POST['costShipping']) ? $_POST['costShipping'] : $dataHeader['shipping_cost'] ?>" size="5" /></td>
 							<td align="center">
 								<select disabled="" id="expeditionId" name="expeditionId" style="width:150px">
-									<?php while($valExpedition = mysql_fetch_array($cmbExpedition)): ?>
+									<?php while($valExpedition = mysqli_fetch_array($cmbExpedition)): ?>
 										<option value="<?php echo $valExpedition[0] ?>" <?php echo $valExpedition[0] == (isset($_REQUEST['expeditionId']) ? $_REQUEST['expeditionId'] : $dataHeader['expedition_id']) ? 'selected' : '' ?>><?php echo $valExpedition[1] ?></option>								
 									<?php endwhile; ?>
 								</select>				
 
 								<select disabled id="warehouseExternalId" name="warehouseExternalId" style="width:150px; display: none;">
-									<?php while($valExpedition = mysql_fetch_array($cmbWarehouseExternal)): ?>
+									<?php while($valExpedition = mysqli_fetch_array($cmbWarehouseExternal)): ?>
 										<option value="<?php echo $valExpedition[0] ?>" <?php echo $valExpedition[0] == (isset($_REQUEST['warehouseExternalId']) ? $_REQUEST['warehouseExternalId'] : $dataHeader['warehouse_external_id']) ? 'selected' : '' ?>><?php echo $valExpedition[1] ?></option>								
 									<?php endwhile; ?>
 								</select>	

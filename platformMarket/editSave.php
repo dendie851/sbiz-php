@@ -16,7 +16,7 @@
 		  fee_admin_percent = '$fee_admin_percent'		  
 		where id='$id'";
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	include '../lib/connection-close.php';
 

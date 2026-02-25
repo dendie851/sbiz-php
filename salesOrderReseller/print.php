@@ -66,7 +66,7 @@
 				<tbody>
 					<?php $i=1; ?>
 					<?php $total = 0 ?>
-					<?php while($val = mysql_fetch_array($dataDetail)): ?>
+					<?php while($val = mysqli_fetch_array($dataDetail)): ?>
 						<tr>
 							<td style="padding:5px; font-size:12pt;  border:1px solid black;" align="center" ><?php echo $i ?></td>
 							<td style="padding:5px; font-size:12pt;  border:1px solid black;"><?php echo $val['name'] ?><br /><small>(<?php echo $val['nickname'] ?>)</small></td>

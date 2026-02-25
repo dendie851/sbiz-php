@@ -18,7 +18,7 @@
 		where so.is_delete = '0'
 		and so.id in ($id)	
 		order by date_order, no_order, name";
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 	
 	//include '../lib/connection-close.php';		
 ?>

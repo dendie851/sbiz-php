@@ -16,7 +16,7 @@
 								<td valign="top">SALES</td>
 								<td "valign="top">
 									<select name="salesId[]" style="width:100%; height: 94px" multiple  >
-										<?php while($val = mysql_fetch_array($cmbSales)): ?>
+										<?php while($val = mysqli_fetch_array($cmbSales)): ?>
 											<option value="<?php echo $val['id'] ?>" <?php echo in_array($val['id'],$salesId) == true ? 'selected' : '' ?>><?php echo $val['name'] ?></option>	
 										<?php endwhile; ?>	
 									</select>				
@@ -47,7 +47,7 @@
 	<div class="warning" style="min-height:20px;">
 		Data dibawah ini adalah <big style="font-size:14px">PENJUALAN</big> yang  <big style="font-size:14px">BELUM MEMBAYAR</big> 
 	</div>	
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 	 	<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 		</div>		
@@ -90,7 +90,7 @@
 					</thead>
 					<tbody>
 						<?php $i=1; ?>
-						<?php while($val = mysql_fetch_array($data)): ?>
+						<?php while($val = mysqli_fetch_array($data)): ?>
 							<tr style="cursor:pointer">
 								<td align="center">
 									<input class="bigCheckBox" style="cursor:pointer" name="salesOrderId[]" type="checkbox" value="<?php echo $val['id'] ?>" />

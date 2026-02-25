@@ -12,7 +12,7 @@
 		  and type = '0'
 	      and periode = '0'";
 
-	mysql_query($query);
+	mysqli_query($con, $query);
 
 	include '../lib/connection-close.php';
 

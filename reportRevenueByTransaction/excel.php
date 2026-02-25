@@ -50,7 +50,7 @@
 			<tr>
 				<td style="font-size:12pt" width="15%">KATEGORIBARANG </td>
 				<td style="font-size:12pt" colspan="3"> : 
-					<?php while($val = mysql_fetch_array($dataCategoryPrint)): ?>
+					<?php while($val = mysqli_fetch_array($dataCategoryPrint)): ?>
 						<small><?php echo $val['name'] ?></small>,		
 					<?php endwhile; ?>							
 				</td>
@@ -58,7 +58,7 @@
 			<tr>
 				<td style="font-size:12pt" width="15%">KETERANGAN PEMBAYARAN </td>
 				<td style="font-size:12pt" colspan="3"> : 
-					<?php while($val = mysql_fetch_array($dataFinSourceFundPrint)): ?>
+					<?php while($val = mysqli_fetch_array($dataFinSourceFundPrint)): ?>
 						<small><?php echo $val['name'] ?></small>,		
 					<?php endwhile; ?>							
 				</td>
@@ -78,7 +78,7 @@
 			<h3><?php echo message::getMsg('filterData') ?></h3>
 		</div>		
 	<?php else: ?>	
-		<?php if(mysql_num_rows($data) < 1) : ?>
+		<?php if(mysqli_num_rows($data) < 1) : ?>
 			<div class="warning">
 				<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 			</div>		
@@ -107,7 +107,7 @@
 						<?php $totalDiskon = 0; ?>
 						<?php $totalLaba = 0; ?>
 						<?php $totalBiayaKirim = 0; ?>
-						<?php while($val = mysql_fetch_array($data)): ?>
+						<?php while($val = mysqli_fetch_array($data)): ?>
 							<tr>
 								<td align="center" style="padding:5px; font-size:11pt; border:1px solid black"><?php echo $i ?></td>
 								<td align="left" style="padding:5px; font-size:11pt; border:1px solid black">

@@ -22,13 +22,13 @@
 		  date_input = '$dateInput',
 		  is_delete = '0'";		
 
-	mysql_query($query) or die (mysql_error());
+	mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select max(id) as id
 		from customer";		
 
-	$tmp = mysql_query($query) or die (mysql_error());
-	$data = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$data = mysqli_fetch_array($tmp);
 	$customerId = $data['id'];
 
 
@@ -38,7 +38,7 @@
 				  set customer_id = '$customerId',
 				    client_id = '$valTmp'";		
 
-		mysql_query($query) or die (mysql_error());
+		mysqli_query($con, $query) or die (mysqli_error($con));
 	}	
 
 	include '../lib/connection-close.php';

@@ -20,8 +20,8 @@
 		from stuff
 		where id = '$stuffId'";
 
-	$tmp = mysql_query($query);
-	$dataStuff = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query);
+	$dataStuff = mysqli_fetch_array($tmp);
 
 
 	$where = $type != 3 ? " and sh.tipe = '$type'" : "";		
@@ -39,7 +39,7 @@
 		$where		
 		order by sh.date, sh.id";
 
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 
 
 	include '../lib/connection-close.php';

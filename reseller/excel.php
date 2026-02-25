@@ -31,7 +31,7 @@
 			</thead>
 			<tbody>
 				<?php $i=1; ?>
-				<?php while($val = mysql_fetch_array($data)): ?>
+				<?php while($val = mysqli_fetch_array($data)): ?>
 					<tr >
 						<td align="center" style="border:1px solid black"><?php echo $i ?></td>
 						<td align="left"   style="padding:8px; border:1px solid black"><?php echo $val['name'] ?></td>

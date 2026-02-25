@@ -42,7 +42,7 @@
 		order by date_input asc, name asc
 		limit $record,50";
 
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 		
 	$query = "select count(id) as total
 		from sales_order_followup
@@ -51,8 +51,8 @@
 		  and (date_format(date_input,'%Y-%m-%d') >= '$dateFrom' and date_format(date_input,'%Y-%m-%d') <= '$dateTo')		   
 		  $where";
 
-	$dataTotal = mysql_query($query) or die(mysql_error());
-	$total = mysql_fetch_array($dataTotal);
+	$dataTotal = mysqli_query($con, $query) or die(mysqli_error($con));
+	$total = mysqli_fetch_array($dataTotal);
 
 	$split = new Split('index.php',$total['total'],50,25);
 

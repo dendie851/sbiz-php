@@ -19,7 +19,7 @@
 												<td style="font-size:12pt">
 													
 														<strong>
-															<?php while($val = mysql_fetch_array($dataCategoryPrint)): ?>
+															<?php while($val = mysqli_fetch_array($dataCategoryPrint)): ?>
 																<small><?php echo $val['name'] ?></small>,		
 															<?php endwhile; ?>											
 														</strong>	
@@ -102,7 +102,7 @@
 				</thead>
 				<tbody>
 					<?php $i = isset($_REQUEST['SplitRecord']) ? $_REQUEST['SplitRecord'] + 1  : 1  ?>
-					<?php while($val = mysql_fetch_array($data)): ?>
+					<?php while($val = mysqli_fetch_array($data)): ?>
 						<tr>
 							<td style="font-size:font-size:12pt; border:1px solid black" align="center"><?php echo $i ?></td>
 							<td style="font-size:font-size:12pt; border:1px solid black; padding:5px">

@@ -7,14 +7,14 @@
 	$query = "update sales_order
 			set is_delete = '1'
 		where id = '$id'";	
-	mysql_query($query) or die (mysql_error());	
+	mysqli_query($con, $query) or die (mysqli_error($con));	
 	
 	$query = "select id, stuff_id, amount, name, nickname
 		from sales_order_detail
 		where sales_order_id = '$id'";
-	$dataSalesOrderDetail = mysql_query($query) or die (mysql_error());			
+	$dataSalesOrderDetail = mysqli_query($con, $query) or die (mysqli_error($con));			
 
-	while($valSalesOrderDetail	= mysql_fetch_array($dataSalesOrderDetail)) {
+	while($valSalesOrderDetail	= mysqli_fetch_array($dataSalesOrderDetail)) {
 	
 		$salesOrderDetilId = $valSalesOrderDetail['id'];	
 		$qty = $valSalesOrderDetail['amount'];	
@@ -25,13 +25,13 @@
 		$query = "update stuff
 			set stock = stock + '$qty'
 			where id = '$stuffId'";
-		mysql_query($query) or die (mysql_error());	
+		mysqli_query($con, $query) or die (mysqli_error($con));	
 		
 		$query = "select no_order,client_id 
 			from sales_order
 			where id = '$id'";
-		$tmp = mysql_query($query) or die (mysql_error());			
-		$dataNoOrder = mysql_fetch_array($tmp);
+		$tmp = mysqli_query($con, $query) or die (mysqli_error($con));			
+		$dataNoOrder = mysqli_fetch_array($tmp);
 		$noOrder = $dataNoOrder['no_order'];	
 		$clientId = $dataNoOrder['client_id'];
 		
@@ -46,12 +46,12 @@
 			  price = '$price',	
 			  client_id = '$clientId',
 			  sales_order_id = '$id'";		
-		mysql_query($query) or die (mysql_error());		
+		mysqli_query($con, $query) or die (mysqli_error($con));		
 	}
 
 	$query = "delete from sales_order_history
 		where sales_order_id = '$id'";	
-	mysql_query($query) or die (mysql_error());	
+	mysqli_query($con, $query) or die (mysqli_error($con));	
 		
 	include '../lib/connection-close.php';
 

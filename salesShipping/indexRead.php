@@ -48,7 +48,7 @@
 		order by $orderBy asc, date_order_frm asc, name asc
 		limit $record,10000";
 
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 		
 	$query = "select count(id) as total
 		from sales_order		
@@ -60,8 +60,8 @@
 		  and status_complate_stuff = '1'
 		order by name";
 
-	$dataTotal = mysql_query($query) or die(mysql_error());
-	$total = mysql_fetch_array($dataTotal);
+	$dataTotal = mysqli_query($con, $query) or die(mysqli_error($con));
+	$total = mysqli_fetch_array($dataTotal);
 
 	$split = new Split('index.php',$total['total'],100,25);
 
@@ -69,12 +69,12 @@
 	from expedition		
 	where is_delete = '0' 
 	order by name";
-	$cmbExpedition = mysql_query($query) or die (mysql_error());
+	$cmbExpedition = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select id, name
 	from fin_source_fund		
 	where is_delete = '0'
 	order by name";
-	$cmbFoundSource = mysql_query($query) or die (mysql_error());
+	$cmbFoundSource = mysqli_query($con, $query) or die (mysqli_error($con));
 
 ?>

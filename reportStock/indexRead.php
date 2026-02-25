@@ -62,7 +62,7 @@
 		order by category_name, name
 		limit $record,$recordMax ";
 
-	$data = mysql_query($query) or die(mysql_error().'asd');
+	$data = mysqli_query($con, $query) or die(mysqli_error($con).'asd');
 	
 	$query = "select count(id) as total
 		from stuff		
@@ -71,8 +71,8 @@
 		  $where
 
 		order by name";
-	$dataTotal = mysql_query($query) or die(mysql_error());
-	$total = mysql_fetch_array($dataTotal);
+	$dataTotal = mysqli_query($con, $query) or die(mysqli_error($con));
+	$total = mysqli_fetch_array($dataTotal);
 
 	$split = new Split('index.php',$total['total'],25,25);
 
@@ -82,8 +82,8 @@
 		where is_delete = '0'
 		  $where";
 
-	$query = mysql_query($query) or die(mysql_error());
-	$tmp = mysql_fetch_array($query);
+	$query = mysqli_query($con, $query) or die(mysqli_error($con));
+	$tmp = mysqli_fetch_array($query);
 	$dataTotalAssetItem = $tmp['total'];
 
 
@@ -93,8 +93,8 @@
 		where is_delete = '0'
 		  $where";
 
-	$query = mysql_query($query) or die(mysql_error());
-	$tmp = mysql_fetch_array($query);
+	$query = mysqli_query($con, $query) or die(mysqli_error($con));
+	$tmp = mysqli_fetch_array($query);
 	$dataTotalAssetValue = $tmp['total'];
 	$dataTotalAssetValueBasic = $tmp['total_basic'];
 
@@ -102,7 +102,7 @@
 		from stuff_category
 		where is_delete = '0'
 		order by name";
-	$dataCategory = mysql_query($query) or die (mysql_error());
+	$dataCategory = mysqli_query($con, $query) or die (mysqli_error($con));
 
 
 	$whereCategoryPrint .= strlen($categoryIdChoose) > 0 ? " and id in ($categoryIdChoose)" : " ";
@@ -112,7 +112,7 @@
 		where is_delete = '0'
 		  $whereCategoryPrint
 		order by name";
-	$dataCategoryPrint = mysql_query($query) or die (mysql_error());
+	$dataCategoryPrint = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	include '../lib/connection-close.php';
 ?>

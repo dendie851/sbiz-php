@@ -15,8 +15,8 @@
 	from sales_order
 	where id = '$id'";
 
-	$tmp = mysql_query($query) or die (mysql_error());
-	$dataHeader = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$dataHeader = mysqli_fetch_array($tmp);
 
 	
 	$_REQUEST['tipeOrder'] = isset($_REQUEST['tipeOrder']) ? $_REQUEST['tipeOrder'] : $dataHeader['tipe_order']; 
@@ -31,7 +31,7 @@
 	where sales_order_id = '$id'
 	order by id asc";
 
-	$dataDetail = mysql_query($query) or die (mysql_error());
+	$dataDetail = mysqli_query($con, $query) or die (mysqli_error($con));
 	
 	$query = "select id, name
 	from period_order		
@@ -39,22 +39,22 @@
 	 and is_status = '0'
 	order by name";
 
-	$dataPeriodeOrder = mysql_query($query) or die (mysql_error());
+	$dataPeriodeOrder = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select id, name, phone
 	from client		
 	where is_delete = '0' 
 	order by name, phone";
 
-	$cmbClient = mysql_query($query) or die (mysql_error());
+	$cmbClient = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	
 	$query = "select id, name, phone,address
 	from client		
 	where id = '$clientId'";
 
-	$tmp = mysql_query($query) or die (mysql_error());
-	$dataClient = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$dataClient = mysqli_fetch_array($tmp);
 	
 	if($clientId != '0') {	
 		if($_REQUEST['hiddenClientId'] != $clientId ) {

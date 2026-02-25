@@ -20,8 +20,8 @@
 		from stuff_bundling
 		where is_delete = '0'
 		 and id = '$stuffBundlingId'";
-	$tmp = mysql_query($query) or die(mysql_error());			
-	$dataHeader = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die(mysqli_error($con));			
+	$dataHeader = mysqli_fetch_array($tmp);
 
 	$query = "select sb.id as stuff_bundling_id, sb.stuff_id, sb.qty as qty_max, s.name, s.*, 
 		  (select name from const as c where c.id = const_id) as const_name
@@ -30,7 +30,7 @@
 		  on s.id = sb.stuff_id
 		where s.is_delete = '0'
 		 and sb.stuff_bundling_id = '$stuffBundlingId'";
-	$data = mysql_query($query) or die(mysql_error());			
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));			
 	
 	include '../lib/connection-close.php';
 ?>

@@ -11,8 +11,8 @@
 		where username ='$username'
 		  and password = '$password'";
 
-	$tmp = mysql_query($query) or die (mysql_error());
-	$data = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+	$data = mysqli_fetch_array($tmp);
 
 
 	include '../lib/connection-close.php';
@@ -24,8 +24,8 @@
 			from user
 			where username ='$username'";
 
-		$tmp = mysql_query($query);
-		$dataDetail = mysql_fetch_array($tmp);
+		$tmp = mysqli_query($con, $query);
+		$dataDetail = mysqli_fetch_array($tmp);
 
 		$memberId = $dataDetail['member_id'];
 
@@ -34,15 +34,15 @@
 			from member as m
 			where id ='$memberId'";
 
-		$tmp = mysql_query($query) or die (mysql_error());
-		$dataMember = mysql_fetch_array($tmp);
+		$tmp = mysqli_query($con, $query) or die (mysqli_error($con));
+		$dataMember = mysqli_fetch_array($tmp);
 
 		$query = "select id as id
 			from stuff_category";
 			
-		$data = mysql_query($query)	 or die (mysql_error());
+		$data = mysqli_query($con, $query)	 or die (mysqli_error($con));
 		$category = '';
-		while($row = mysql_fetch_array($data)) {
+		while($row = mysqli_fetch_array($data)) {
 			$category .= $row['id'].'~';
 		}	
 		

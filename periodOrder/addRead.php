@@ -9,7 +9,7 @@
 		and type ='1'
 		order by name";
 
-	$data = mysql_query($query) or die (mysql_error());
+	$data = mysqli_query($con, $query) or die (mysqli_error($con));
 
 
 	$query = "select id,name 
@@ -17,7 +17,7 @@
 		where is_delete = '0'
 		order by name";
 
-	$dataLocation = mysql_query($query) or die (mysql_error());
+	$dataLocation = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$loginAccessCategory =  substr(str_replace('~',',',$_SESSION['loginAccessCategory']),-1 * (strlen(str_replace('~',',',$_SESSION['loginAccessCategory']))) ).'0';
 
@@ -26,7 +26,7 @@
 		where is_delete = '0'
 		  and id in ($loginAccessCategory)
 		order by name";
-	$dataCategory = mysql_query($query) or die (mysql_error());
+	$dataCategory = mysqli_query($con, $query) or die (mysqli_error($con));
 	
 	include '../lib/connection-close.php';
 ?>

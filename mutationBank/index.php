@@ -25,7 +25,7 @@
 						  <td width="50%"  colspan="2">
 						  	KATERANGAN PEMBAYARAN <sup style="font-size: 10px">Hanya Menampilan Yang Ada Nomor Rekening</sup><br style="margin-bottom: 10px; margin-top:30px" />
 							<select name="paymentId[]" style="width:100%; height:200px"  multiple>
-								<?php while($val = mysql_fetch_array($cmbFoundSource)): ?>
+								<?php while($val = mysqli_fetch_array($cmbFoundSource)): ?>
 									<option <?php echo in_array($val['id'],$paymentId) ? ' selected ' : '' ?> value="<?php echo $val['account_number'] ?>" <?php echo $val['id'] == (isset($_REQUEST['paymentId']) ? $_REQUEST['paymentId'] : '') ? 'selected' : '' ?>><?php echo $val['name'] ?> [No Rek: <?php echo empty($val['account_number']) ? 'Tidak Ada Nomor' : $val['account_number']; ?>]</option>
 								<?php endwhile; ?>
 							</select>				
@@ -57,7 +57,7 @@
 		Data dibawah ini Mutasi Bank yang terintegrasi dengan system <a href="http://moota.co" target="_blank">moota.co</a>
 	</div>	
 
-	<?php if(mysql_num_rows($data) < 1) : ?>
+	<?php if(mysqli_num_rows($data) < 1) : ?>
 	 	<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
 		</div>		
@@ -95,7 +95,7 @@
 				</thead>
 				<tbody>
 					<?php $i=1; ?>
-					<?php while($val = mysql_fetch_array($data)): ?>
+					<?php while($val = mysqli_fetch_array($data)): ?>
 						<tr>
 							<td align="center"><?php echo $val['date'] ?></td>
 							<td align="center"><?php echo $val['mutation_id'] ?></td>

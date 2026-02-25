@@ -10,22 +10,22 @@
 		and type ='1'
 		order by name";
 
-	$dataConst = mysql_query($query) or die (mysql_error());
+	$dataConst = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select id,name 
 		from location
 		where is_delete = '0'
 		order by name";
 
-	$dataLocation = mysql_query($query) or die (mysql_error());
+	$dataLocation = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select id, name, nickname, sku, stock, stock_min_alert, const_id, location_id, price, category_id,
 		  price_basic, nickname, fee_sales, is_hidden, cost_cs, cost_ops, cost_riset, cost_adv
 		from stuff
 		where id = '$id'";
 
-	$tmp = mysql_query($query);
-	$data = mysql_fetch_array($tmp);
+	$tmp = mysqli_query($con, $query);
+	$data = mysqli_fetch_array($tmp);
 
 	$categoryIdDefault = $data['category_id'];
 	$stuffIdDefault = $data['id'];
@@ -41,15 +41,15 @@
 		  on sub.id = row.stuff_category_sub_id 		
 		where row.stuff_id = '$stuffIdDefault'
 		  and sub.stuff_category_id = '$categoryIdDefault'";
-	$dataSubCategory = mysql_query($query) or die (mysql_error());
-	$dataSubCategoryAmountRow = mysql_num_rows($dataSubCategory);
+	$dataSubCategory = mysqli_query($con, $query) or die (mysqli_error($con));
+	$dataSubCategoryAmountRow = mysqli_num_rows($dataSubCategory);
 
 	if($dataSubCategoryAmountRow < 1) {
 		$typeSubCategory = 1;
 		$query = "select id as row_id, name, concat('') as row_name
 			from stuff_category_sub
 			where stuff_category_id ='$categoryIdDefault'";
-		$dataSubCategory = mysql_query($query) or die (mysql_error());		
+		$dataSubCategory = mysqli_query($con, $query) or die (mysqli_error($con));		
 	}
 
 	$loginAccessCategory =  substr(str_replace('~',',',$_SESSION['loginAccessCategory']),-1 * (strlen(str_replace('~',',',$_SESSION['loginAccessCategory']))) ).'0';
@@ -60,7 +60,7 @@
 		  and id in ($loginAccessCategory)
 		order by name";
 
-	$dataCategory = mysql_query($query) or die (mysql_error());	
+	$dataCategory = mysqli_query($con, $query) or die (mysqli_error($con));	
 
 	include '../lib/connection-close.php';
 ?>

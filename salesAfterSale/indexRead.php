@@ -60,7 +60,7 @@
 	$query = "select id, name, phone,address
 	          from client		
 	          where is_delete = '0'";
-	$tmpClient = mysql_query($query) or die(mysql_error());
+	$tmpClient = mysqli_query($con, $query) or die(mysqli_error($con));
 	$clientIdStr = implode($clientId,',');	
 
 	if(count($clientId) > 0) {
@@ -68,7 +68,7 @@
 	}	
 
 	$clientIdDefault = array();
-	while($valClient = mysql_fetch_array($tmpClient)) {
+	while($valClient = mysqli_fetch_array($tmpClient)) {
 	  $clientIdDefault[] = $valClient['id'];	  		
 	}			
 	$clientId = count($clientId) == 0 ? $clientIdDefault : $clientId;
@@ -104,7 +104,7 @@
 		order by date_order asc, date_shipping asc, no_order asc, name asc
 		limit $record,200";
 
-	$data = mysql_query($query) or die(mysql_error());
+	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 		
 	$query = "select count(so.id) as total
 		from sales_order as so
@@ -122,14 +122,14 @@
 		  and (1=1 $whereAfterSaleBreakDown)
 		  $where";
 
-	$dataTotal = mysql_query($query) or die(mysql_error());
-	$total = mysql_fetch_array($dataTotal);
+	$dataTotal = mysqli_query($con, $query) or die(mysqli_error($con));
+	$total = mysqli_fetch_array($dataTotal);
 
 	$split = new Split('index.php',$total['total'],200,25);
 
 	$query = "select id, name, phone,address
 	          from client		
 	          where is_delete = '0'";
-	$cmbClient = mysql_query($query) or die(mysql_error());
+	$cmbClient = mysqli_query($con, $query) or die(mysqli_error($con));
 
 ?>

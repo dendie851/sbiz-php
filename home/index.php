@@ -147,7 +147,7 @@
 		<b>KATEGORI BARANG</b> 
 		<select name="categoryId" style="width:230px" onchange="this.form.submit()">
 			<option value="x">-- Semua --</option>
-			<?php while($val = mysql_fetch_array($dataCategory)): ?>
+			<?php while($val = mysqli_fetch_array($dataCategory)): ?>
 				<option value="<?php echo $val['id'] ?>" <?php echo $val['id'] == (isset($_REQUEST['categoryId']) ? $_REQUEST['categoryId'] : '') ? 'selected' : '' ?>><?php echo $val['name'] ?></option>
 			<?php endwhile; ?>
 		</select>					
@@ -156,7 +156,7 @@
 
 	<fieldset>
 		<legend><b>PENGINGAT PERSEDIAN BARANG MENIPIS</b></legend>
-		<?php if(mysql_num_rows($data) < 1) : ?>
+		<?php if(mysqli_num_rows($data) < 1) : ?>
 		 	<div class="info">
 				<h3>SELURUH BARANG DALAM PERSEDIAN CUKUP</h3>
 			</div>		
@@ -185,7 +185,7 @@
 					</thead>
 					<tbody>
 						<?php $i=1; ?>
-						<?php while($val = mysql_fetch_array($data)): ?>
+						<?php while($val = mysqli_fetch_array($data)): ?>
 							<tr>
 								<td align="center"><?php echo $i ?></td>
 								<td>
