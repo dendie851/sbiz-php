@@ -1,7 +1,7 @@
 <hr />
 <table width="100%">
 	<tr>
-		<td width="<?php echo substr($_SESSION['loginPrivilage'],5,1) == '1' ? '90%' : '90%' ?>" valign="top">
+		<td width="<?php echo substr($_SESSION['loginPrivilage'],5,1) == '1' ? '95%' : '95%' ?>" valign="top">
 			<div id="smoothmenu" class="ddsmoothmenu">						    		
 				<ul>					
 					<?php if(in_array($_SESSION['loginPosition'], array('1','2','3','4','5'))): ?>
@@ -35,7 +35,15 @@
 							<li><a href="../resellerInformation/edit.php">Informasi Umum</a></li>	
 						</ul>	
 					</li>	
-					<?php endif; ?>					
+					<?php endif; ?>		
+					<?php if(in_array($_SESSION['loginPosition'], array('1','5','6'))): ?>
+					<li>
+						<a href="#">Affiliate</a>
+						<ul>
+							<li><a href="../affiliateSetting/index.php">Affiliate Setting</a></li>								
+						</ul>	
+					</li>	
+					<?php endif; ?>									
 					<?php if(in_array($_SESSION['loginPosition'], array('1','3','5'))): ?>
 						<li><a href="../customer/index.php">Pelanggan</a></li>								
 					<?php endif; ?>					
