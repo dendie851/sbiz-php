@@ -13,7 +13,7 @@
 	$password = general::secureInput(trim($_POST['password']));
 	$isActive = general::secureInput($_POST['isActive']);
 	
-		$query = "update affilate
+		$query = "update affiliate
 		set name = '$name',
 		  country_code = '$countryCode',
 		  phone_number= '$phone',
@@ -28,7 +28,7 @@
 
 	if(strlen($password) > 0) {
 		$password = md5($password); 
-		echo $query = "update affilate
+		echo $query = "update affiliate
 			set password = '$password'
 		    where id = '$id'";		
 

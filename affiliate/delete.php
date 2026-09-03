@@ -5,7 +5,7 @@
 
 	$id = general::secureInput($_GET['id']);
 
-	$query = "update reseller
+	$query = "update affiliate
 	      set is_delete = '1',
 	       is_active = '0',
 	       username = concat('x',username)

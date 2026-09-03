@@ -12,7 +12,7 @@
 	$query = "select r.id, r.name, r.phone_number, r.country_code, r.city, r.date_input, r.last_login, username, email,
 			   date_format(r.date_input,'%d %M %Y') as date_input_format,
 			   date_format(r.last_login,'%d %M %Y') as last_login_format
-			  from affilate as r
+			  from affiliate as r
 		  	  where is_delete = '0' 	 
 		  	  and (  (replace(name, ' ', '' ) like '%$keyword%') 
 			  	      or (replace(concat(r.	country_code,r.	phone_number), ' ', '' ) like '%$keyword%')
@@ -24,7 +24,7 @@
 	$data = mysqli_query($con, $query) or die (mysqli_error($con));
 
 	$query = "select count(r.id) as total
-			  from affilate as r
+			  from affiliate as r
 		  	  where is_delete = '0' 	 
 		  	  and ((replace(name, ' ', '' ) like '%$keyword%') 
 			  	  or (replace(concat(r.	country_code,r.	phone_number), ' ', '' ) like '%$keyword%')

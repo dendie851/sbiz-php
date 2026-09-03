@@ -29,7 +29,7 @@
 	$phoneNumber = $countryCode.$phone;
 
  	$query = "select count(id) as total
-	          from affilate
+	          from affiliate
 	          where concat(country_code,phone_number) = '$phoneNumber'
 	         ";		
 
@@ -43,7 +43,7 @@
 
 	$username = $_POST['username'];
  	$query = "select count(id) as total
-	          from affilate
+	          from affiliate
 	          where username = '$username'
 	            and is_delete = '0'
 	         ";		

@@ -14,7 +14,7 @@
 	$isActive = general::secureInput($_POST['isActive']);
 	$isDropshipper = general::secureInput($_POST['isDropshipper']);
 		
-	$query = "insert affilate
+	$query = "insert affiliate
 		set name = '$name',
 		  country_code = '$countryCode',
 		  phone_number= '$phone',
