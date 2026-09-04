@@ -3,7 +3,7 @@
 	include '../lib/connection.php';
 	include '../lib/general.class.php';
 
-	$affiliateId = general::secureInput($_POST['affiliateId']);
+	$affiliateId = general::secureInput($_POST['affiliateId']); 
 	$stuffIdChoose  = $_POST['stuffIdChoose'];
 	$stuffId  = $_POST['stuffId'];
 	$linkStuff  = $_POST['linkStuff'];
@@ -21,7 +21,7 @@
 		    $feeAffiliatePercentGet = general::secureInput($feeAffiliatePercent[$i]);	
 		    $pointGet = general::secureInput($point[$i]);	
 
-		    $query = "insert affiliate_stuff
+		   $query = "insert affiliate_stuff
 				set affiliate_id = '$affiliateId',
 				  stuff_id = '$val',
 				  link_product_brosur = '$linkProductBrosur',

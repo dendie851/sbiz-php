@@ -49,7 +49,7 @@
 		</div>		
 	<?php else: ?>
 		<form action="addSave.php" method="post" onsubmit="return confirm('Anda yakin memilih barang tersebut ?')">		
-		   <input type="hidden" name="resellerId" value="<?php echo $resellerId ?>">	
+		   <input type="hidden" name="affiliateId" value="<?php echo $affiliateId ?>">	
 		   <div style="float: left; margin-top: 20px; width: 100%">
 		   	  <input type="submit" value="PILIH BARANG " style="width: 100%; font-weight: bold" />
 		   </div>	  
