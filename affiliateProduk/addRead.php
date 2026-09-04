@@ -5,7 +5,7 @@
 	include '../lib/message.class.php';
 	include '../lib/general.class.php';
 
-	$resellerId = general::secureInput(str_replace(' ','',trim($_REQUEST['resellerId'])));	
+	$affiliateId = general::secureInput(str_replace(' ','',trim($_REQUEST['affiliateId'])));	
 	$keyword = general::secureInput(str_replace(' ','',trim($_REQUEST['keyword'])));
 	$categoryId = isset($_REQUEST['categoryId']) ? general::secureInput($_REQUEST['categoryId']) : 'x';
 	$record = isset($_GET['SplitRecord']) ? general::secureInput($_GET['SplitRecord']) : 0;
@@ -20,7 +20,7 @@
 		from stuff as s		
 		where s.is_delete = '0'
 		and s.is_hidden = '0'
-		and s.id not in (select rs.stuff_id from reseller_stuff as rs where reseller_id = '$resellerId' and rs.is_delete = '0')
+		and s.id not in (select rs.stuff_id from reseller_stuff as rs where reseller_id = '$affiliateId' and rs.is_delete = '0')
 		and (replace(s.name, ' ', '' ) like '%$keyword%' or replace(s.nickname, ' ', '' ) like '%$keyword%') 
 		  $where
 		order by category_id, name

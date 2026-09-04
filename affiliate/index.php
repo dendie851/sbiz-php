@@ -79,7 +79,7 @@
 								<div style="font-size: 10">Terakhir Login: <?php echo $val['last_login_format'] ?></div>																		
 							</td>	
 							<td align="center">
-								<input type="button" value="PRODUK" onclick="window.location='../affilateProduk/index.php?resellerId=<?php echo $val['id'] ?>'" />
+								<input type="button" value="PRODUK" onclick="window.location='../affiliateProduk/index.php?affiliateId=<?php echo $val['id'] ?>'" />
 								<input type="button" value="EDIT" onclick="window.location='edit.php?id=<?php echo $val['id'] ?>'" />
 								<input type="button" value="HAPUS" onclick="confirm('Anda yakin akan menghapus ?') ? window.location='delete.php?id=<?php echo $val['id'] ?>' : false" />																	
 							</td>

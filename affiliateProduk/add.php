@@ -12,7 +12,7 @@
 	<fieldset>
 		<legend><b>FILTER</b></legend>
 		<form action="add.php" method="get">
-		   <input type="hidden" name="resellerId" value="<?php echo $resellerId ?>">				
+		   <input type="hidden" name="affiliateId" value="<?php echo $affiliateId ?>">				
 			<table width="100%">
 				<tr>
 					<td width="15%">KATEGORI</td>
@@ -62,7 +62,7 @@
 						<th align="center" width="25%" style="font-size: 11px">NAMA BARANG</th>
 						<th align="center" width="12%" style="font-size: 11px">HARGA DASAR </th>
 						<th align="center" width="12%" style="font-size: 11px">HARGA PUBLISH </th>
-						<th align="center" width="12%" style="font-size: 11px">HARGA UNTUK RESELLER</th>
+						<th align="center" width="12%" style="font-size: 11px">HARGA UNTUK AFFILIATE</th>
 						<th align="center" width="12%" style="font-size: 11px">KOMISI <br />PERSEN</th>
 						<th align="center" style="font-size: 11px">KOMISI NOMINAL</th>
 						<th align="center" style="font-size: 11px">POIN</th>
@@ -94,13 +94,13 @@
 								<?php echo number_format($val['price_publish'],0,'','.') ?> / <?php echo $val['const_name'] ?>
 							</td>							
 							<td align="center">
-								<input type="text" name="priceBasicReseller[]" value="0" size="5" style="text-align: right;">
+								<input type="text" name="priceBasicAffiliate[]" value="<?php echo $val['price_publish'] ?>" size="5" style="text-align: right;">
 							</td>
 							<td align="center">
-							  <input type="text" name="feeResellerPercent[]" value="0" size="1" style="text-align: right;"> %
+							  <input type="text" name="feeAffiliateNominal[]" value="0" size="1" style="text-align: right;"> %
 							</td>
 							<td align="center">
-							  <input type="text" name="feeResellerNominal[]" value="0" size="5" style="text-align: right;">
+							  <input type="text" name="feeAffiliatePercent[]" value="0" size="5" style="text-align: right;">
 							</td>
 							<td align="center">
 							  <input type="text" name="point[]" value="0" size="2" style="text-align: center;">

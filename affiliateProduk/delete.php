@@ -4,23 +4,23 @@
 	include '../lib/general.class.php';
 
 	$id = general::secureInput($_POST['id']);
-	$resellerId = general::secureInput($_POST['resellerId']);
-	$resellerStuffIdChoose = $_POST['resellerStuffIdChoose'];
-	$resellerStuffId  = $_POST['resellerStuffId'];
+	$affiliateId = general::secureInput($_POST['affiliateId']);
+	$affiliateStuffIdChoose = $_POST['affiliateStuffIdChoose'];
+	$affiliateStuffId  = $_POST['affiliateStuffId'];
 
 
 	$i = 0;
-	foreach($resellerStuffId as $val) {
-		if (in_array($val,$resellerStuffIdChoose)) {
+	foreach($affiliateStuffId as $val) {
+		if (in_array($val,$affiliateStuffIdChoose)) {
 		    $linkProductBrosur = general::secureInput($linkStuff[$i]);
-		    $priceBasic = general::secureInput($priceBasicReseller[$i]);	
-		    $feeResellerNominalGet = general::secureInput($feeResellerNominal[$i]);
-		    $feeResellerPercentGet = general::secureInput($feeResellerPercent[$i]);	
+		    $priceBasic = general::secureInput($priceBasicaffiliate[$i]);	
+		    $feeaffiliateNominalGet = general::secureInput($feeaffiliateNominal[$i]);
+		    $feeaffiliatePercentGet = general::secureInput($feeaffiliatePercent[$i]);	
 
-		    $query = "update reseller_stuff
+		    $query = "update affiliate_stuff
 				set is_delete = '1'
 				 where id = '$val' 
-				   and reseller_id = '$resellerId'";		
+				   and affiliate_id = '$affiliateId'";		
 
 
 			mysqli_query($con, $query) or die (mysqli_error($con));
@@ -30,4 +30,4 @@
 
 	include '../lib/connection-close.php';
 
-	header('Location:index.php?msg=deleteSuccess&resellerId='.$resellerId);?>
+	header('Location:index.php?msg=deleteSuccess&affiliateId='.$affiliateId);?>

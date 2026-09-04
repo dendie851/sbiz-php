@@ -2,26 +2,26 @@
 	<?php include 'indexRead.php' ?>
 	<table width="100%">
 	   <tr>
-	   	  <td valign="top"><h1>RESELLER PRODUK</h1></td>
-	   	  <td valing="top" align="right"><input type="button" value="KEMBALI" onclick="window.location='../reseller/index.php'" /></td>	
+	   	  <td valign="top"><h1>AFFILIATE PRODUK</h1></td>
+	   	  <td valing="top" align="right"><input type="button" value="KEMBALI" onclick="window.location='../affiliate/index.php'" /></td>	
 	   </tr>	
 	</table>	
 		
 	<fieldset>
-		<legend><b>INFO RESELLER<b></legend>	
+		<legend><b>INFO affiliate<b></legend>	
 			<form action="index.php" method="post" >					
 				<table width="100%">
 					<tr>
 						<td width="20%" valign="top">NAMA</td>
-						<td width="28%" valign="top"><b><?php echo strtoupper($dataReseller['name']) ?></b></td>
+						<td width="28%" valign="top"><b><?php echo strtoupper($dataAffiliate['name']) ?></b></td>
 						<td width="20%" valign="top">TGL DAFTAR</td>
-						<td valign="top"><b><?php echo $dataReseller['date_input_format'] ?></b></td>
+						<td valign="top"><b><?php echo $dataAffiliate['date_input_format'] ?></b></td>
 					</tr>
 					<tr>
 						<td valign="top">HANDPHONE</td>
-						<td valign="top"><b><?php echo $dataReseller['country_code'] ?><?php echo $dataReseller['phone_number'] ?></b></td>
+						<td valign="top"><b><?php echo $dataAffiliate['country_code'] ?><?php echo $dataAffiliate['phone_number'] ?></b></td>
 						<td valign="top">EMAIL</td>
-						<td valign="top"><b><?php echo $dataReseller['email'] ?></b></td>
+						<td valign="top"><b><?php echo $dataAffiliate['email'] ?></b></td>
 					</tr>
 				</table>
 			</form>	
@@ -36,7 +36,7 @@
 
 	<?php if(mysqli_num_rows($data) < 1) : ?>
 	    <div style="margin: 10px 0px 5px 0px" class="button">
-	        <div style="float: left;"><input type="button" value="TAMBAH BARANG" data-title="TAMBAH BARANG" data-width="950" data-height="500"  link="add.php?resellerId=<?php echo $resellerId ?>"  /></div>
+	        <div style="float: left;"><input type="button" value="TAMBAH BARANG" data-title="TAMBAH BARANG" data-width="950" data-height="500"  link="add.php?affiliateId=<?php echo $affiliateId ?>"  /></div>
 		</div>   
 	<?php endif; ?>
 
@@ -47,7 +47,7 @@
 		</div>		
 	<?php else: ?>
 		<form action="editSave.php" method="post" onsubmit="return submitAct()" id="frm">		
-		   <input type="hidden" name="resellerId" value="<?php echo $resellerId ?>">	
+		   <input type="hidden" name="affiliateId" value="<?php echo $affiliateId ?>">	
 		   <div style="float: left; margin-bottom: 2px; margin-top: 20px">
 				<select name="actionType" id="actionType" style="width:200px;">
 					<option value="0">-- PILIH AKSI --</option>
@@ -57,7 +57,7 @@
 				<input style="font-weight:bold; width:60px; height:30px" name="submit" type="submit" value=" OK " />
 		   </div>	  
 		   <div style="float: right; margin-bottom: 2px; margin-top: 20px">
-	          <div style="float: right;"  class="button"><input type="button" value="TAMBAH BARANG" data-title="TAMBAH BARANG" data-width="950" data-height="500"  link="add.php?resellerId=<?php echo $resellerId ?>"  /></div>
+	          <div style="float: right;"  class="button"><input type="button" value="TAMBAH BARANG" data-title="TAMBAH BARANG" data-width="950" data-height="500"  link="add.php?affiliateId=<?php echo $affiliateId ?>"  /></div>
 		   </div>   
 		   <div id="tbl">
 			<table width="100%" border="1">
@@ -68,7 +68,7 @@
 						<th align="center" width="25%" style="font-size: 11px">NAMA BARANG</th>
 						<th align="center" width="12%" style="font-size: 11px">HARGA DASAR </th>
 						<th align="center" width="12%" style="font-size: 11px">HARGA PUBLISH </th>
-						<th align="center" width="12%" style="font-size: 11px">HARGA UNTUK RESELLER</th>
+						<th align="center" width="12%" style="font-size: 11px">HARGA UNTUK AFFILIATE</th>
 						<th align="center" width="12%" style="font-size: 11px">KOMISI <br />PERSEN</th>
 						<th align="center" style="font-size: 11px">KOMISI <br />NOMINAL</th>
 						<th align="center"  style="font-size: 11px">POIN</th>
@@ -79,8 +79,8 @@
 					<?php while($val = mysqli_fetch_array($data)): ?>
 						<tr>
 							<td align="center">
-								<input type="checkbox" name="resellerStuffIdChoose[] " value="<?php echo $val['reseller_stuff_id'] ?>">
-								<input type="hidden" name="resellerStuffId[] " value="<?php echo $val['reseller_stuff_id'] ?>">
+								<input type="checkbox" name="affiliateStuffIdChoose[] " value="<?php echo $val['affiliate_stuff_id'] ?>">
+								<input type="hidden" name="affiliateStuffId[] " value="<?php echo $val['affiliate_stuff_id'] ?>">
 							</td>
 							<td align="center">
 							  <?php echo $i ?>
@@ -100,13 +100,13 @@
 								<?php echo number_format($val['price_publish'],0,'','.') ?> / <?php echo $val['const_name'] ?>
 							</td>
 							<td align="center">
-								<input type="text" name="priceBasicReseller[]" value="<?php echo $val['price_basic_reseller'] ?>" size="5" style="text-align: right;" value="<?php echo $val['link_product_brosur'] ?>">
+								<input type="text" name="priceBasicAffiliate[]" value="<?php echo $val['price_basic_affiliate'] ?>" size="5" style="text-align: right;" value="<?php echo $val['link_product_brosur'] ?>">
 							</td>
 							<td align="center">
-							  <input type="text" name="feeResellerPercent[]" value="<?php echo $val['fee_reseller_percent'] ?>" size="1" style="text-align: right;"> %
+							  <input type="text" name="feeAffiliatePercent[]" value="<?php echo $val['fee_affiliate_percent'] ?>" size="1" style="text-align: right;"> %
 							</td>
 							<td align="center">
-							  <input type="text" name="feeResellerNominal[]" value="<?php echo $val['fee_reseller_nominal'] ?>" size="5" style="text-align: right;">
+							  <input type="text" name="feeAffiliateNominal[]" value="<?php echo $val['fee_affiliate_nominal'] ?>" size="5" style="text-align: right;">
 							</td>
 							<td align="center">
 							  <input type="text" name="point[]" value="<?php echo $val['point'] ?>" size="2" style="text-align: center;">
