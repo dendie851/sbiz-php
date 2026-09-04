@@ -1,6 +1,6 @@
 <?php include 'indexRead.php' ?>
 <?php ob_start(); ?>
-	<h1>PENJUALAN</h1>
+	<h1>PENJUALAN AFFILIATE</h1>
 		<fieldset>
 			<legend><b>FILTER<b></legend>	
 				<form action="index.php" method="post" >					
@@ -11,12 +11,12 @@
 								<input placeholder=""name="keyword" type="text" value="<?php echo $_REQUEST['keyword'] ?>" style="width:180px"/><br />
 								<small style="font-size:8px"><i>NAMA PEMBELI / NO SALES ORDER / NO RESI</i></small>
 							</td>
-							<td width="" valign="top">KATEGORI PELANGGAN</td>
+							<td width="" valign="top">RESELLER</td>
 							<td width="" valign="top">
 								<select name="clientId" style="width:180px">
 									<option value="x" >Semua</option>
 									<?php while($valClient = mysqli_fetch_array($cmbClient)): ?>
-										<option value="<?php echo $valClient[0] ?>" <?php echo $valClient[0] == (isset($_REQUEST['clientId']) ? $_REQUEST['clientId'] : $dataHeader['client_id']) ? 'selected' : '' ?>><?php echo $valClient[1] ?></option>								
+										<option value="<?php echo $valClient[0] ?>" <?php echo $valClient[0] == (isset($_REQUEST['clientId']) ? $_REQUEST['clientId'] : $dataHeader['client_id']) ? 'selected' : '' ?>><?php echo strtoupper($valClient[1]) ?></option>								
 									<?php endwhile; ?>
 								</select>				
 							</td>						
@@ -25,10 +25,8 @@
 							<td width="20%">STATUS PENJUALAN</td>
 							<td width=>
 								<select name="statusOrder" style="width:180px">
-									<option value="x" <?php echo 'x' == (isset($_REQUEST['statusOrder']) ? $_REQUEST['statusOrder'] :'') ? 'selected' : '' ?>>Semua</option>
-									<!--							
-									<option value="4" <?php echo '4' == (isset($_REQUEST['statusOrder']) ? $_REQUEST['statusOrder'] : $statusOrder) ? 'selected' : '' ?> disabled>Belum Bayar</option>
-									-->									
+									<option value="x" <?php echo 'x' == (isset($_REQUEST['statusOrder']) ? $_REQUEST['statusOrder'] :'') ? 'selected' : '' ?>>Semua</option>							
+									<option value="4" <?php echo '4' == (isset($_REQUEST['statusOrder']) ? $_REQUEST['statusOrder'] : $statusOrder) ? 'selected' : '' ?>>Belum Bayar</option>
 									<option value="0" <?php echo '0' == (isset($_REQUEST['statusOrder']) ? $_REQUEST['statusOrder'] : $statusOrder) ? 'selected' : '' ?>>Pemesanan / Sudah Bayar</option>
 									<option value="1" <?php echo '1' == (isset($_REQUEST['statusOrder']) ? $_REQUEST['statusOrder'] : $statusOrder) ? 'selected' : '' ?>>Pengemaasan</option>
 									<option value="2" <?php echo '2' == (isset($_REQUEST['statusOrder']) ? $_REQUEST['statusOrder'] : $statusOrder) ? 'selected' : '' ?>>Pengiriman</option>
@@ -68,7 +66,6 @@
 		</div>		
 	<?php endif ?>
 
-	<p><input type="button" value="TAMBAH" onclick="window.location='add.php'" /></p>
 	<?php if(mysqli_num_rows($data) < 1) : ?>
 	 	<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
@@ -82,7 +79,7 @@
 						<th align="center" width="%">TGL PEMESANAN</th>
 						<th align="center" width="%">NO SALES ORDER</th>						
 						<th align="center" width="%">NAMA PEMBELI</th>
-						<th align="center" width="%">KURIR</th>
+						<th align="center" width="%">TIPE PEMBAYARAN</th>
 						<th align="center" width="15%">JUMLAH</th>
 						<th></th>
 					</tr>	
@@ -100,13 +97,13 @@
 							</td>
 							<td align="center">
 								<?php echo $val['name'] ?><br />
-								<small>Sales : <?php echo $val['sales_name'] ?></small>
+								<small>Reseller : <?php echo strtoupper($val['reseller_name']) ?></small>
 							</td>
 							<td align="center">
-								<?php if($val['is_warehouse_external'] == '1'): ?>
-									<?php echo $val['warehouse_external_name'] ?>
-								<?php else: ?>
-									<?php echo $val['expedition_name'] ?>
+								<?php echo $val['is_cod'] == '1' ? 'COD' : 'TRANSFER' ?>
+								<?php if(strlen($val['expedition_name']) > 0): ?>
+									<br />
+									<small style="font-size: 11">KURIR : <?php echo $val['expedition_name'] ?></small>
 								<?php endif; ?>	
 							</td>
 							<td align="center">
@@ -114,14 +111,14 @@
 								<small style="font-size: 10px">Pembayaran : <?php echo $val['description_payment'] ?></small>		
 							</td>							
 							<td align="center">
-								<input type="button" value="EDIT" onclick="window.location='edit.php?id=<?php echo $val['id'] ?>'" />
+							<input type="button" value="EDIT" onclick="window.location='edit.php?id=<?php echo $val['id'] ?>'" />
 								<?php if($_SESSION['loginPosition'] == '1'): ?>									
-									<input type="button" value="BATAL" onclick="confirm('Anda yakin akan membatalkan ?') ? window.location='delete.php?id=<?php echo $val['id'] ?>' : false" />
+									<input type="button" value="HAPUS" onclick="confirm('Anda yakin akan menghapus ?') ? window.location='delete.php?id=<?php echo $val['id'] ?>' : false" />
 								<?php else: ?>
 									<?php if(in_array($val['status_order'],array(2,3))): ?>
-										<input type="button" value="BATAL" onclick="confirm('Anda yakin akan membatalkan ?') ? window.location='delete.php?id=<?php echo $val['id'] ?>' : false" />
+										<input type="button" value="HAPUS" onclick="confirm('Anda yakin akan menghapus ?') ? window.location='delete.php?id=<?php echo $val['id'] ?>' : false" />
 									<?php else: ?>
-										<input type="button" value="BATAL" onclick="confirm('Anda yakin akan membatalkan ?') ? window.location='delete.php?id=<?php echo $val['id'] ?>' : false" />
+										<input type="button" value="HAPUS" onclick="confirm('Anda yakin akan menghapus ?') ? window.location='delete.php?id=<?php echo $val['id'] ?>' : false" />
 									<?php endif; ?>								
 								<?php endif; ?>	
 							</td>

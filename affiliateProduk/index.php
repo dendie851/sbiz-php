@@ -90,8 +90,9 @@
 								<?php if(strlen($val['nickname']) > 0): ?>
 									<small style="font-size:9px; padding-left:0px"><?php echo $val['nickname'] ?></small><br />
 								<?php endif; ?>	
-								<small style="font-size:9px; padding-left:0px">Category : <?php echo $val['category_name'] ?></small><br />
+								<small style="font-size:9px; padding-left:0px">Category : <?php echo $val['category_name'] ?></small><br />							
 								<input type="text" name="linkStuff[]" placeholder="Link Brosur Barang"  style="text-align: left; margin-top: 10px; width: 100%" value="<?php echo $val['link_product_brosur'] ?>"> 
+								<div style="font:size:8px; text-align:right">Link Brosur Barang</div>		
 							</td>
 							<td align="center">
 								<?php echo number_format($val['price_basic_store'],0,'','.') ?> / <?php echo $val['const_name'] ?>

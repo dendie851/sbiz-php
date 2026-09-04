@@ -89,6 +89,9 @@
 								<li ><a href="../salesOrderReseller/index.php">Penjualan Reseller</a></li>	
 							<?php endif; ?>	
 							<?php if(in_array($_SESSION['loginPosition'], array('1','3','4','5'))): ?>
+								<li ><a href="../salesOrderAffiliate/index.php">Penjualan Affiliate</a></li>	
+							<?php endif; ?>								
+							<?php if(in_array($_SESSION['loginPosition'], array('1','3','4','5'))): ?>
 								<li ><a href="../salesOrder/index.php">Penjualan</a></li>	
 							<?php endif; ?>	
 							<li style="height:2px; background-color: gray;text-shadow: 0px 1px 0px #999;"></li>				
