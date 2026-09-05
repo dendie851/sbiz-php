@@ -94,8 +94,16 @@
 						</td>
 					</tr>	
 					<tr>
+						<td style="padding:5px;  font-size:12pt;  border:1px solid black;" align="left" colspan="2"><b>DISKON NOMINAL</b></td>
+						<td style="padding:5px; font-size:12pt;  border:1px solid black;" colspan="2" align="center"></td>
+						<td style="padding:5px; font-size:12pt;  border:1px solid black;" align="center" width="20%">
+							<span id="labelDiskonAmount">Rp. <?php echo  number_format($dataHeader['discount_amount'],0,'','.') ?></span>
+						</td>
+					</tr>	
+					<tr>
 						<td style="padding:5px;  font-size:12pt;  border:1px solid black;" align="left" colspan="4"><b>TOTAL SETELAH DISKON</b></td>
-						<td style="padding:5px; font-size:12pt;  border:1px solid black;" align="center"><b><span id="labelTotal">Rp. <?php echo number_format($total - (($total/100) * $dataHeader['discount_persen']),0,'','.') ?></b></span></td>
+						<td style="padding:5px; font-size:12pt;  border:1px solid black;" align="center"><b><span id="labelTotal">Rp. <?php echo number_format(($total - (($total/100) * $dataHeader['discount_persen'])) - $dataHeader['discount_amount'] ,0,'','.') ?></b></span></td>
+
 					</tr>						
 					<tr>
 						<td  style="padding:5px;  font-size:12pt;  border:1px solid black;"align="left" colspan="4"><b>BIAYA KIRIM</b></td>
@@ -104,8 +112,9 @@
 					<tr>
 						<th  style="padding:5px;  font-size:12pt;  border:1px solid black; text-align:left"   width="5%"colspan="4">GRAND TOTAL</th>
 						<th style="padding:5px; font-size:12pt;  border:1px solid black;" ><b>
-							Rp. <?php echo number_format(($total - (($total/100) * $dataHeader['discount_persen'])) + $dataHeader['shipping_cost'],0,'','.') ?>
-						</b></th>
+							Rp. <?php echo number_format((($total - (($total/100) * $dataHeader['discount_persen'])) - $dataHeader['discount_amount']) + $dataHeader['shipping_cost'],0,'','.') ?>
+
+					</b></th>
 					</tr>	
 				</tfoot>
 			</table>
