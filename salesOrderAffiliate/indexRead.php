@@ -24,19 +24,19 @@
 	$where .= $statusOrder != 'x' ? " and status_order = '$statusOrder' " : "";
 	$where .= $statusPayment != 'x' ? " and status_payment = '$statusPayment' " : "";
 	$where .= $statusClose != 'x' ? " and status_close = '$statusClose' " : "";
-	$where .= $clientId != 'x'? " and reseller_id = '$clientId' " : "";
+	$where .= $clientId != 'x'? " and affiliate_id = '$clientId' " : "";
 
 	$positionId = $_SESSION['loginPosition'];
 
 	$query = "select id, name
-	          from reseller		
+	          from affiliate		
 	          where is_delete = '0'";
 	$cmbClient = mysqli_query($con, $query) or die(mysqli_error($con));
 
 	
-	$query = "select id, no_order, client_id, period_order_id, name, address_shipping, tipe_order, expedition_id,
+	$query = "select affiliate_id, id, no_order, client_id, period_order_id, name, address_shipping, tipe_order, expedition_id,
 			description_payment, description_shipping, discount_amount, amount_sale, shipping_cost,sales_id,
-			(select m.name from reseller as m where m.id = reseller_id) as reseller_name,
+			(select m.name from affiliate as m where m.id = affiliate_id) as affiliate_name,
 			(select e.name from expedition as e where e.id = expedition_id) as expedition_name,
 			date_order, date_packing, date_payment, date_shipping, status_order, phone, discount_persen, status_payment,
 			date_format(date_order,'%d %M %Y') as date_order_frm, 
@@ -49,7 +49,7 @@
 		  and (replace(name, ' ', '' ) like '%$keyword%' or replace(no_order, ' ', '' ) like '%$keyword%'
 		  or replace(no_resi, ' ', '' ) like '%$keyword%' )
 		  and (date_order >= '$dateFrom' and date_order <= '$dateTo')
-		  and is_reseller = '1'		   
+		  and is_affiliate = '1'		   
 		  $where
 		order by date_order asc, no_order asc, name
 		limit $record,50";
@@ -62,7 +62,7 @@
 		  and (replace(name, ' ', '' ) like '%$keyword%' or replace(no_order, ' ', '' ) like '%$keyword%'
 		  or replace(no_resi, ' ', '' ) like '%$keyword%')
 		  and (date_order >= '$dateFrom' and date_order <= '$dateTo')		   
-		  and is_reseller = '1'		   		  
+		  and is_affiliate = '1'		   		  
 		  $where";
 
 	$dataTotal = mysqli_query($con, $query) or die(mysqli_error($con));

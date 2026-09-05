@@ -1,6 +1,6 @@
 	<?php ob_start(); ?>
 <?php include 'editRead.php' ?>
-	<h1>EDIT PENJUALAN RESELLER</h1>
+	<h1>EDIT PENJUALAN AFFILIATE</h1>
 	<hr />
 	<p style="text-align:right">
 		<input type="button" value="PRINT FAKTUR PENJUALAN" onclick="window.open('print.php?id=<?php echo $dataHeader['id'] ?>')" />
@@ -13,10 +13,10 @@
 					<tr>
 						<td width="20%">NO SALES ORDER</td>
 						<td width="25%"><b><?php echo $dataHeader['no_order'] ?></b></td>
-						<td width="15%">RESELLER</td>
+						<td width="15%">AFFILIATE</td>
 						<td valign="top">
-							<b><?php echo strtoupper($dataHeader['reseller_name']) ?></b>
-							<small>(<?php echo $dataHeader['reseller_type'] == '1' ? 'Reseller Stok' : 'Dropshipper' ?>)</small>
+							<b><?php echo strtoupper($dataHeader['affiliate_name']) ?></b>
+							<small>(<?php echo strtoupper($dataHeader['affiliate_username']) ?>)</small>
 
 						</td>
 					<tr>
@@ -256,19 +256,16 @@
 							<tr>
 								<td align="center"><?php echo $i ?></td>
 								<td>
-									<?php echo $val['name'] ?><br /><small>(<?php echo $val['nickname'] ?>)</small><br /><br />
-									<small style="font-size: 9px; color: green">[Harga Reseller ke Pembeli <?php echo number_format($val['price_reseller_to_customer'],0,'','.') ?>]</small>																			
+									<?php echo $val['name'] ?>
 								</td>
 								<td align="center">
 									<?php echo $val['amount'] ?>
 								</td>
 								<td align="center">
-									<?php echo number_format($val['price'],0,'','.') ?><br /><br />
-									<small style="font-size: 9px; color: green">[ <?php echo number_format($val['price_reseller_to_customer'],0,'','.') ?> ]</small>																											
+									<?php echo number_format($val['price'],0,'','.') ?>
 								</td>	
 								<td align="center">
-									<?php echo number_format($val['price'] * $val['amount'] ,0,'','.') ?><br /><br />
-									<small style="font-size: 9px; color: green">[ <?php echo number_format($val['price_reseller_to_customer']  * $val['amount'],0,'','.') ?> ]</small>																											
+									<?php echo number_format($val['price'] * $val['amount'] ,0,'','.') ?>
 								</td>																
 								<td align="center">	
 									<!--
@@ -304,6 +301,12 @@
 							<td align="center" width="20%"><span id="labelDiskon">0</span></td>
 							<td></td>
 						</tr>	
+						<tr>
+							<td align="left" colspan="2"><b>DISKON NOMINAL</b></td>
+							<td colspan="2" align="right"><input onkeyup="calcDiscount(<?php echo $total ?>)" style="text-align:center; font-size:15px; height:30px; width:100px" type="text" name="discountAmount" id="discountAmount" value="<?php echo isset($_POST['discountAmount']) ? $_POST['discountAmount'] : $dataHeader['discount_amount'] ?>" size="3" />&nbsp;&nbsp;&nbsp;&nbsp;</td>
+							<td align="center" width="20%"></td>
+							<td></td>
+						</tr>						
 						<tr>
 							<td colspan="6">&nbsp;</td>
 						</tr>
@@ -497,6 +500,8 @@
 
 			
 			var total  =  p - lDiskon; 
+			var lDiskonAmount = document.getElementById('discountAmount').value;
+			total = (total - lDiskonAmount);
 			
 			document.getElementById('labelTotal').innerHTML = total;
 			$('#labelTotal').simpleMoneyFormat();

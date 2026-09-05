@@ -11,7 +11,7 @@
 								<input placeholder=""name="keyword" type="text" value="<?php echo $_REQUEST['keyword'] ?>" style="width:180px"/><br />
 								<small style="font-size:8px"><i>NAMA PEMBELI / NO SALES ORDER / NO RESI</i></small>
 							</td>
-							<td width="" valign="top">RESELLER</td>
+							<td width="" valign="top">AFFILIATE</td>
 							<td width="" valign="top">
 								<select name="clientId" style="width:180px">
 									<option value="x" >Semua</option>
@@ -97,7 +97,7 @@
 							</td>
 							<td align="center">
 								<?php echo $val['name'] ?><br />
-								<small>Reseller : <?php echo strtoupper($val['reseller_name']) ?></small>
+								<small>Affiliate : <?php echo strtoupper($val['affiliate_name']) ?></small>
 							</td>
 							<td align="center">
 								<?php echo $val['is_cod'] == '1' ? 'COD' : 'TRANSFER' ?>

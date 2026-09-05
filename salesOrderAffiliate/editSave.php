@@ -39,6 +39,7 @@
 	$descriptionPayment = $arrfinSourceFund[1];
 
 	$discount	 = general::secureInput(abs($_POST['discount']));
+	$discountAmount = general::secureInput(abs($_POST['discountAmount']));
 	$costShipping	 = general::secureInput($_POST['costShipping']);
 	$isCod	 = general::secureInput($_POST['isCod']);
 
@@ -84,6 +85,7 @@
 	$query = "update sales_order
 		  set expedition_id = '$expeditionId',
 		  discount_persen = '$discount',
+		  discount_amount = '$discountAmount',
 		  shipping_cost = '$costShipping',
 		  date_shipping = '$dateShipping',
 		  date_packing = '$datePacking',
