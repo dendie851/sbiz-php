@@ -22,7 +22,7 @@
 								<li><a href="../measure/index.php">Satuan Ukuran</a></li>																															
 							</ul>							
 						</li>
-					<?php endif; ?>
+					<?php endif; ?>						
 					<?php if(in_array($_SESSION['loginPosition'], array('1','5'))): ?>
 					<li>
 						<a href="#">Reseller </a>
@@ -36,7 +36,7 @@
 						</ul>	
 					</li>	
 					<?php endif; ?>		
-					<?php if(in_array($_SESSION['loginPosition'], array('1','5','6'))): ?>
+					<?php if(in_array($_SESSION['loginPosition'], array('1','5'))): ?>
 					<li>
 						<a href="#">Affiliate</a>
 						<ul>
@@ -84,7 +84,7 @@
 						<ul >
 							<?php if(in_array($_SESSION['loginPosition'], array('1','3','4','5'))): ?>
 								<li ><a href="../salesOrderFollowup/index.php">Penjualan Follow Up</a></li>	
-							<?php endif; ?>								
+							<?php endif; ?>	
 							<?php if(in_array($_SESSION['loginPosition'], array('1','3','4','5'))): ?>
 								<li ><a href="../salesOrderReseller/index.php">Penjualan Reseller</a></li>	
 							<?php endif; ?>	
@@ -93,6 +93,12 @@
 							<?php endif; ?>								
 							<?php if(in_array($_SESSION['loginPosition'], array('1','3','4','5'))): ?>
 								<li ><a href="../salesOrder/index.php">Penjualan</a></li>	
+							<?php endif; ?>	
+							<li style="height:2px; background-color: gray;text-shadow: 0px 1px 0px #999;"></li>
+							<?php if(in_array($_SESSION['loginPosition'], array('1','3','4','5'))): ?>
+								<li ><a href="../periodOrder/index.php">Period Pre Order</a></li>	
+								<li ><a href="../salesPreOrder/index.php">Penjualan Pre Order</a></li>	
+								<li ><a href="../salesProcutment/index.php">Pengadaan Barang</a></li>	
 							<?php endif; ?>	
 							<li style="height:2px; background-color: gray;text-shadow: 0px 1px 0px #999;"></li>				
 							<?php if(in_array($_SESSION['loginPosition'], array('1','3','4','5'))): ?>

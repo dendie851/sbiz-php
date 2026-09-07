@@ -149,7 +149,14 @@
 									<?php if($val['is_reseller'] == '1'): ?>
 									  <small style="font-size: 10px">Reseller: <?php echo $val['reseller_name'] ?></small>
 									<?php else: ?>
-									  <small style="font-size: 10px">Sales: <?php echo $val['sales_name'] ?></small>                    
+									  	<?php if($val['is_affiliate'] == '1'): ?> 	
+											<small style="font-size: 10px">Affiliate: <?php echo $val['affiliate_name'] ?></small>   
+										<?php else: ?>
+											<?php if($val['is_affiliate'] == '1'): ?> 	
+												<small style="font-size: 10px">Affiliate: <?php echo $val['affiliate_name'] ?></small>   
+											<?php else: ?>
+												<small style="font-size: 10px">Sales: <?php echo $val['sales_name'] ?></small>   
+											<?php endif; ?>		               
 									<?php endif; ?> 
 									</b>
 								</td>	

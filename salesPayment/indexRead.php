@@ -13,6 +13,8 @@
 			date_order, date_packing, date_payment, date_shipping, status_order, phone, discount_persen, status_payment,
 			(select m.name from member as m where m.id = sales_id) as sales_name,
 			(select r.name from reseller as r where r.id = reseller_id) as reseller_name, is_reseller,	
+			(select r.name from affiliate as r where r.id = affiliate_id) as affiliate_name, is_affiliate,	
+			(select r.name from affiliate as r where r.id = affiliate_id) as affiliate_name, is_affiliate,
 			(select e.name from expedition as e where e.id = expedition_id) as expedition_name,											
 			date_format(date_order,'%d %M %Y') as date_order_frm,
 			date_format(date_payment,'%d/%m/%Y') as date_payment_frm,

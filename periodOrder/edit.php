@@ -53,7 +53,7 @@
 					changeMonth : true,
 					changeYear : true,
 					yearRange: '-2y:+1y',
-					maxDate: '90d',
+					maxDate: '366d',
 				}); 
 				<?php $tmp = isset($_REQUEST['dateEnd']) ? strlen(trim($_REQUEST['dateEnd'])) == 0 ?  '' : explode('/',$_REQUEST['dateEnd']) : explode('/',$data['date_end_frm']) ?>
 				$("#dateEnd" ).datepicker("setDate", <?php if(is_array($tmp)) : ?> new Date(<?php echo ($tmp[2]) ?>,<?php echo ($tmp[1]-1) ?>,<?php echo $tmp[0] ?>) <?php else: ?> null <?php endif; ?>);
