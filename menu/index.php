@@ -43,6 +43,7 @@
 							<li><a href="../affiliateSetting/index.php">Affiliate Setting</a></li>								
 							<li><a href="../reward/index.php">Affiliate Reward</a></li>	
 							<li><a href="../affiliate/index.php">Affiliate</a></li>								
+							<li><a href="../affiliateWithdrawFee/index.php">Pembayaran Komisi Affiliate</a></li>	
 						</ul>	
 					</li>	
 					<?php endif; ?>									

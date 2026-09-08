@@ -1,6 +1,6 @@
 <?php include 'indexRead.php' ?>
 <?php ob_start(); ?>
-	<h1>PEMBAYARAN KOMISI RESELLER</h1>
+	<h1>PEMBAYARAN AFFILIATE RESELLER</h1>
 	<fieldset>
 		<legend><b>FILTER</b></legend>
 		<form action="index.php" method="get">
@@ -23,10 +23,10 @@
 				</tr>
 				<tr>
 					<td valign="top" colspan="2">
-						<div style="margin-bottom: 10px;">RESELLER</div>
-						<select name="resellerId[]" style="width:100%; height: 94px" multiple  >
-							<?php while($val = mysqli_fetch_array($cmbReseller)): ?>
-								<option value="<?php echo $val['id'] ?>" <?php echo in_array($val['id'],$resellerId) == true ? 'selected' : '' ?>><?php echo strtoupper($val['name']) ?></option>	
+						<div style="margin-bottom: 10px;">AFFILIATE</div>
+						<select name="affiliateIdId[]" style="width:100%; height: 94px" multiple  >
+							<?php while($val = mysqli_fetch_array($cmbAffiliate)): ?>
+								<option value="<?php echo $val['id'] ?>" <?php echo in_array($val['id'],$affiliateId) == true ? 'selected' : '' ?>><?php echo strtoupper($val['name']) ?></option>	
 							<?php endwhile; ?>	
 						</select>				
 					</td>													
@@ -52,7 +52,7 @@
 		<?php endif; ?>	
 	<?php endif ?>
 
-	<p><input type="button" value="TAMBAH" onclick="window.location='../resellerWithdrawFeeTransaction/index.php'" /></p>
+	<p><input type="button" value="TAMBAH" onclick="window.location='../affiliateWithdrawFeeTransaction/index.php'" /></p>
 
 	<?php if(!isset($_REQUEST['dateFrom'])) : ?>
 	 	<div class="info">
@@ -70,7 +70,7 @@
 						<tr>
 							<th style="font-size:12px" align="center" width="%">TGL TRANSFER</th>						
 							<th style="font-size:12px" align="center" width="%">NO PEMBAYARAN</th>
-							<th style="font-size:12px" align="center" width="%">RESELLER</th>
+							<th style="font-size:12px" align="center" width="%">AFFILIATE</th>
 							<th style="font-size:12px" align="center" width="%">BANK TUJUAN</th>													
 							<th style="font-size:12px" align="center" width="%">KETERANGAN</th>
 							<th style="font-size:12px" align="center" width="%">TOTAL TRANsSFER</th>
@@ -86,8 +86,8 @@
 							<tr>
 								<td align="center"><?php echo $val['date_transfer_frm'] ?></td>
 								<td align="center"><?php echo $val['no_payment'] ?></td>
-								<td align="center"><?php echo strtoupper($val['reseller_name']) ?></td>
-								<td align="center" style="font-size: 10px"><?php echo $val['reseller_bank'] ?></td>
+								<td align="center"><?php echo strtoupper($val['affiliate_name']) ?></td>
+								<td align="center" style="font-size: 10px"><?php echo $val['affiliate_bank'] ?></td>
 								<td align="center" style="font-size: 10px"><?php echo $val['from_bank'] ?></td>
 								<td align="center"><?php echo number_format($val['total_withdraw'],0,'','.') ?></td>							
 								<td align="center">
