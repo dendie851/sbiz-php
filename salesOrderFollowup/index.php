@@ -45,6 +45,8 @@
 		</div>		
 	<?php endif ?>
 
+	<p><input type="button" value="TAMBAH" onclick="window.location='add.php'" /></p>
+	
 	<?php if(mysqli_num_rows($data) < 1) : ?>
 	 	<div class="warning">
 			<h3><?php echo message::getMsg('emptySuccess') ?></h3>
