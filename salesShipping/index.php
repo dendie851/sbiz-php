@@ -158,6 +158,7 @@
 												<small style="font-size: 10px">Sales: <?php echo $val['sales_name'] ?></small>   
 											<?php endif; ?>		               
 									<?php endif; ?> 
+<?php endif; ?>
 									</b>
 								</td>	
 								<td align="center"><?php echo $val['expedition_name'] ?>								
