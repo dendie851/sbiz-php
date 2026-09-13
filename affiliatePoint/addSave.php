@@ -2,69 +2,73 @@
 	include '../login/auth.php';
 	include '../lib/connection.php';	
 	include '../lib/general.class.php';
-	
-	$salesOrderId = $_REQUEST['salesOrderId'];
+
+	$pointClaimId = $_REQUEST['pointClaimId'];
 	$actionType = $_REQUEST['actionType'];
-	//$noResi = $_REQUEST['noResi'];	
-	$userLogin = $_SESSION['login'];	
+	$tmp = explode('/',$_REQUEST['actionDate']);
+	$actionDate  = general::secureInput($tmp[2].'-'.$tmp[1].'-'.$tmp[0]);
+	$note = $_REQUEST['notes'];
 
-	if(count($salesOrderId) > 0) { 
-		$i=0;
-
-		$query = "select id, username
-		          from user
-				  where username = '$userLogin' ";
-		$tmpSale = mysqli_query($con, $query) or die (mysqli_error($con));	
-		$dataUser = mysqli_fetch_array($tmpSale);
-		$historyUserId = $dataUser['id'];
-
-		foreach($salesOrderId  as $val) {
-			if($actionType == '1') {
-				//$noResiTmp = general::secureInput($noResi[$i]);
-				$noResiTmp = general::secureInput($_REQUEST['noResi_'.$val]);
-				$query = "update sales_order
-					set status_order = '3',
-					date_shipping = now(),
-					no_resi = '{$noResiTmp}'					
+	if(count($pointClaimId) > 0) { 
+		$i = 0;
+		foreach($pointClaimId  as $val) {
+			if($actionType == '0') {
+				echo $query = "update affiliate_point_claim
+					set date_request = '$actionDate',
+					  status_claim = '$actionType',
+					  notes = '$note[$i]',
+					  date_approve = null,
+					  date_process = null,
+					  date_complete = null,
+					  date_reject = null
 					where id = '$val'";
 				mysqli_query($con, $query) or die (mysqli_error($con));	
-
-				$query = "select id, no_order 
-				          from sales_order 
-						  where id = '$val' ";
-				$tmpSale = mysqli_query($con, $query) or die (mysqli_error($con));	
-				$dataSale = mysqli_fetch_array($tmpSale);
-				$historySalesOrderId = $dataSale['id'];
-				$historySalesOrderNoOrder = $dataSale['no_order'];
-
-				$query = "insert sales_order_history
-					set sales_order_id = '$historySalesOrderId',
-					  no_sales_order = '$historySalesOrderNoOrder',
-					  activity = '3',
-					  datetime_track = now(),
-					  user_id  = '$historyUserId'
-					on duplicate key update 
-					  datetime_track = now(),
-					  user_id  = '$historyUserId'
-					";
-
-				mysqli_query($con, $query) or die (mysqli_error($con));									
-			} 
-			if($actionType == '3') {			
-				$query = "update sales_order
-					set status_order = '1',
-					 date_packing = null				
-					where id = '$val'";
-				mysqli_query($con, $query) or die (mysqli_error($con));				
-
-				$query = "delete from sales_order_history
-						  where sales_order_id = '$val'
-					      and activity = '2' ";
-				mysqli_query($con, $query) or die (mysqli_error($con));									
 			}
-			$i++;	
-		} 
 
+			if($actionType == '1') {
+				echo $query = "update affiliate_point_claim
+					set date_approve = '$actionDate',
+					  status_claim = '$actionType',
+					  notes = '$note[$i]',
+					  date_process = null,
+					  date_complete = null,
+					  date_reject = null
+					where id = '$val'";
+				mysqli_query($con, $query) or die (mysqli_error($con));	
+			}
+			
+			if($actionType == '2') {
+				echo $query = "update affiliate_point_claim
+					set date_process = '$actionDate',
+					  status_claim = '$actionType',
+					  notes = '$note[$i]',
+					  date_complete = null,
+					  date_reject = null
+					where id = '$val'";
+				mysqli_query($con, $query) or die (mysqli_error($con));	
+			}
+			
+			if($actionType == '3') {
+				echo $query = "update affiliate_point_claim
+					set date_complete = '$actionDate',
+					  status_claim = '$actionType',
+					  notes = '$note[$i]',
+					  date_reject = null
+					where id = '$val'";
+				mysqli_query($con, $query) or die (mysqli_error($con));	
+			}			
+
+			if($actionType == '4') {
+				echo $query = "update affiliate_point_claim
+					set date_reject = '$actionDate',
+					  status_claim = '$actionType',
+					  notes = '$note[$i]'					  
+					where id = '$val'";
+				mysqli_query($con, $query) or die (mysqli_error($con));	
+			}	
+
+			$i++;					
+		} 
 		include '../lib/connection-close.php';
 		header('Location:index.php?msg=addSuccess');
 	} else {

@@ -5,14 +5,42 @@
 	include '../lib/split.class.php';	
 	include '../lib/general.class.php';	
 
+	$_REQUEST['dateFrom'] = isset($_REQUEST['dateFrom']) ? $_REQUEST['dateFrom'] : date('d/m/Y');
+	$_REQUEST['dateTo'] = isset($_REQUEST['dateTo']) ? $_REQUEST['dateTo'] : date('d/m/Y');
+	$_REQUEST['actionDate'] = isset($_REQUEST['actionDate']) ? $_REQUEST['actionDate'] : date('d/m/Y');
+
+
 	$keyword = str_replace(' ','',trim($_REQUEST['keyword']));
 	$record = isset($_GET['SplitRecord']) ? $_GET['SplitRecord'] : 0;
-	$dateFrom  = $tmp[2].'-'.$tmp[1].'-'.$tmp[0];
-	$tmp = explode('/',$_REQUEST['dateTo']);
-	$dateTo  = $tmp[2].'-'.$tmp[1].'-'.$tmp[0];
-	
-	$where = '';
 
+	$tmp = explode('/',$_REQUEST['dateFrom']);
+	$dateFrom  = general::secureInput($tmp[2].'-'.$tmp[1].'-'.$tmp[0]);
+	$tmp = explode('/',$_REQUEST['dateTo']);
+	$dateTo  = general::secureInput($tmp[2].'-'.$tmp[1].'-'.$tmp[0]);
+
+	$statusClaim = isset($_REQUEST['statusClaim']) ? $_REQUEST['statusClaim'] : 0;	
+	$where = " and status_claim = '$statusClaim' ";
+
+	if($statusClaim == '0') {
+		$where .= "and (date_request >= '$dateFrom' and date_request <= '$dateTo')";
+	}
+
+	if($statusClaim == '1') {
+		$where .= "and (date_approve >= '$dateFrom' and date_approve  <= '$dateTo')";
+	}
+	
+	if($statusClaim == '2') {
+		$where .= "and (date_process >= '$dateFrom' and date_process <= '$dateTo')";		
+	}
+
+	if($statusClaim == '3') {
+		$where .= "and (date_complete >= '$dateFrom' and date_complete <= '$dateTo')";		
+	}
+
+	if($statusClaim == '4') {
+		$where .= "and (date_reject >= '$dateFrom' and date_reject <= '$dateTo')";		
+	}
+	
 	$query = "select apc.id, affiliate_id, reward_id, points_spent, points_price_reward, status_claim, notes,
 			(select r.title from reward as r where r.id = reward_id) as reward_name, notes,	
 			a.name as affiliate_name, no_point_claim,			
@@ -28,7 +56,7 @@
 		  and (replace(a.name, ' ', '' ) like '%$keyword%' or replace(no_point_claim, ' ', '' ) like '%$keyword%')
 		  $where
 		order by date_request desc
-		limit $record,10000";
+		limit $record,100";
 
 	$data = mysqli_query($con, $query) or die(mysqli_error($con));
 		
@@ -37,7 +65,9 @@
 		left join affiliate as a
 		  on a.id =  affiliate_id
 		where apc.is_delete = '0'
-		  and (replace(a.name, ' ', '' ) like '%$keyword%' or replace(no_point_claim, ' ', '' ) like '%$keyword%')";
+		  and (replace(a.name, ' ', '' ) like '%$keyword%' or replace(no_point_claim, ' ', '' ) like '%$keyword%')
+		  $where 
+		  ";
 
 	$dataTotal = mysqli_query($con, $query) or die(mysqli_error($con));
 	$total = mysqli_fetch_array($dataTotal);
