@@ -63,7 +63,9 @@
 						<th align="center" width="12%" style="font-size: 11px">HARGA DASAR </th>
 						<th align="center" width="12%" style="font-size: 11px">HARGA PUBLISH </th>
 						<th align="center" width="12%" style="font-size: 11px">HARGA UNTUK AFFILIATE</th>
+						<!--
 						<th align="center" width="12%" style="font-size: 11px">KOMISI <br />PERSEN</th>
+						-->
 						<th align="center" style="font-size: 11px">KOMISI NOMINAL</th>
 						<th align="center" style="font-size: 11px">POIN</th>
 					</tr>	
@@ -97,11 +99,13 @@
 								<input type="text" name="priceBasicAffiliate[]" value="<?php echo $val['price_publish'] ?>" size="5" style="text-align: right;">
 							</td>
 							<td align="center">
-							  <input type="text" name="feeAffiliateNominal[]" value="0" size="1" style="text-align: right;"> %
+							  <input type="text" name="feeAffiliateNominal[]" value="0" size="5" style="text-align: right;">
 							</td>
+							<!--
 							<td align="center">
 							  <input type="text" name="feeAffiliatePercent[]" value="0" size="5" style="text-align: right;">
 							</td>
+							-->
 							<td align="center">
 							  <input type="text" name="point[]" value="0" size="2" style="text-align: center;">
 							</td>
