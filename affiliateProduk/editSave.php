@@ -8,7 +8,7 @@
 	$affiliateStuffIdChoose = $_POST['affiliateStuffIdChoose'];
 	$affiliateStuffId  = $_POST['affiliateStuffId'];
 	$linkStuff  = $_POST['linkStuff'];
-	$priceBasicAffiliate = $_POST['priceBasicAffiliate'];
+	$priceAffiliate = $_POST['priceAffiliate'];
 	$feeAffiliatePercent = $_POST['feeAffiliatePercent'];
 	$feeAffiliateNominal = $_POST['feeAffiliateNominal'];
 	$point = $_POST['point'];	
@@ -17,14 +17,14 @@
 	foreach($affiliateStuffId as $val) {
 		if (in_array($val,$affiliateStuffIdChoose)) {
 		    $linkProductBrosur = general::secureInput($linkStuff[$i]);
-		    $priceBasic = general::secureInput($priceBasicAffiliate[$i]);	
+		    $price = general::secureInput($priceAffiliate[$i]);	
 		    $feeAffiliateNominalGet = general::secureInput($feeAffiliateNominal[$i]);
 		    $feeAffiliatePercentGet = general::secureInput($feeAffiliatePercent[$i]);	
 		    $pointGet = general::secureInput($point[$i]);			    
 
 		    $query = "update affiliate_stuff
 				set link_product_brosur = '$linkProductBrosur',
-				  price_basic = '$priceBasic',	
+				  price = '$price',	
 				  fee_affiliate_nominal = '$feeAffiliateNominalGet',	
 				  fee_affiliate_percent = '$feeAffiliatePercentGet',
 				  point = '$pointGet'				  

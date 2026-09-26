@@ -20,7 +20,7 @@
 	$query = "select rs.id as affiliate_stuff_id, s.name, s.price_basic as price_basic_store, s.nickname, s.is_hidden,
 			(select name from const as c where c.id = const_id) as const_name, point, s.price as price_publish,
 			(select name from stuff_category as sc where sc.id = category_id) as category_name,
-			rs.link_product_brosur, rs.price_basic as price_basic_affiliate, rs.fee_affiliate_nominal, rs.fee_affiliate_percent,
+			rs.link_product_brosur, rs.price as price_affiliate, rs.fee_affiliate_nominal, rs.fee_affiliate_percent,
 			rs.is_delete								
 		from stuff as s	
 		inner join affiliate_stuff as rs

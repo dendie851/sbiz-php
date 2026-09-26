@@ -103,7 +103,7 @@
 								<?php echo number_format($val['price_publish'],0,'','.') ?> / <?php echo $val['const_name'] ?>
 							</td>
 							<td align="center">
-								<input type="text" name="priceBasicAffiliate[]" value="<?php echo $val['price_basic_affiliate'] ?>" size="5" style="text-align: right;" value="<?php echo $val['link_product_brosur'] ?>">
+								<input type="text" name="priceAffiliate[]" value="<?php echo $val['price_affiliate'] ?>" size="5" style="text-align: right;" value="<?php echo $val['link_product_brosur'] ?>">
 							</td>
 							<!--
 							<td align="center">
