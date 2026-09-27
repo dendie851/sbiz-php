@@ -2,6 +2,7 @@
 	include '../login/auth.php';
 	include '../lib/connection.php';
 	include '../lib/general.class.php';
+	include 'photo.class.php';
 	include 'editValidate.php';	
 
 	$id = general::secureInput($_POST['id']);
@@ -90,8 +91,20 @@
 
 		mysqli_query($con, $query) or die (mysqli_error($con));
 	}
-		
+
+	/* save uploaded photo of stuff */
+	$stuffId = $id;
+	$listPhotoUploaded = array();
+
+	include 'photoSave.php';
+
 	include '../lib/connection-close.php';
 
-	header('Location:index.php?msg=addSuccess');
+	if($statusPhoto == false) {
+		$_SESSION['msgErrorPhoto'] = $msgErrorPhoto;
+
+		header('Location:edit.php?msg=photoFailed&id='.$id);
+	} else {
+		header('Location:index.php?msg=addSuccess');
+	}
 ?>

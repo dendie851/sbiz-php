@@ -3,6 +3,11 @@
 
 	<h1>EDIT BARANG</h1>
 	<hr />
+	<?php if(isset($_GET['msg'])) : ?>
+	 	<div class="info">
+			<h3><?php echo message::getMsg($_GET['msg']) ?></h3>
+		</div>		
+	<?php endif ?>
 	<form action="editSave.php" method="post" enctype="multipart/form-data">
 		<input name="id" type="hidden" value="<?php echo $data['id'] ?>" />	
 		<input name="sku_hidden" type="hidden" value="<?php echo $data['sku'] ?>" />	
@@ -148,6 +153,8 @@
 				</td>
 			</tr>			
 		</table>
+		<hr />
+		<?php include 'photoForm.php' ?>
 		<hr />
 		<input type="submit" value="SIMPAN"/>
 		<input type="button" value="BATAL" onclick="window.location='index.php'" />
