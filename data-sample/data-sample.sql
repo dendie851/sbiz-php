@@ -3,19 +3,192 @@
 
  Source Server         : Localhost - MySQL
  Source Server Type    : MySQL
- Source Server Version : 100119
+ Source Server Version : 100419
  Source Host           : localhost:3306
- Source Schema         : sbiz_opensource
+ Source Schema         : fahrian_new_product
 
  Target Server Type    : MySQL
- Target Server Version : 100119
+ Target Server Version : 100419
  File Encoding         : 65001
 
- Date: 25/05/2026 16:25:52
+ Date: 14/10/2026 12:54:10
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for affiliate
+-- ----------------------------
+DROP TABLE IF EXISTS `affiliate`;
+CREATE TABLE `affiliate`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `country_code` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `phone_number` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `city` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `username` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `fee_affilate_nominal` double NOT NULL,
+  `fee_affilate_percent` double NOT NULL,
+  `date_input` datetime(0) NULL DEFAULT NULL,
+  `last_login` datetime(0) NOT NULL,
+  `is_active` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '0=not active,1=active',
+  `is_delete` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '0=not delete,1=delete',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 19 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of affiliate
+-- ----------------------------
+INSERT INTO `affiliate` VALUES (1, 'Affiliate 1', '62', '8789898944', 'affilate@gmail.com', 'Jakarta', 'affiliate', '81dc9bdb52d04dc20036dbd8313ed055', 10000, 10, '2026-09-03 12:53:59', '0000-00-00 00:00:00', '1', '0');
+INSERT INTO `affiliate` VALUES (2, 'Affiliate 2', '62', '8789972', 'dendie.sanjaya@gmail.com3', 'Tanggerrang4', 'affiliate2', 'fcea920f7412b5da7be0cf42b8c93759', 0, 0, '2026-09-03 12:45:23', '0000-00-00 00:00:00', '1', '0');
+
+-- ----------------------------
+-- Table structure for affiliate_bank
+-- ----------------------------
+DROP TABLE IF EXISTS `affiliate_bank`;
+CREATE TABLE `affiliate_bank`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `affiliate_id` int(11) NULL DEFAULT NULL,
+  `bank_name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `account_name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `account_number` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `is_delete` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '0' COMMENT '0=not delete, 1=delete',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `reseller_id_uniq`(`affiliate_id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 11 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of affiliate_bank
+-- ----------------------------
+INSERT INTO `affiliate_bank` VALUES (1, 2, 'Bank Mandiri', 'Afilate 1 e', '13000844353', '0');
+INSERT INTO `affiliate_bank` VALUES (10, 1, 'Bank CIMB Niaga', 'Dendie', '700387666', '0');
+
+-- ----------------------------
+-- Table structure for affiliate_point_claim
+-- ----------------------------
+DROP TABLE IF EXISTS `affiliate_point_claim`;
+CREATE TABLE `affiliate_point_claim`  (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `affiliate_id` int(11) NOT NULL,
+  `reward_id` int(20) NOT NULL,
+  `no_point_claim` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `points_spent` int(11) NOT NULL,
+  `points_price_reward` int(11) NULL DEFAULT NULL,
+  `status_claim` enum('0','1','2','3','4') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '0=Pending, 1=di setujui, 2=proses penyerahan reward, 3=selesai, 4=di tolak',
+  `notes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `date_request` date NULL DEFAULT NULL,
+  `date_approve` date NULL DEFAULT NULL,
+  `date_process` date NULL DEFAULT NULL,
+  `date_complete` date NULL DEFAULT NULL,
+  `date_reject` date NULL DEFAULT NULL,
+  `is_delete` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '0=not delete,1=delete',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of affiliate_point_claim
+-- ----------------------------
+INSERT INTO `affiliate_point_claim` VALUES (5, 1, 1, 'AP202609241833391', 10, 10, '0', 'tukar ke pulsa no 087899509023  XL', '2026-09-24', NULL, NULL, NULL, NULL, '1');
+INSERT INTO `affiliate_point_claim` VALUES (6, 1, 1, 'AP202609241841581', 10, 10, '0', '', '2026-09-24', NULL, NULL, NULL, NULL, '0');
+INSERT INTO `affiliate_point_claim` VALUES (7, 1, 1, 'AP202609241842111', 10, 10, '0', '', '2026-09-24', NULL, NULL, NULL, NULL, '0');
+INSERT INTO `affiliate_point_claim` VALUES (8, 1, 1, 'AP202610041555011', 10, 10, '1', 'Sudah di setujuan dan kirim ', '2026-10-04', '2026-10-04', NULL, NULL, NULL, '0');
+
+-- ----------------------------
+-- Table structure for affiliate_setting
+-- ----------------------------
+DROP TABLE IF EXISTS `affiliate_setting`;
+CREATE TABLE `affiliate_setting`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` char(3) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `value` varchar(500) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `is_active` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '1' COMMENT '0=not active, 1=active',
+  `is_fix` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '0' COMMENT '0=dapat di delete, 1=tidak dapat di delete',
+  `is_delete` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '0' COMMENT '0=not delete, 1=delete',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `reseller_id_uniq`(`name`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of affiliate_setting
+-- ----------------------------
+INSERT INTO `affiliate_setting` VALUES (5, '001', 'Master Link Affilate Checkout', 'http://127.0.0.1/fahrian-new-product/sbiz-affilate-checkout', '1', '1', '0');
+
+-- ----------------------------
+-- Table structure for affiliate_stuff
+-- ----------------------------
+DROP TABLE IF EXISTS `affiliate_stuff`;
+CREATE TABLE `affiliate_stuff`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `affiliate_id` int(11) NOT NULL,
+  `stuff_id` int(11) NOT NULL,
+  `link_product_brosur` varchar(500) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `price` decimal(10, 0) NULL DEFAULT NULL,
+  `price_basic` decimal(11, 0) NOT NULL,
+  `fee_affiliate_nominal` double NOT NULL,
+  `fee_affiliate_percent` double NOT NULL,
+  `is_delete` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '0' COMMENT '0=not delete 1=delete',
+  `point` double NULL DEFAULT 0,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 161 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of affiliate_stuff
+-- ----------------------------
+INSERT INTO `affiliate_stuff` VALUES (156, 1, 1, 'http://link-product-0.com', 250000, 0, 15000, 0, '0', 15);
+INSERT INTO `affiliate_stuff` VALUES (155, 1, 3, 'http://link-product-1.com', 400000, 0, 20000, 0, '0', 20);
+INSERT INTO `affiliate_stuff` VALUES (154, 1, 2, 'http://link-product-2.com', 130000, 0, 30000, 0, '0', 30);
+INSERT INTO `affiliate_stuff` VALUES (158, 1, 4, 'http://link-product-4.com', 450000, 0, 50000, 0, '0', 50);
+INSERT INTO `affiliate_stuff` VALUES (160, 1, 5, '', 130000, 0, 25000, 0, '0', 25);
+
+-- ----------------------------
+-- Table structure for affiliate_withdraw_fee
+-- ----------------------------
+DROP TABLE IF EXISTS `affiliate_withdraw_fee`;
+CREATE TABLE `affiliate_withdraw_fee`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `affiliate_id` int(11) NULL DEFAULT NULL,
+  `affiliate_bank_id` int(11) NOT NULL,
+  `no_payment` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `from_bank` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `total_withdraw` double NOT NULL,
+  `date_transfer` date NOT NULL,
+  `date_input` datetime(0) NOT NULL,
+  `is_delete` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '0' COMMENT '0=not delete, 1= delete',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 27 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of affiliate_withdraw_fee
+-- ----------------------------
+INSERT INTO `affiliate_withdraw_fee` VALUES (19, 1, 1, 'CA26000001', 'Bank BCA -234124124', 10000, '2026-09-08', '2026-09-08 11:35:17', '0');
+INSERT INTO `affiliate_withdraw_fee` VALUES (25, 1, 10, 'CA26000002', '', 30000, '2026-09-27', '2026-09-27 18:40:18', '0');
+INSERT INTO `affiliate_withdraw_fee` VALUES (26, 1, 10, 'CA26000003', 'Pembayaran Komisi', 60000, '2026-10-04', '2026-10-04 20:53:04', '0');
+
+-- ----------------------------
+-- Table structure for affiliate_withdraw_fee_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `affiliate_withdraw_fee_detail`;
+CREATE TABLE `affiliate_withdraw_fee_detail`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `affiliate_withdraw_fee_id` int(11) NOT NULL,
+  `sales_order_id` int(11) NULL DEFAULT NULL,
+  `sales_order_number` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `amount_fee_affiliate` double(255, 0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 34 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of affiliate_withdraw_fee_detail
+-- ----------------------------
+INSERT INTO `affiliate_withdraw_fee_detail` VALUES (26, 19, 7, '25000004', 10000);
+INSERT INTO `affiliate_withdraw_fee_detail` VALUES (27, 20, 12, '25000006', 20000);
+INSERT INTO `affiliate_withdraw_fee_detail` VALUES (28, 20, 11, '25000005', 30000);
+INSERT INTO `affiliate_withdraw_fee_detail` VALUES (32, 25, 20, '26000006', 30000);
+INSERT INTO `affiliate_withdraw_fee_detail` VALUES (33, 26, 21, '26000007', 60000);
 
 -- ----------------------------
 -- Table structure for client
@@ -31,7 +204,7 @@ CREATE TABLE `client`  (
   `is_fix` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '0' COMMENT '0= can be delete, 1= not delete',
   `is_delete` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '0' COMMENT '0=no delete, 1=delete',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 13 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 15 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of client
@@ -41,6 +214,7 @@ INSERT INTO `client` VALUES (9, 'Segmentation Group Product  C', '', '', '2020-0
 INSERT INTO `client` VALUES (10, 'Segmentation Group Product  D', '', '', '2020-03-23', '', '0', '0');
 INSERT INTO `client` VALUES (11, 'Segmentation Group Product  E', '', '', '2020-04-01', '', '0', '0');
 INSERT INTO `client` VALUES (12, 'Segmentation Group Product A', '', '', '2021-11-04', '', '0', '0');
+INSERT INTO `client` VALUES (1, 'Segmentation General', '', '', '2026-09-26', NULL, '1', '0');
 
 -- ----------------------------
 -- Table structure for company
@@ -123,7 +297,7 @@ CREATE TABLE `customer`  (
   `is_delete` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '0=not delete,1=delete',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `phone_number`(`country_code`, `phone_number`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 11 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of customer
@@ -131,6 +305,13 @@ CREATE TABLE `customer`  (
 INSERT INTO `customer` VALUES (1, 107, 'Yulianti', '62', '876868323418', 'Jakarta', '2025-07-13 00:00:00', '0');
 INSERT INTO `customer` VALUES (2, 107, 'Adelia ', '62', '87686321323', 'Bandung', '2025-07-13 00:00:00', '0');
 INSERT INTO `customer` VALUES (3, 107, 'Mutiara', '62', '7676732323', 'Jakarta', '2025-07-13 00:00:00', '0');
+INSERT INTO `customer` VALUES (4, 1, 'dendie sanjaya', '62', '87899509023', 'JAKARTA SELATAN', '2026-08-27 13:32:05', '0');
+INSERT INTO `customer` VALUES (5, 1, 'Ridwan', '62', '89787434', '', '2026-09-07 12:03:11', '0');
+INSERT INTO `customer` VALUES (6, 1, 'Lia', '62', '8187087434', 'JAKARTA SELATAN', '2026-09-26 23:42:17', '0');
+INSERT INTO `customer` VALUES (7, 1, 'Tia', '62', '8787874324', 'BOGOR', '2026-09-27 00:27:57', '0');
+INSERT INTO `customer` VALUES (8, 1, 'Mutiara', '62', '87874342', 'BANDUNG', '2026-09-27 01:05:50', '0');
+INSERT INTO `customer` VALUES (9, 1, 'Tia', '62', '97784324234', 'JAKARTA PUSAT', '2026-09-27 20:17:41', '0');
+INSERT INTO `customer` VALUES (10, 1, 'Dendie', '8', '7899509023', 'BIREUEN', '2026-09-27 20:30:47', '0');
 
 -- ----------------------------
 -- Table structure for customer_group
@@ -141,7 +322,7 @@ CREATE TABLE `customer_group`  (
   `customer_id` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Fixed;
+) ENGINE = MyISAM AUTO_INCREMENT = 12 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Fixed;
 
 -- ----------------------------
 -- Records of customer_group
@@ -149,6 +330,13 @@ CREATE TABLE `customer_group`  (
 INSERT INTO `customer_group` VALUES (4, 1, 8);
 INSERT INTO `customer_group` VALUES (2, 2, 8);
 INSERT INTO `customer_group` VALUES (3, 3, 8);
+INSERT INTO `customer_group` VALUES (5, 4, 8);
+INSERT INTO `customer_group` VALUES (6, 5, 8);
+INSERT INTO `customer_group` VALUES (7, 6, 8);
+INSERT INTO `customer_group` VALUES (8, 1, 1);
+INSERT INTO `customer_group` VALUES (9, 8, 1);
+INSERT INTO `customer_group` VALUES (10, 9, 1);
+INSERT INTO `customer_group` VALUES (11, 10, 1);
 
 -- ----------------------------
 -- Table structure for district
@@ -8617,7 +8805,7 @@ CREATE TABLE `fin_profit_loss`  (
   `profit` int(11) NOT NULL,
   `is_delete` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '0=no deleter, 1=delete',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 21 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 22 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of fin_profit_loss
@@ -8634,12 +8822,13 @@ INSERT INTO `fin_profit_loss` VALUES (11, 'LAPORAN LABA RUGI BULAN SEPTEMBER TAH
 INSERT INTO `fin_profit_loss` VALUES (12, 'LAPORAN LABA RUGI BULAN JULI TAHUN 2020', 2020, 7, 221226383, 209963889, -11262494, '1');
 INSERT INTO `fin_profit_loss` VALUES (13, 'LAPORAN LABA RUGI BULAN AGUSTUS TAHUN 2020', 2020, 8, 255805176, 224096053, -31709123, '1');
 INSERT INTO `fin_profit_loss` VALUES (14, 'LAPORAN LABA RUGI BULAN OCTOBER TAHUN 2020', 2020, 7, 221226383, 209963889, -11262494, '1');
-INSERT INTO `fin_profit_loss` VALUES (15, 'LAPORAN LABA RUGI BULAN JANUARY TAHUN 2021', 2021, 12, 0, 0, 0, '0');
+INSERT INTO `fin_profit_loss` VALUES (15, 'LAPORAN LABA RUGI BULAN JANUARY TAHUN 2021', 2021, 12, 0, 0, 0, '1');
 INSERT INTO `fin_profit_loss` VALUES (16, 'LAPORAN LABA RUGI BULAN JANUARY TAHUN 2021', 2020, 12, 0, 0, 0, '0');
-INSERT INTO `fin_profit_loss` VALUES (17, 'LAPORAN LABA RUGI BULAN JANUARY TAHUN 2021', 2021, 1, 0, 0, 0, '0');
-INSERT INTO `fin_profit_loss` VALUES (18, 'LAPORAN LABA RUGI BULAN FEBRUARY TAHUN 2021', 2021, 2, 0, 0, 0, '0');
+INSERT INTO `fin_profit_loss` VALUES (17, 'LAPORAN LABA RUGI BULAN JANUARY TAHUN 2021', 2021, 1, 0, 0, 0, '1');
+INSERT INTO `fin_profit_loss` VALUES (18, 'LAPORAN LABA RUGI BULAN FEBRUARY TAHUN 2021', 2021, 2, 0, 0, 0, '1');
 INSERT INTO `fin_profit_loss` VALUES (19, 'LAPORAN LABA RUGI BULAN JULY TAHUN 2025', 2025, 1, 0, 0, 0, '1');
-INSERT INTO `fin_profit_loss` VALUES (20, 'LAPORAN LABA RUGI BULAN JULY TAHUN 2025', 2025, 7, 142000, 930000, 788000, '0');
+INSERT INTO `fin_profit_loss` VALUES (20, 'LAPORAN LABA RUGI BULAN JULY TAHUN 2025', 2025, 7, 142000, 930000, 788000, '1');
+INSERT INTO `fin_profit_loss` VALUES (21, 'LAPORAN LABA RUGI BULAN SEPTEMBER TAHUN 2026', 2026, 9, 0, 0, 0, '1');
 
 -- ----------------------------
 -- Table structure for fin_profit_loss_detail
@@ -8655,7 +8844,7 @@ CREATE TABLE `fin_profit_loss_detail`  (
   `nominal` int(11) NOT NULL,
   `description` tinytext CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 92 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 95 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of fin_profit_loss_detail
@@ -8745,6 +8934,9 @@ INSERT INTO `fin_profit_loss_detail` VALUES (88, 'Harga Dasar Barang (HPP)', 19,
 INSERT INTO `fin_profit_loss_detail` VALUES (89, 'Pendapatan Penjualan Barang', 20, 13, '1', '1', 930000, 'Rumus Pendapatan Penjualan (Total Harga Jual Barang - Total Diskon) Dari Tgl 2025-7-01 s/d 2025-7-31');
 INSERT INTO `fin_profit_loss_detail` VALUES (90, 'Biaya Kirim Penjualan', 20, 28, '0', '1', 30000, 'Total Biaya Kirim Penjualan Dari Tgl 2025-7-01 s/d 2025-7-31');
 INSERT INTO `fin_profit_loss_detail` VALUES (91, 'Harga Dasar Barang (HPP)', 20, 10, '0', '1', 112000, 'Total Harga Dasar Dari Tgl 2025-7-01 s/d 2025-7-31');
+INSERT INTO `fin_profit_loss_detail` VALUES (92, 'Pendapatan Penjualan Barang', 21, 13, '1', '1', 0, 'Rumus Pendapatan Penjualan (Total Harga Jual Barang - Total Diskon) Dari Tgl 2026-9-01 s/d 2026-9-30');
+INSERT INTO `fin_profit_loss_detail` VALUES (93, 'Biaya Kirim Penjualan', 21, 28, '0', '1', 0, 'Total Biaya Kirim Penjualan Dari Tgl 2026-9-01 s/d 2026-9-30');
+INSERT INTO `fin_profit_loss_detail` VALUES (94, 'Harga Dasar Barang (HPP)', 21, 10, '0', '1', 0, 'Total Harga Dasar Dari Tgl 2026-9-01 s/d 2026-9-30');
 
 -- ----------------------------
 -- Table structure for fin_source_fund
@@ -8806,11 +8998,11 @@ CREATE TABLE `member`  (
 -- ----------------------------
 -- Records of member
 -- ----------------------------
-INSERT INTO `member` VALUES (1, 'Super Administrator', '', 1, '1~2~3~', '1');
+INSERT INTO `member` VALUES (1, 'Super Administrator', '', 1, '1~2~3~4~', '1');
 INSERT INTO `member` VALUES (107, 'Sales 1', '6212345678', 3, '', '1');
 INSERT INTO `member` VALUES (108, 'After Sales 1', '6212345678', 5, '', '1');
 INSERT INTO `member` VALUES (109, 'Operator 1', '6212345678', 2, '', '1');
-INSERT INTO `member` VALUES (110, 'Supevisor 1', '6212345678', 1, '', '1');
+INSERT INTO `member` VALUES (110, 'Supevisor 1', '6287899509023', 4, '1~2~3~4~', '1');
 
 -- ----------------------------
 -- Table structure for mutation_bank
@@ -9141,16 +9333,17 @@ CREATE TABLE `period_order`  (
   `is_status` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '0' COMMENT '0=open periode, 1=close periode',
   `is_delete` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '0' COMMENT '0=no delete, 1=delete',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 8 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 9 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of period_order
 -- ----------------------------
 INSERT INTO `period_order` VALUES (3, '2017 Desember 1', '2017-12-01', '2017-12-15', '1', '0');
 INSERT INTO `period_order` VALUES (4, '2017 Desember 1', '2017-12-01', '2017-12-10', '0', '1');
-INSERT INTO `period_order` VALUES (5, '2017 Desember 2', '2017-12-16', '2017-12-31', '0', '0');
+INSERT INTO `period_order` VALUES (5, '2017 Desember 2', '2017-12-16', '2017-12-31', '1', '0');
 INSERT INTO `period_order` VALUES (6, 'test', '2018-03-07', '2018-03-08', '0', '1');
-INSERT INTO `period_order` VALUES (7, '2018 Januari 1', '2018-01-01', '2017-12-16', '0', '0');
+INSERT INTO `period_order` VALUES (7, '2027 Januari ', '2026-12-05', '2027-01-31', '0', '0');
+INSERT INTO `period_order` VALUES (8, '2026 Desember', '2026-09-01', '2026-11-30', '0', '0');
 
 -- ----------------------------
 -- Table structure for platform_market
@@ -92079,12 +92272,12 @@ CREATE TABLE `reseller`  (
   `is_active` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '0=not active,1=active',
   `is_delete` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '0=not delete,1=delete',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 16 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 17 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of reseller
 -- ----------------------------
-INSERT INTO `reseller` VALUES (9, 'Reseller 1', '62', '811234567', 'reseller1@gmail.com', 'Jakarta', 'reseller1', 'e10adc3949ba59abbe56e057f20f883e', 0, 0, '2025-09-09 12:01:17', '2025-09-23 17:28:38', '0', '1', '0');
+INSERT INTO `reseller` VALUES (9, 'Reseller 1', '62', '811234567', 'reseller1@gmail.com', 'Jakarta', 'reseller1', '81dc9bdb52d04dc20036dbd8313ed055', 0, 0, '2025-09-09 12:01:17', '2026-09-05 23:22:44', '0', '1', '0');
 INSERT INTO `reseller` VALUES (10, 'Reseller 2', '62', '811234568', 'reseller2@gmail.com', 'Bekasi', 'reseller2', '81dc9bdb52d04dc20036dbd8313ed055', 0, 0, '2025-07-13 19:39:41', '0000-00-00 00:00:00', '0', '1', '0');
 INSERT INTO `reseller` VALUES (11, 'Reseller 3', '62', '811234569', 'reseller3@gmail.com', 'Surayabay', 'reseller3', '81dc9bdb52d04dc20036dbd8313ed055', 0, 0, '2025-07-13 19:40:23', '2022-02-26 06:37:47', '0', '1', '0');
 INSERT INTO `reseller` VALUES (12, 'Reseller 4', '62', '811234571', 'reseller4@gmail.com', 'Yogyakarta', 'reseller4', '81dc9bdb52d04dc20036dbd8313ed055', 0, 0, '2025-07-13 19:41:19', '2021-05-06 15:46:51', '0', '1', '0');
@@ -92322,6 +92515,27 @@ INSERT INTO `reseller_withdraw_fee_detail` VALUES (24, 18, 30590, '21016651', 50
 INSERT INTO `reseller_withdraw_fee_detail` VALUES (25, 18, 30591, '21016652', 0);
 
 -- ----------------------------
+-- Table structure for reward
+-- ----------------------------
+DROP TABLE IF EXISTS `reward`;
+CREATE TABLE `reward`  (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `title` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `points_required` int(11) NOT NULL,
+  `daily_stock` int(11) NULL DEFAULT 0,
+  `is_active` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '1' COMMENT '0=not active 1=active',
+  `is_delete` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '0=not delete 1=delete',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of reward
+-- ----------------------------
+INSERT INTO `reward` VALUES (1, 'Pulsa 100 RB', 10, 20, '1', '0');
+INSERT INTO `reward` VALUES (2, 'Botol Minum', 200, 3, '1', '0');
+INSERT INTO `reward` VALUES (3, 'Tas Ransel', 500, 4, '1', '0');
+
+-- ----------------------------
 -- Table structure for sales_order
 -- ----------------------------
 DROP TABLE IF EXISTS `sales_order`;
@@ -92330,6 +92544,7 @@ CREATE TABLE `sales_order`  (
   `client_id` int(11) NOT NULL,
   `sales_id` int(11) NOT NULL,
   `reseller_id` int(11) NOT NULL,
+  `affiliate_id` int(11) NOT NULL,
   `expedition_id` int(11) NOT NULL,
   `period_order_id` int(11) NOT NULL,
   `warehouse_external_id` int(11) NULL DEFAULT NULL,
@@ -92351,6 +92566,7 @@ CREATE TABLE `sales_order`  (
   `amount_sale` int(11) NOT NULL,
   `amount_basic_sale` int(11) NOT NULL,
   `amount_fee_reseller` double(11, 0) NULL DEFAULT NULL,
+  `amount_fee_affiliate` double(11, 0) NULL DEFAULT NULL,
   `amount_reseller_to_customer` double(11, 0) NULL DEFAULT NULL,
   `shipping_cost` double(11, 0) NOT NULL,
   `shipping_cost_before_discount` double(11, 0) NULL DEFAULT NULL,
@@ -92382,10 +92598,12 @@ CREATE TABLE `sales_order`  (
   `status_receipt_cod` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '0' COMMENT '0=belum terima, 1 sudah terima',
   `status_respon_customer` enum('0','1','2') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '0' COMMENT '0=not yet respon customer, 1=already respon customer,2=repeat order',
   `status_respon_customer_breakdown` varchar(500) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `status_payment_commision_affiliate` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '0' COMMENT '0=not pay, 1=pay',
   `is_warehouse_external` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '0',
   `is_reseller` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '0' COMMENT '0=not reseller, 1=reseller',
+  `is_affiliate` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '0' COMMENT '0=not affiliate, 1=affiliate',
   `is_cod` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '0' COMMENT '0=not cod, 1=cod',
-  `is_delete` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '0' COMMENT '0=no delete, 1=delete',
+  `is_delete` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '0' COMMENT '0=no delete, 1=delete',
   `is_return` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '0' COMMENT '0=not return, 1=return',
   `is_delete_permanent` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `is_dropshipper` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '0=not delete, 1=delete',
@@ -92393,15 +92611,31 @@ CREATE TABLE `sales_order`  (
   INDEX `index_phone_number`(`phone`) USING BTREE,
   INDEX `index_sales_id`(`sales_id`) USING BTREE,
   INDEX `index_date_order`(`date_order`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 28 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sales_order
 -- ----------------------------
-INSERT INTO `sales_order` VALUES (1, 8, 1, 0, 6, 0, NULL, 0, NULL, 0, '25000001', '', '', 'Adelia', '6287686321323', 'Kota Bandung, Jalan Pasundan No 2', '', '0', '', '', 0, 0, 450000, 62000, NULL, NULL, 20000, 20000, 0, 0, NULL, '9887323', '', 'indonesia', 'JAWA BARAT', 'BANDUNG', 'REGOL', 'PUNGKUR', '40252', '', '', '2025-07-13', '2025-07-13', '2025-07-13', '2025-07-13', NULL, '3', '1', '0', '1', '0', '0', '0', '0', '0', NULL, '0', '0', '0', '0', '0', NULL, '0');
-INSERT INTO `sales_order` VALUES (2, 8, 1, 0, 45, 0, NULL, 0, NULL, 0, '25000002', '', '', 'Mutiara', '627676732323', 'Kota Jakarta, Mampang Prapata ', '', '0', '', '', 0, 0, 750000, 62000, NULL, NULL, 25000, 25000, 0, 0, NULL, '', '', 'indonesia', 'DKI JAKARTA', 'JAKARTA SELATAN', 'MAMPANG PRAPATAN', 'KUNINGAN BARAT', '12710', '', '', '2025-07-13', '0000-00-00', '0000-00-00', '0000-00-00', NULL, '0', '0', '0', '1', '0', '0', '0', '0', '0', NULL, '0', '0', '0', '0', '0', NULL, '0');
-INSERT INTO `sales_order` VALUES (3, 8, 1, 0, 14, 0, NULL, 0, NULL, 8, '25000003', '', '', 'Yulianti', '62876868323418', 'Jakarta Pusat, Menteng', '', '0', '', '', 0, 0, 450000, 50000, NULL, NULL, 10000, 10000, 0, 0, NULL, '', 'Tokopedia', 'indonesia', 'DKI JAKARTA', 'JAKARTA PUSAT', 'MENTENG', 'MENTENG', '10310', '', '', '2025-07-14', '2025-07-13', '2025-07-13', '0000-00-00', NULL, '2', '1', '0', '1', '1', '0', '0', '0', '0', NULL, '0', '0', '0', '0', '0', NULL, '0');
-INSERT INTO `sales_order` VALUES (4, 0, 0, 9, 0, 0, NULL, NULL, NULL, NULL, '25000004', NULL, NULL, 'Adelia', '6287686321323', '', NULL, '0', '', '', 0, 0, 120000, 50000, 0, 0, 0, NULL, NULL, NULL, NULL, '', '', 'indonesia', 'DKI JAKARTA', 'JAKARTA PUSAT', 'GAMBIR', 'GAMBIR', '10110', '0', '0', '2025-09-15', '0000-00-00', '0000-00-00', '0000-00-00', NULL, '0', '0', '0', '1', '0', '0', '0', '0', '0', NULL, '0', '1', '0', '0', '0', NULL, NULL);
+INSERT INTO `sales_order` VALUES (1, 8, 1, 0, 0, 6, 0, NULL, 0, NULL, 0, '25000001', '', '', 'Adelia', '6287686321323', 'Kota Bandung, Jalan Pasundan No 2', '', '0', '', '', 0, 0, 450000, 62000, NULL, NULL, NULL, 20000, 20000, 0, 0, NULL, '9887323', '', 'indonesia', 'JAWA BARAT', 'BANDUNG', 'REGOL', 'PUNGKUR', '40252', '', '', '2025-07-13', '2025-07-13', '2025-07-13', '2025-07-13', NULL, '3', '1', '0', '1', '0', '0', '0', '0', '0', NULL, '0', '0', '0', '0', '0', '0', '0', NULL, '0');
+INSERT INTO `sales_order` VALUES (2, 8, 1, 0, 0, 45, 0, NULL, 0, NULL, 0, '25000002', '', '', 'Mutiara', '627676732323', 'Kota Jakarta, Mampang Prapata ', '', '0', '', '', 0, 0, 750000, 62000, NULL, NULL, NULL, 25000, 25000, 0, 0, NULL, '', '', 'indonesia', 'DKI JAKARTA', 'JAKARTA SELATAN', 'MAMPANG PRAPATAN', 'KUNINGAN BARAT', '12710', '', '', '2025-07-13', '0000-00-00', '0000-00-00', '0000-00-00', NULL, '0', '0', '0', '1', '0', '0', '0', '0', '0', NULL, '0', '0', '0', '0', '0', '0', '0', NULL, '0');
+INSERT INTO `sales_order` VALUES (3, 8, 1, 0, 0, 14, 0, NULL, 0, NULL, 8, '25000003', '', '', 'Yulianti', '62876868323418', 'Jakarta Pusat, Menteng', '', '0', '', '', 0, 0, 450000, 50000, NULL, NULL, NULL, 10000, 10000, 0, 0, NULL, '', 'Tokopedia', 'indonesia', 'DKI JAKARTA', 'JAKARTA PUSAT', 'MENTENG', 'MENTENG', '10310', '', '', '2025-07-14', '2025-07-13', '2025-07-13', '0000-00-00', NULL, '2', '1', '0', '1', '1', '0', '0', '0', '0', NULL, '0', '0', '0', '0', '0', '0', '0', NULL, '0');
+INSERT INTO `sales_order` VALUES (4, 0, 0, 9, 0, 0, 0, NULL, NULL, NULL, NULL, '25000010', NULL, NULL, 'Adelia', '6287686321323', '', NULL, '0', '', '', 0, 0, 120000, 50000, 0, NULL, 0, 0, NULL, NULL, NULL, NULL, '', '', 'indonesia', 'DKI JAKARTA', 'JAKARTA PUSAT', 'GAMBIR', 'GAMBIR', '10110', '0', '0', '2025-09-15', '0000-00-00', '0000-00-00', '0000-00-00', NULL, '0', '0', '0', '1', '0', '0', '0', '0', '0', NULL, '0', '0', '1', '0', '0', '0', '0', NULL, NULL);
+INSERT INTO `sales_order` VALUES (5, 8, 1, 0, 0, 51, 0, NULL, 8, NULL, 0, '26000001', '', '', 'Dendie', '6287899509023', '', '', '0', 'Bank BCA - 2210001 a/n SBIZ', '', 0, 0, 150000, 50000, NULL, NULL, NULL, 0, 0, 0, 0, NULL, '', '', 'indonesia', 'DKI JAKARTA', 'JAKARTA PUSAT', 'GAMBIR', 'GAMBIR', '10110', '', '', '2026-08-27', '0000-00-00', '2026-08-27', '0000-00-00', NULL, '0', '1', '0', '1', '0', '0', '0', '0', '0', NULL, '0', '0', '0', '0', '0', '0', '0', NULL, '0');
+INSERT INTO `sales_order` VALUES (6, 0, 0, 9, 0, 15, 0, NULL, 8, NULL, NULL, '26000002', NULL, NULL, 'Adelia', '6287899509023', 'Jalan Asmi No 18', NULL, '0', 'Bank BCA - 2210001 a/n SBIZ', '', 0, 0, 120000, 50000, 0, NULL, 0, 0, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '2026-08-27', '0000-00-00', '2026-08-27', '0000-00-00', NULL, '1', '1', '0', '1', '0', '0', '0', '0', '0', NULL, '0', '0', '1', '0', '0', '0', '0', NULL, NULL);
+INSERT INTO `sales_order` VALUES (7, 0, 0, 0, 1, 5, 0, NULL, 8, 1, NULL, '25000004', NULL, NULL, 'Adelia 1', '6287686321323', 'Jalan Mampang Prapatan 4', NULL, '0', 'Bank BCA - 2210001 a/n SBIZ', '', 10, 10000, 120000, 50000, 0, 10000, 0, 25000, NULL, NULL, NULL, NULL, '', '', 'indonesia', 'Riau', 'Kab. Pelalawan', 'Pelalawan', 'GAMBIR', '10110', '0', '0', '2026-09-06', '0000-00-00', '2026-09-06', '0000-00-00', NULL, '3', '1', '0', '1', '0', '0', '0', '0', '0', NULL, '1', '0', '0', '1', '0', '0', '0', NULL, NULL);
+INSERT INTO `sales_order` VALUES (8, 0, 0, 0, 2, 15, 0, NULL, 8, NULL, NULL, '26000002', NULL, NULL, 'Adelia 2', '6287899509023', 'Jalan Asmi No 18', NULL, '0', 'Bank BCA - 2210001 a/n SBIZ', '', 0, 0, 120000, 50000, 0, NULL, 0, 0, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '2026-08-27', '2026-09-07', '2026-08-27', '2026-09-10', NULL, '3', '1', '0', '1', '0', '0', '0', '0', '0', NULL, '0', '0', '0', '1', '0', '0', '0', NULL, NULL);
+INSERT INTO `sales_order` VALUES (9, 0, 0, 9, 0, 51, 0, NULL, 8, NULL, NULL, '26000003', NULL, NULL, 'Adelia', '6287899509023', 'Jalan Mampang Prapatan 4', NULL, '0', 'Bank BCA - 2210001 a/n SBIZ', '', 0, 0, 360000, 150000, 0, NULL, 0, 0, NULL, NULL, NULL, NULL, '', '', 'indonesia', 'DKI JAKARTA', 'JAKARTA PUSAT', 'GAMBIR', 'GAMBIR', '10110', '0', '0', '2026-08-27', '0000-00-00', '0000-00-00', '0000-00-00', NULL, '0', '0', '0', '1', '0', '0', '0', '0', '0', NULL, '0', '0', '1', '0', '0', '0', '0', NULL, NULL);
+INSERT INTO `sales_order` VALUES (10, 0, 0, 0, 0, 0, 8, NULL, NULL, NULL, NULL, '26000004', NULL, NULL, 'Dendie', '', 'Jalan Asmin', NULL, '1', '', '', 0, 0, 150000, 50000, NULL, NULL, NULL, 25000, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '2026-09-06', '0000-00-00', '2026-09-06', '0000-00-00', NULL, '0', '1', '0', '0', '0', '0', '0', '0', '0', NULL, '0', '0', '0', '0', '0', '0', '0', NULL, NULL);
+INSERT INTO `sales_order` VALUES (11, 8, 0, 0, 1, 51, 0, NULL, 8, NULL, 0, '26000005', '', '', 'Ridwan', '6289787434', 'Jalan Mampang Prapatan 4', '', '0', 'Bank BCA - 2210001 a/n SBIZ', '', 10, 1000, 150000, 50000, NULL, NULL, NULL, 10000, 10000, 0, 0, NULL, '', '', 'indonesia', 'DKI JAKARTA', 'JAKARTA PUSAT', 'GAMBIR', 'GAMBIR', '10110', '', '', '2026-09-07', '0000-00-00', '2026-09-27', '0000-00-00', NULL, '0', '1', '0', '1', '0', '0', '0', '0', '0', NULL, '0', '0', '0', '0', '0', '0', '0', NULL, '0');
+INSERT INTO `sales_order` VALUES (12, 0, 0, 0, 1, 5, 0, NULL, 8, NULL, NULL, '25000006', NULL, NULL, 'Adelia 1', '6287686321323', 'Jalan Mampang Prapatan 4', NULL, '0', 'Bank BCA - 2210001 a/n SBIZ', '', 10, 10000, 120000, 50000, 0, 20000, 0, 25000, NULL, NULL, NULL, NULL, '', '', 'indonesia', 'DKI JAKARTA', 'JAKARTA PUSAT', 'GAMBIR', 'GAMBIR', '10110', '0', '0', '2026-09-06', '0000-00-00', '2026-09-06', '0000-00-00', NULL, '3', '1', '0', '1', '0', '0', '0', '0', '0', NULL, '1', '0', '0', '1', '0', '0', '0', NULL, NULL);
+INSERT INTO `sales_order` VALUES (21, 8, 0, 0, 1, 51, 0, NULL, 10, NULL, 0, '26000007', '', '', 'Lia', '628187087434', 'Jalan Tebet No 90 A', '', '0', 'Bank BNI - 12345678 - SBIZ', '', 0, 0, 1200000, 150000, NULL, 60000, NULL, 0, 0, 0, 0, NULL, '', '', 'INDONESIA', 'DKI JAKARTA', 'JAKARTA SELATAN', 'TEBET', 'BUKIT DURI', '12840', '', '', '2026-09-26', '0000-00-00', '2026-09-27', '0000-00-00', NULL, '0', '1', '0', '1', '0', '0', '0', '0', '0', NULL, '1', '0', '0', '1', '0', '0', '0', NULL, '0');
+INSERT INTO `sales_order` VALUES (20, 8, 0, 0, 1, 51, 0, NULL, 8, NULL, 0, '26000006', '', '', 'Dendie Sanjaya', '6287899509023', 'Jalan Mampang Prapatan No 4', '', '0', 'Bank BCA - 2210001 a/n SBIZ', '', 0, 0, 500000, 24000, NULL, 30000, NULL, 0, 0, 0, 0, NULL, '', '', '', 'DKI JAKARTA', 'JAKARTA SELATAN', 'MAMPANG PRAPATAN', '', '12730', '', '', '2026-09-26', '0000-00-00', '2026-09-27', '0000-00-00', NULL, '0', '1', '0', '1', '0', '0', '0', '0', '0', NULL, '1', '0', '0', '1', '0', '0', '0', NULL, '0');
+INSERT INTO `sales_order` VALUES (22, 8, 0, 0, 1, 0, 0, NULL, NULL, NULL, NULL, '26000008', NULL, NULL, 'Tia', '628787874324', 'Jalan, Kemang Raya', NULL, '0', '', '', 0, 0, 650000, 250000, NULL, 150000, NULL, 0, NULL, NULL, NULL, NULL, '', '', 'INDONESIA', 'JAWA BARAT', 'BOGOR', 'KEMANG', 'ATANG SENJAYA', '16310', '0', '0', '2026-09-26', '0000-00-00', '0000-00-00', '0000-00-00', NULL, '4', '0', '0', '1', '0', '0', '0', '0', '0', NULL, '0', '0', '0', '1', '0', '0', '0', NULL, NULL);
+INSERT INTO `sales_order` VALUES (23, 9, 0, 0, 1, 0, 0, NULL, NULL, NULL, NULL, '26000009', NULL, NULL, 'Mutiara', '6287874342', 'Jalan, Asmi No 18 Bandung', NULL, '0', '', '', 0, 0, 260000, 100000, NULL, 60000, NULL, 0, NULL, NULL, NULL, NULL, '', '', 'INDONESIA', 'JAWA BARAT', 'BANDUNG', 'REGOL', 'ANCOL', '40254', '0', '0', '2026-09-26', '0000-00-00', '0000-00-00', '0000-00-00', NULL, '4', '0', '0', '1', '0', '0', '0', '0', '0', NULL, '0', '0', '0', '1', '0', '0', '0', NULL, NULL);
+INSERT INTO `sales_order` VALUES (24, 10, 0, 0, 1, 0, 0, NULL, NULL, NULL, NULL, '26000010', NULL, NULL, 'Tia', '6297784324234', 'Jalan, Rasuna Said NO 90', NULL, '0', '', '', 0, 0, 260000, 120000, NULL, 50000, NULL, 0, NULL, NULL, NULL, NULL, '', '', 'INDONESIA', 'DKI JAKARTA', 'JAKARTA PUSAT', 'MENTENG', 'CIKINI', '10330', '0', '0', '2026-09-27', '0000-00-00', '0000-00-00', '0000-00-00', NULL, '4', '0', '0', '1', '0', '0', '0', '0', '0', NULL, '0', '0', '0', '1', '0', '0', '0', NULL, NULL);
+INSERT INTO `sales_order` VALUES (25, 4, 0, 0, 1, 0, 0, NULL, NULL, NULL, NULL, '26000011', NULL, NULL, 'dendie sanjaya', '6287899509023', 'Jalan Mampang Prapatan 4', NULL, '0', '', '', 0, 0, 130000, 60000, NULL, 25000, NULL, 0, NULL, NULL, NULL, NULL, '', '', 'INDONESIA', 'DKI JAKARTA', 'JAKARTA SELATAN', 'MAMPANG PRAPATAN', 'BANGKA', '12730', '0', '0', '2026-09-27', '0000-00-00', '0000-00-00', '0000-00-00', NULL, '4', '0', '0', '1', '0', '0', '0', '0', '0', NULL, '0', '0', '0', '1', '0', '0', '0', NULL, NULL);
+INSERT INTO `sales_order` VALUES (26, 11, 0, 0, 1, 0, 0, NULL, NULL, NULL, NULL, '26000012', NULL, NULL, 'dendie sanjaya', '087899509023', 'Jalan Mampang Prapatan 4', NULL, '0', '', '', 0, 0, 130000, 60000, NULL, 25000, NULL, 0, NULL, NULL, NULL, NULL, '', '', 'INDONESIA', 'DKI JAKARTA', 'JAKARTA SELATAN', 'MAMPANG PRAPATAN', 'BANGKA', '12730', '0', '0', '2026-09-27', '0000-00-00', '0000-00-00', '0000-00-00', NULL, '4', '0', '0', '1', '0', '0', '0', '0', '0', NULL, '0', '0', '0', '1', '0', '0', '0', NULL, NULL);
+INSERT INTO `sales_order` VALUES (27, 10, 0, 0, 1, 0, 0, NULL, NULL, NULL, NULL, '26000013', NULL, NULL, 'Dendie', '087899509023', 'Mampang Prapatan', NULL, '0', '', '', 0, 0, 260000, 120000, NULL, 50000, NULL, 0, NULL, NULL, NULL, NULL, '', '', 'INDONESIA', 'NANGGROE ACEH DARUSSALAM (NAD)', 'BIREUEN', 'SIMPANG MAMPLAM', 'ALUE LEUHOB', '24251', '0', '0', '2026-10-04', '0000-00-00', '0000-00-00', '0000-00-00', NULL, '4', '0', '0', '1', '0', '0', '0', '0', '0', NULL, '0', '0', '0', '1', '0', '0', '0', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sales_order_detail
@@ -92417,6 +92651,8 @@ CREATE TABLE `sales_order_detail`  (
   `fee_sales` double NOT NULL,
   `reseller_fee_nominal` double NULL DEFAULT NULL,
   `reseller_fee_percent` double NULL DEFAULT NULL,
+  `affiliate_fee_nominal` double NULL DEFAULT NULL,
+  `affiliate_fee_percent` double NULL DEFAULT NULL,
   `amount` int(11) NOT NULL,
   `discount_persen` double NOT NULL,
   `discount_money` decimal(10, 0) NOT NULL,
@@ -92427,19 +92663,37 @@ CREATE TABLE `sales_order_detail`  (
   `customer_respon` tinytext CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   `customer_respon_screenshoot_upload` varchar(1000) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `reseller_point` double NULL DEFAULT 0,
+  `affiliate_point` double NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `index_sales_order_id`(`sales_order_id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 26 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sales_order_detail
 -- ----------------------------
-INSERT INTO `sales_order_detail` VALUES (1, 1, 2, 50000, 150000, NULL, 35000, NULL, NULL, 1, 0, 0, 'Tas Pinggang Avan ', '', '0', '0', NULL, NULL, 0);
-INSERT INTO `sales_order_detail` VALUES (2, 1, 1, 12000, 300000, NULL, 35000, NULL, NULL, 1, 0, 0, 'Tas Ransel Avan  ', '', '0', '0', NULL, NULL, 0);
-INSERT INTO `sales_order_detail` VALUES (3, 2, 1, 12000, 300000, NULL, 35000, NULL, NULL, 1, 0, 0, 'Tas Ransel Avan  ', '', '0', '0', NULL, NULL, 0);
-INSERT INTO `sales_order_detail` VALUES (4, 2, 3, 50000, 450000, NULL, 35000, NULL, NULL, 1, 0, 0, 'Tas Ransel Avan Seri 2 ', '', '0', '0', NULL, NULL, 0);
-INSERT INTO `sales_order_detail` VALUES (5, 3, 3, 50000, 450000, NULL, 35000, NULL, NULL, 1, 0, 0, 'Tas Ransel Avan Seri 2 ', '', '0', '0', NULL, NULL, 0);
-INSERT INTO `sales_order_detail` VALUES (6, 4, 2, 50000, 120000, 0, 0, 0, 0, 1, 0, 0, 'Tas Pinggang Avan ', '', '0', '0', NULL, NULL, 0);
+INSERT INTO `sales_order_detail` VALUES (1, 1, 2, 50000, 150000, NULL, 35000, NULL, NULL, NULL, NULL, 1, 0, 0, 'Tas Pinggang Avan ', '', '0', '0', NULL, NULL, 0, NULL);
+INSERT INTO `sales_order_detail` VALUES (2, 1, 1, 12000, 300000, NULL, 35000, NULL, NULL, NULL, NULL, 1, 0, 0, 'Tas Ransel Avan  ', '', '0', '0', NULL, NULL, 0, NULL);
+INSERT INTO `sales_order_detail` VALUES (3, 2, 1, 12000, 300000, NULL, 35000, NULL, NULL, NULL, NULL, 1, 0, 0, 'Tas Ransel Avan  ', '', '0', '0', NULL, NULL, 0, NULL);
+INSERT INTO `sales_order_detail` VALUES (4, 2, 3, 50000, 450000, NULL, 35000, NULL, NULL, NULL, NULL, 1, 0, 0, 'Tas Ransel Avan Seri 2 ', '', '0', '0', NULL, NULL, 0, NULL);
+INSERT INTO `sales_order_detail` VALUES (5, 3, 3, 50000, 450000, NULL, 35000, NULL, NULL, NULL, NULL, 1, 0, 0, 'Tas Ransel Avan Seri 2 ', '', '0', '0', NULL, NULL, 0, NULL);
+INSERT INTO `sales_order_detail` VALUES (6, 4, 2, 50000, 120000, 0, 0, 0, 0, NULL, NULL, 1, 0, 0, 'Tas Pinggang Avan ', '', '0', '0', NULL, NULL, 0, NULL);
+INSERT INTO `sales_order_detail` VALUES (7, 5, 2, 50000, 150000, NULL, 35000, NULL, NULL, 30000, NULL, 1, 0, 0, 'Tas Pinggang Avan Test ', '', '0', '0', NULL, NULL, 0, 30);
+INSERT INTO `sales_order_detail` VALUES (8, 6, 2, 50000, 120000, 0, 0, 0, 0, NULL, NULL, 1, 0, 0, 'Tas Pinggang Avan Test ', '', '0', '0', NULL, NULL, 0, NULL);
+INSERT INTO `sales_order_detail` VALUES (9, 7, 2, 50000, 150000, NULL, 35000, NULL, NULL, 30000, NULL, 1, 0, 0, 'Tas Pinggang Avan Test ', '', '0', '0', NULL, NULL, 0, 30);
+INSERT INTO `sales_order_detail` VALUES (10, 8, 2, 50000, 120000, 0, 0, 0, 0, NULL, NULL, 1, 0, 0, 'Tas Pinggang Avan Test ', '', '0', '0', NULL, NULL, 0, NULL);
+INSERT INTO `sales_order_detail` VALUES (11, 8, 3, 45000, 50000, 0, 0, 0, 0, 20000, NULL, 2, 0, 0, 'Tas Pinggang Avan Test ', '', '0', '0', NULL, NULL, 0, 20);
+INSERT INTO `sales_order_detail` VALUES (12, 9, 2, 50000, 120000, 0, 0, 0, 0, 30000, NULL, 3, 0, 0, 'Tas Pinggang Avan Test ', '', '0', '0', NULL, NULL, 0, 30);
+INSERT INTO `sales_order_detail` VALUES (13, 10, 2, 50000, 150000, NULL, 0, NULL, NULL, NULL, NULL, 1, 0, 0, 'Tas Pinggang Avan Test ', '', '0', '0', NULL, NULL, 0, NULL);
+INSERT INTO `sales_order_detail` VALUES (14, 11, 2, 50000, 150000, NULL, 35000, NULL, NULL, 30000, NULL, 1, 0, 0, 'Tas Pinggang Avan Test ', '', '0', '0', NULL, NULL, 0, 30);
+INSERT INTO `sales_order_detail` VALUES (15, 12, 2, 50000, 150000, NULL, 35000, NULL, NULL, 20000, NULL, 1, 0, 0, 'Tas Pinggang Avan Test ', '', '0', '0', NULL, NULL, 0, 30);
+INSERT INTO `sales_order_detail` VALUES (19, 21, 3, 50000, 400000, NULL, 35000, NULL, NULL, 20000, 0, 3, 0, 0, 'Tas Ransel Avan Seri 2', '', '0', '0', NULL, NULL, 0, 60);
+INSERT INTO `sales_order_detail` VALUES (18, 20, 1, 12000, 250000, NULL, 35000, NULL, NULL, 15000, 0, 2, 0, 0, 'Tas Ransel Avan ', '', '0', '0', NULL, NULL, 0, 30);
+INSERT INTO `sales_order_detail` VALUES (20, 22, 2, 50000, 130000, NULL, 35000, NULL, NULL, 30000, 0, 5, 0, 0, 'Tas Pinggang Avan Test', '', '0', '0', NULL, NULL, 0, 150);
+INSERT INTO `sales_order_detail` VALUES (21, 23, 2, 50000, 130000, NULL, 35000, NULL, NULL, 30000, 0, 2, 0, 0, 'Tas Pinggang Avan Test', '', '0', '0', NULL, NULL, 0, 60);
+INSERT INTO `sales_order_detail` VALUES (22, 24, 5, 60000, 130000, NULL, 10000, NULL, NULL, 25000, 0, 2, 0, 0, 'Tas Jinjing Avandar X2', '', '0', '0', NULL, NULL, 0, 50);
+INSERT INTO `sales_order_detail` VALUES (23, 25, 5, 60000, 130000, NULL, 10000, NULL, NULL, 25000, 0, 1, 0, 0, 'Tas Jinjing Avandar X2', '', '0', '0', NULL, NULL, 0, 25);
+INSERT INTO `sales_order_detail` VALUES (24, 26, 5, 60000, 130000, NULL, 10000, NULL, NULL, 25000, 0, 1, 0, 0, 'Tas Jinjing Avandar X2', '', '0', '0', NULL, NULL, 0, 25);
+INSERT INTO `sales_order_detail` VALUES (25, 27, 5, 60000, 130000, NULL, 10000, NULL, NULL, 25000, 0, 2, 0, 0, 'Tas Jinjing Avandar X2', '', '0', '0', NULL, NULL, 0, 50);
 
 -- ----------------------------
 -- Table structure for sales_order_detail_bundling
@@ -92523,7 +92777,7 @@ CREATE TABLE `sales_order_history`  (
   `is_delete` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '0' COMMENT '0=tidak dihapus, 1=hapus',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `SALES_ORDER`(`sales_order_id`, `activity`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sales_order_history
@@ -92533,6 +92787,10 @@ INSERT INTO `sales_order_history` VALUES (2, 3, '25000003', '2', '2025-07-13 23:
 INSERT INTO `sales_order_history` VALUES (3, 1, '25000001', '1', '2025-07-13 23:20:36', 1, '0');
 INSERT INTO `sales_order_history` VALUES (4, 1, '25000001', '2', '2025-07-13 23:23:31', 1, '0');
 INSERT INTO `sales_order_history` VALUES (5, 1, '25000001', '3', '2025-07-13 23:24:43', 1, '0');
+INSERT INTO `sales_order_history` VALUES (6, 6, '26000002', '1', '2026-08-27 13:42:09', 1, '0');
+INSERT INTO `sales_order_history` VALUES (7, 7, '25000004', '1', '2026-09-07 12:25:06', 1, '0');
+INSERT INTO `sales_order_history` VALUES (8, 8, '26000002', '2', '2026-09-07 12:28:14', 1, '0');
+INSERT INTO `sales_order_history` VALUES (9, 8, '26000002', '3', '2026-09-10 11:31:36', 1, '0');
 
 -- ----------------------------
 -- Table structure for sales_retur
@@ -92572,15 +92830,20 @@ CREATE TABLE `stuff`  (
   `cost_ops` double NOT NULL DEFAULT 0,
   `cost_riset` double NOT NULL DEFAULT 0,
   `cost_adv` double NOT NULL DEFAULT 0,
+  `description` tinytext CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 8 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of stuff
 -- ----------------------------
-INSERT INTO `stuff` VALUES (1, 1, 'SKU-001', 'Tas Ransel Avan ', '', 98, 10, 23, 1, 300000, 12000, 35000, '0', '0', 5000, 5000, 0, 25000);
-INSERT INTO `stuff` VALUES (2, 1, 'SKU-002', 'Tas Pinggang Avan Test', '', 98, 10, 23, 2, 150000, 50000, 35000, '0', '0', 5000, 5000, 0, 25000);
-INSERT INTO `stuff` VALUES (3, 1, 'SKU-003', 'Tas Ransel Avan Seri 2', '', 98, 10, 23, 2, 450000, 50000, 35000, '0', '0', 5000, 5000, 0, 25000);
+INSERT INTO `stuff` VALUES (1, 1, 'SKU-001', 'Tas Ransel Avan ', '', 96, 1, 23, 1, 300000, 12000, 35000, '0', '0', 5000, 5000, 0, 25000, 'Tampil stylish dan fungsional di setiap aktivitas harian Anda dengan Minimalist Canvas Tote Bag. Dibuat dari bahan kanvas tebal premium yang tahan lama, tas ini dirancang untuk menemani mobilitas tinggi Anda—mulai dari bekerja, kuliah, hingga hangout sant');
+INSERT INTO `stuff` VALUES (2, 1, 'SKU-002', 'Tas Pinggang Avan Test', '', 85, 1, 23, 2, 150000, 50000, 35000, '0', '0', 5000, 5000, 0, 25000, 'Tampil stylish dan fungsional di setiap aktivitas harian Anda dengan Minimalist Canvas Tote Bag. Dibuat dari bahan kanvas tebal premium yang tahan lama, tas ini dirancang untuk menemani mobilitas tinggi Anda—mulai dari bekerja, kuliah, hingga hangout sant');
+INSERT INTO `stuff` VALUES (3, 1, 'SKU-003', 'Tas Ransel Avan Seri 2', '', 95, 1, 23, 2, 450000, 50000, 35000, '0', '0', 5000, 5000, 0, 25000, 'Tampil stylish dan fungsional di setiap aktivitas harian Anda dengan Minimalist Canvas Tote Bag. Dibuat dari bahan kanvas tebal premium yang tahan lama, tas ini dirancang untuk menemani mobilitas tinggi Anda—mulai dari bekerja, kuliah, hingga hangout sant');
+INSERT INTO `stuff` VALUES (4, 1, 'SKU-004', 'Tas Ransel Avan Seri 3', '', 98, 1, 23, 2, 500000, 70000, 35000, '0', '0', 5000, 5000, 0, 25000, NULL);
+INSERT INTO `stuff` VALUES (5, 1, 'SKU-005', 'Tas Jinjing Avandar X2', '', 94, 10, 23, 3, 150000, 60000, 10000, '0', '0', 0, 0, 0, 0, NULL);
+INSERT INTO `stuff` VALUES (6, 1, 'SKU-006', 'Tas Gunung EI', '', 100, 10, 23, 1, 500000, 10000, 10000, '0', '0', 0, 0, 0, 0, NULL);
+INSERT INTO `stuff` VALUES (7, 1, 'SKU-006', 'Eiger Lagi', '', 100, 10, 23, 2, 150000, 60000, 10000, '0', '1', 0, 0, 0, 0, NULL);
 
 -- ----------------------------
 -- Table structure for stuff_bundling
@@ -92641,7 +92904,7 @@ CREATE TABLE `stuff_category`  (
   `cost_adv` double NOT NULL,
   `is_delete` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of stuff_category
@@ -92649,6 +92912,7 @@ CREATE TABLE `stuff_category`  (
 INSERT INTO `stuff_category` VALUES (1, 'Kategori Produk A', 0, 0, 0, 0, '0');
 INSERT INTO `stuff_category` VALUES (2, 'Kategori Produk B', 0, 0, 0, 0, '0');
 INSERT INTO `stuff_category` VALUES (3, 'Kategori Produk C', 0, 0, 0, 0, '0');
+INSERT INTO `stuff_category` VALUES (4, 'xx', 0, 0, 0, 0, '0');
 
 -- ----------------------------
 -- Table structure for stuff_category_sub
@@ -92660,7 +92924,7 @@ CREATE TABLE `stuff_category_sub`  (
   `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `is_delete` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of stuff_category_sub
@@ -92674,6 +92938,15 @@ INSERT INTO `stuff_category_sub` VALUES (6, 2, '', '0');
 INSERT INTO `stuff_category_sub` VALUES (7, 3, '', '0');
 INSERT INTO `stuff_category_sub` VALUES (8, 3, '', '0');
 INSERT INTO `stuff_category_sub` VALUES (9, 3, '', '0');
+INSERT INTO `stuff_category_sub` VALUES (10, 4, '', '0');
+INSERT INTO `stuff_category_sub` VALUES (11, 4, '', '0');
+INSERT INTO `stuff_category_sub` VALUES (12, 4, '', '0');
+INSERT INTO `stuff_category_sub` VALUES (13, 4, '', '0');
+INSERT INTO `stuff_category_sub` VALUES (14, 4, '', '0');
+INSERT INTO `stuff_category_sub` VALUES (15, 4, '', '0');
+INSERT INTO `stuff_category_sub` VALUES (16, 4, '', '0');
+INSERT INTO `stuff_category_sub` VALUES (17, 4, '', '0');
+INSERT INTO `stuff_category_sub` VALUES (18, 4, '', '0');
 
 -- ----------------------------
 -- Table structure for stuff_category_sub_row
@@ -92686,7 +92959,7 @@ CREATE TABLE `stuff_category_sub_row`  (
   `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `is_delete` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of stuff_category_sub_row
@@ -92700,6 +92973,18 @@ INSERT INTO `stuff_category_sub_row` VALUES (6, 2, 3, '', '0');
 INSERT INTO `stuff_category_sub_row` VALUES (7, 3, 1, '', '0');
 INSERT INTO `stuff_category_sub_row` VALUES (8, 3, 2, '', '0');
 INSERT INTO `stuff_category_sub_row` VALUES (9, 3, 3, '', '0');
+INSERT INTO `stuff_category_sub_row` VALUES (10, 4, 1, '', '0');
+INSERT INTO `stuff_category_sub_row` VALUES (11, 4, 2, '', '0');
+INSERT INTO `stuff_category_sub_row` VALUES (12, 4, 3, '', '0');
+INSERT INTO `stuff_category_sub_row` VALUES (13, 5, 1, '', '0');
+INSERT INTO `stuff_category_sub_row` VALUES (14, 5, 2, '', '0');
+INSERT INTO `stuff_category_sub_row` VALUES (15, 5, 3, '', '0');
+INSERT INTO `stuff_category_sub_row` VALUES (16, 6, 1, '', '0');
+INSERT INTO `stuff_category_sub_row` VALUES (17, 6, 2, '', '0');
+INSERT INTO `stuff_category_sub_row` VALUES (18, 6, 3, '', '0');
+INSERT INTO `stuff_category_sub_row` VALUES (19, 7, 1, '', '0');
+INSERT INTO `stuff_category_sub_row` VALUES (20, 7, 2, '', '0');
+INSERT INTO `stuff_category_sub_row` VALUES (21, 7, 3, '', '0');
 
 -- ----------------------------
 -- Table structure for stuff_history
@@ -92719,7 +93004,7 @@ CREATE TABLE `stuff_history`  (
   `date` date NOT NULL,
   `is_delete` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '0=not delete 1=delete',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 10 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 29 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of stuff_history
@@ -92733,6 +93018,54 @@ INSERT INTO `stuff_history` VALUES (6, 1, NULL, '0', -1, 'Pejualan Barang dgn No
 INSERT INTO `stuff_history` VALUES (7, 3, NULL, '0', -1, 'Pejualan Barang dgn No Sales Order : 25000002', 450000, NULL, 8, 2, '2025-07-13', '0');
 INSERT INTO `stuff_history` VALUES (8, 3, NULL, '0', -1, 'Pejualan Barang dgn No Sales Order : 25000003', 450000, NULL, 8, 3, '2025-07-13', '0');
 INSERT INTO `stuff_history` VALUES (9, 2, 9, '0', -1, 'Pejualan Barang dgn No Sales Order : 25000004', 120000, NULL, 0, 4, '2025-09-09', '0');
+INSERT INTO `stuff_history` VALUES (10, 2, NULL, '0', -1, 'Pejualan Barang dgn No Sales Order : 26000001', 150000, NULL, 8, 5, '2026-08-27', '0');
+INSERT INTO `stuff_history` VALUES (11, 2, 9, '0', -1, 'Pejualan Barang dgn No Sales Order : 26000002', 120000, NULL, 0, 6, '2026-08-27', '0');
+INSERT INTO `stuff_history` VALUES (12, 2, 9, '0', -2, 'Pejualan Barang dgn No Sales Order : 26000003', 120000, NULL, 0, 9, '2026-09-05', '0');
+INSERT INTO `stuff_history` VALUES (13, 2, NULL, '0', -3, 'Update Jml Penjualan Barang dgn No Sales Order : 26000003', 0, NULL, 0, 9, '2026-09-05', '0');
+INSERT INTO `stuff_history` VALUES (14, 2, NULL, '0', -1, 'Pejualan Barang dgn No Sales Order : 26000005', 150000, NULL, 8, 11, '2026-09-07', '0');
+INSERT INTO `stuff_history` VALUES (15, 4, NULL, '1', 98, '::STOK AWAL::', NULL, NULL, NULL, 0, '2026-09-26', '0');
+INSERT INTO `stuff_history` VALUES (19, 3, NULL, '0', -3, 'Penjualan Barang dgn No Sales Order : 26000007', 400000, NULL, 6, 21, '2026-09-26', '0');
+INSERT INTO `stuff_history` VALUES (18, 1, NULL, '0', -2, 'Penjualan Barang dgn No Sales Order : 26000006', 250000, NULL, 4, 20, '2026-09-26', '0');
+INSERT INTO `stuff_history` VALUES (20, 2, NULL, '0', -5, 'Penjualan Barang dgn No Sales Order : 26000008', 130000, NULL, 8, 22, '2026-09-27', '0');
+INSERT INTO `stuff_history` VALUES (21, 2, NULL, '0', -2, 'Penjualan Barang dgn No Sales Order : 26000009', 130000, NULL, 9, 23, '2026-09-27', '0');
+INSERT INTO `stuff_history` VALUES (22, 5, NULL, '1', 100, '::STOK AWAL::', NULL, NULL, NULL, 0, '2026-09-27', '0');
+INSERT INTO `stuff_history` VALUES (23, 6, NULL, '1', 100, '::STOK AWAL::', NULL, NULL, NULL, 0, '2026-09-27', '0');
+INSERT INTO `stuff_history` VALUES (24, 7, NULL, '1', 100, '::STOK AWAL::', NULL, NULL, NULL, 0, '2026-09-27', '0');
+INSERT INTO `stuff_history` VALUES (25, 5, NULL, '0', -2, 'Penjualan Barang dgn No Sales Order : 26000010', 130000, NULL, 10, 24, '2026-09-27', '0');
+INSERT INTO `stuff_history` VALUES (26, 5, NULL, '0', -1, 'Penjualan Barang dgn No Sales Order : 26000011', 130000, NULL, 4, 25, '2026-09-27', '0');
+INSERT INTO `stuff_history` VALUES (27, 5, NULL, '0', -1, 'Penjualan Barang dgn No Sales Order : 26000012', 130000, NULL, 11, 26, '2026-09-27', '0');
+INSERT INTO `stuff_history` VALUES (28, 5, NULL, '0', -2, 'Penjualan Barang dgn No Sales Order : 26000013', 130000, NULL, 10, 27, '2026-10-04', '0');
+
+-- ----------------------------
+-- Table structure for stuff_photo
+-- ----------------------------
+DROP TABLE IF EXISTS `stuff_photo`;
+CREATE TABLE `stuff_photo`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `stuff_id` int(11) NULL DEFAULT NULL,
+  `photo_thumail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `is_primary` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '0=not primary 1=primary',
+  `is_active` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '1' COMMENT '0=not active 1=active',
+  `is_delete` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '0=not detele 1=delete',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of stuff_photo
+-- ----------------------------
+INSERT INTO `stuff_photo` VALUES (11, 5, 'stuff/photo/photo_5/thumbnail/photo_5_11.png', 'stuff/photo/photo_5/photo_5_11.png', '0', '1', '1');
+INSERT INTO `stuff_photo` VALUES (12, 5, 'stuff/photo/photo_5/thumbnail/photo_5_12.png', 'stuff/photo/photo_5/photo_5_12.png', '0', '1', '0');
+INSERT INTO `stuff_photo` VALUES (13, 5, 'stuff/photo/photo_5/thumbnail/photo_5_13.png', 'stuff/photo/photo_5/photo_5_13.png', '0', '1', '1');
+INSERT INTO `stuff_photo` VALUES (14, 5, 'stuff/photo/photo_5/thumbnail/photo_5_14.png', 'stuff/photo/photo_5/photo_5_14.png', '0', '1', '1');
+INSERT INTO `stuff_photo` VALUES (15, 5, 'stuff/photo/photo_5/thumbnail/photo_5_15.png', 'stuff/photo/photo_5/photo_5_15.png', '0', '1', '0');
+INSERT INTO `stuff_photo` VALUES (16, 5, 'stuff/photo/photo_5/thumbnail/photo_5_16.png', 'stuff/photo/photo_5/photo_5_16.png', '0', '1', '1');
+INSERT INTO `stuff_photo` VALUES (17, 5, 'stuff/photo/photo_5/thumbnail/photo_5_17.png', 'stuff/photo/photo_5/photo_5_17.png', '1', '1', '0');
+INSERT INTO `stuff_photo` VALUES (18, 5, 'stuff/photo/photo_5/thumbnail/photo_5_18.png', 'stuff/photo/photo_5/photo_5_18.png', '0', '1', '1');
+INSERT INTO `stuff_photo` VALUES (19, 5, 'stuff/photo/photo_5/thumbnail/photo_5_19.png', 'stuff/photo/photo_5/photo_5_19.png', '0', '1', '1');
+INSERT INTO `stuff_photo` VALUES (20, 6, 'stuff/photo/photo_6/thumbnail/photo_6_20.png', 'stuff/photo/photo_6/photo_6_20.png', '1', '1', '0');
+INSERT INTO `stuff_photo` VALUES (21, 5, 'stuff/photo/photo_5/thumbnail/photo_5_21.png', 'stuff/photo/photo_5/photo_5_21.png', '0', '1', '0');
+INSERT INTO `stuff_photo` VALUES (22, 7, 'stuff/photo/photo_7/thumbnail/photo_7_22.png', 'stuff/photo/photo_7/photo_7_22.png', '1', '1', '0');
 
 -- ----------------------------
 -- Table structure for suplier
@@ -92770,12 +93103,12 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'admin', '359255c964104bce9cb6a80164027b25', 1);
+INSERT INTO `user` VALUES (1, 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 1);
 INSERT INTO `user` VALUES (107, 'dendie', '81dc9bdb52d04dc20036dbd8313ed055', 108);
 INSERT INTO `user` VALUES (106, 'supervisor', '81dc9bdb52d04dc20036dbd8313ed055', 110);
 INSERT INTO `user` VALUES (105, 'operator1', '827ccb0eea8a706c4c34a16891f84e7b', 109);
 INSERT INTO `user` VALUES (103, 'sales1', '81dc9bdb52d04dc20036dbd8313ed055', 107);
-INSERT INTO `user` VALUES (104, 'aftersales', '81dc9bdb52d04dc20036dbd8313ed055', 108);
+INSERT INTO `user` VALUES (104, 'aftersales', '81dc9bdb52d04dc20036dbd8313ed055', 111);
 
 -- ----------------------------
 -- Table structure for warehouse_external
