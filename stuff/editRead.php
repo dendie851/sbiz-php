@@ -1,8 +1,12 @@
 <?php 
 	include '../login/auth.php';
 	include '../lib/connection.php';
+	include '../lib/message.class.php';
+	include '../lib/general.class.php';
+	include 'photo.class.php';
 
-	$id = $_REQUEST['id'];
+	$id = general::secureInput($_REQUEST['id']);
+	$stuffPhotoStuffId = $id;
 
 	$query = "select id,name 
 		from const
@@ -61,6 +65,18 @@
 		order by name";
 
 	$dataCategory = mysqli_query($con, $query) or die (mysqli_error($con));	
+
+	/* data of photo of stuff */
+	$query = "select id, stuff_id, photo, photo_thumail, is_primary, is_active
+		from stuff_photo
+		where stuff_id = '$stuffPhotoStuffId'
+		  and is_delete = '0'
+		order by is_primary desc, id";
+	$dataPhoto = mysqli_query($con, $query) or die (mysqli_error($con));
+	$dataPhotoAmount = mysqli_num_rows($dataPhoto);
+	$photoMsgError = isset($_SESSION['msgErrorPhoto']) ? $_SESSION['msgErrorPhoto'] : '';
+	$photoMax = photo::MAX_PHOTO;
+
 
 	include '../lib/connection-close.php';
 ?>

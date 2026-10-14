@@ -16,6 +16,7 @@
 			description_payment, description_shipping, discount_amount, amount_sale, shipping_cost, 
 			date_order, date_packing, date_payment, date_shipping, status_order, phone, discount_persen, status_payment,
 			(select r.name from reseller as r where r.id = reseller_id) as reseller_name, is_reseller,			
+			(select r.name from affiliate as r where r.id = affiliate_id) as affiliate_name, is_affiliate,	
 			(select w.name from warehouse_external as w where w.id = warehouse_external_id) as warehouse_external_name,						
 			(select e.name from expedition as e where e.id = expedition_id) as expedition_name,
 			(select m.name from member as m where m.id = sales_id) as sales_name,						

@@ -55,7 +55,7 @@
 	$query = "select id,concat(bank_name,' - ',account_name,' - ',account_number) as bank_to from reseller_bank
 	 		  where reseller_id = '$resellerId'
 	 		    and is_delete = '0'";
-	$cmbResellerBank = mysqli_query($con, $query) or die(mysqli_error($con));	
+	$cmbResellerBank = mysqli_query($con, $query) or die(mysqli_error($con).'xxx');	
 
 	include '../lib/connection-close.php';
 ?>

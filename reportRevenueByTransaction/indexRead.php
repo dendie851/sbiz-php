@@ -171,6 +171,8 @@
 					( ((amount_sale - (((amount_sale / 100) * discount_persen))) - discount_amount) - (amount_basic_sale + (amount_basic_sale *  (platform_market_fee_percent / 100))) ) as  jml_laba,
 					(select m.name from member as m where m.id = sales_id) as sales_name,			
 					(select f.name from fin_source_fund as f where f.id = fin_source_fund_id) as fin_source_fund_name,
+					(select r.name from reseller as r where r.id = reseller_id) as reseller_name, is_reseller,	
+					(select r.name from affiliate as r where r.id = affiliate_id) as affiliate_name, is_affiliate,
 					platform_market_fee_percent			
 				from sales_order
 				where is_delete = '0'

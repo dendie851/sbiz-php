@@ -128,6 +128,19 @@ class message {
 			case 'postingSuccess':
 				return 'Data berhasil di posting';
 				break;				
+			case 'photoSuccess':
+				return 'Foto barang telah berhasil diunggah';
+				break;
+			case 'photoFailed':
+				return 'Foto barang gagal diunggah, silakan ulangi';
+				break;
+			case 'photoDeleteSuccess':
+				return 'Foto barang telah berhasil dihapus';
+				break;
+			case 'photoPrimarySuccess':
+				return 'Foto utama barang telah berhasil diubah';
+				break;
+
 			default:
 
 			return false;

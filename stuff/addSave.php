@@ -2,6 +2,7 @@
 	include '../login/auth.php';
 	include '../lib/connection.php';
 	include '../lib/general.class.php';
+	include 'photo.class.php';
 
 	include 'addValidate.php';
 
@@ -54,6 +55,11 @@
 	$data = mysqli_fetch_array($tmp);
 	$stuffId  = $data['stuff_id'];
 
+	/* save uploaded photo of stuff */
+	$listPhotoUploaded = array();
+
+	include 'photoSave.php';
+
 	$query = "insert stuff_category_sub_row
 		set stuff_id = '$stuffId',
 		  stuff_category_sub_id = '$idSubCategory1',
@@ -92,9 +98,21 @@
 		$lastId  = $data['last_id'];
 
 		include '../lib/connection-close.php';
+
+		if($statusPhoto == false) {
+			$_SESSION['msgErrorPhoto'] = $msgErrorPhoto;
+		}
+
 		header('Location:add.php?msg=addSuccess&id='.$lastId);
 	} else {
 		include '../lib/connection-close.php';
-		header('Location:index.php?msg=addSuccess');
+
+		if($statusPhoto == false) {
+			$_SESSION['msgErrorPhoto'] = $msgErrorPhoto;
+
+			header('Location:edit.php?msg=photoFailed&id='.$stuffId);
+		} else {
+			header('Location:index.php?msg=addSuccess');
+		}
 	}
 ?>

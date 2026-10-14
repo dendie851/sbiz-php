@@ -1,7 +1,7 @@
 <hr />
 <table width="100%">
 	<tr>
-		<td width="<?php echo substr($_SESSION['loginPrivilage'],5,1) == '1' ? '90%' : '90%' ?>" valign="top">
+		<td width="<?php echo substr($_SESSION['loginPrivilage'],5,1) == '1' ? '95%' : '95%' ?>" valign="top">
 			<div id="smoothmenu" class="ddsmoothmenu">						    		
 				<ul>					
 					<?php if(in_array($_SESSION['loginPosition'], array('1','2','3','4','5'))): ?>
@@ -22,7 +22,7 @@
 								<li><a href="../measure/index.php">Satuan Ukuran</a></li>																															
 							</ul>							
 						</li>
-					<?php endif; ?>
+					<?php endif; ?>						
 					<?php if(in_array($_SESSION['loginPosition'], array('1','5'))): ?>
 					<li>
 						<a href="#">Reseller </a>
@@ -35,7 +35,19 @@
 							<li><a href="../resellerInformation/edit.php">Informasi Umum</a></li>	
 						</ul>	
 					</li>	
-					<?php endif; ?>					
+					<?php endif; ?>		
+					<?php if(in_array($_SESSION['loginPosition'], array('1','5'))): ?>
+					<li>
+						<a href="#">Affiliate</a>
+						<ul>
+							<li><a href="../affiliateSetting/index.php">Affiliate Setting</a></li>								
+							<li><a href="../reward/index.php">Affiliate Reward</a></li>	
+							<li><a href="../affiliate/index.php">Affiliate</a></li>	
+							<li><a href="../affiliatePoint/index.php">Affiliate Penukaran Poin</a></li>	
+							<li><a href="../affiliateWithdrawFee/index.php">Affiliate Pembayaran Komisi</a></li>	
+						</ul>	
+					</li>	
+					<?php endif; ?>									
 					<?php if(in_array($_SESSION['loginPosition'], array('1','3','5'))): ?>
 						<li><a href="../customer/index.php">Pelanggan</a></li>								
 					<?php endif; ?>					
@@ -74,12 +86,21 @@
 						<ul >
 							<?php if(in_array($_SESSION['loginPosition'], array('1','3','4','5'))): ?>
 								<li ><a href="../salesOrderFollowup/index.php">Penjualan Follow Up</a></li>	
-							<?php endif; ?>								
+							<?php endif; ?>	
 							<?php if(in_array($_SESSION['loginPosition'], array('1','3','4','5'))): ?>
 								<li ><a href="../salesOrderReseller/index.php">Penjualan Reseller</a></li>	
 							<?php endif; ?>	
 							<?php if(in_array($_SESSION['loginPosition'], array('1','3','4','5'))): ?>
+								<li ><a href="../salesOrderAffiliate/index.php">Penjualan Affiliate</a></li>	
+							<?php endif; ?>								
+							<?php if(in_array($_SESSION['loginPosition'], array('1','3','4','5'))): ?>
 								<li ><a href="../salesOrder/index.php">Penjualan</a></li>	
+							<?php endif; ?>	
+							<li style="height:2px; background-color: gray;text-shadow: 0px 1px 0px #999;"></li>
+							<?php if(in_array($_SESSION['loginPosition'], array('1','3','4','5'))): ?>
+								<li ><a href="../periodOrder/index.php">Period Pre Order</a></li>	
+								<li ><a href="../salesPreOrder/index.php">Penjualan Pre Order</a></li>	
+								<li ><a href="../salesProcutment/index.php">Pengadaan Barang</a></li>	
 							<?php endif; ?>	
 							<li style="height:2px; background-color: gray;text-shadow: 0px 1px 0px #999;"></li>				
 							<?php if(in_array($_SESSION['loginPosition'], array('1','3','4','5'))): ?>

@@ -9,7 +9,7 @@
 		</div>		
 	<?php endif ?>
 	
-	<form action="addSave.php" method="post" id="frm">
+	<form action="addSave.php" method="post" id="frm" enctype="multipart/form-data">
 		<table width="100%">
 			<tr>
 				<td width="30%">KATEGORI</td>
@@ -156,7 +156,7 @@
 			</tr>
 
 		</table>
-		<hr />
+		<?php include 'photoForm.php' ?>
 		<input type="submit" value="SIMPAN" name="submit"/>
 		<input type="submit" value="SIMPAN & SALIN" name="submitCopy"/>
 		<input type="button" value="BATAL" onclick="window.location='index.php'" />

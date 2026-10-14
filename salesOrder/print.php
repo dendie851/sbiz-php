@@ -152,6 +152,7 @@
 						<th  style="padding:5px;  font-size:12pt;  border:1px solid black; text-align:left"   width="5%"colspan="4">GRAND TOTAL</th>
 						<th style="padding:5px; font-size:12pt;  border:1px solid black;" ><b>
 							Rp. <?php echo number_format((($total - (($total/100) * $dataHeader['discount_persen'])) - $dataHeader['discount_amount']) + $dataHeader['shipping_cost'],0,'','.') ?>
+
 						</b></th>
 					</tr>	
 				</tfoot>

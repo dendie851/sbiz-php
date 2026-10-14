@@ -3,9 +3,12 @@
 	include '../lib/connection.php';
 	include '../lib/general.class.php';
 	include '../lib/message.class.php';
+	include 'photo.class.php';
 	
 
 	$id = general::secureInput($_GET['id']);
+	$addCopyStatus = isset($_GET['id']) ? true : false;
+	$stuffPhotoStuffId = $id;
 	$query = "select id, sku, nickname, name, stock, stock_min_alert, const_id, location_id, price, category_id,
 		  price_basic, nickname, fee_sales, is_hidden, cost_cs, cost_ops, cost_riset, cost_adv
 		from stuff
@@ -75,6 +78,18 @@
 			$dataSubCategory = mysqli_query($con, $query) or die (mysqli_error($con));
 		}	
 	}
+
+	/* data of photo of stuff */
+	$query = "select id, stuff_id, photo, photo_thumail, is_primary, is_active
+		from stuff_photo
+		where stuff_id = '$stuffPhotoStuffId'
+		  and is_delete = '0'
+		order by is_primary desc, id";
+	$dataPhoto = mysqli_query($con, $query) or die (mysqli_error($con));
+	$dataPhotoAmount = mysqli_num_rows($dataPhoto);
+	$photoMsgError = isset($_SESSION['msgErrorPhoto']) ? $_SESSION['msgErrorPhoto'] : '';
+	$photoMax = photo::MAX_PHOTO;
+
 
 
 	

@@ -137,7 +137,18 @@
 								</td>
 								<td align="center" style="font-size:10px">
 									<?php echo $val['name'] ?><br />
-									<span style="font-size:9px">(Sales: <?php echo $val['sales_name'] ?>) </span><br />
+									<span style="font-size:9px">
+										<?php if($val['is_reseller'] == '1'): ?> 
+											Reseller : <?php echo $val['reseller_name'] ?>
+										<?php else: ?>
+											<?php if($val['is_affiliate'] == '1'): ?> 	
+												Affiliate: <?php echo $val['affiliate_name'] ?>  
+											<?php else: ?>
+												Sales: <?php echo $val['sales_name'] ?>   
+											<?php endif; ?>										                 
+										<?php endif; ?> 										
+									</span>
+									<br />
 									<small style="font-size: 9px">
 									<!--Pemesanan    : <?php echo $val['date_order_frm'] ?><br />-->
 									Tgl Pembayaran : <?php echo $val['date_payment_frm'] ?>	<br />
